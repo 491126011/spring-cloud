@@ -171,7 +171,7 @@ Page({
   },
   getCheckedProductItem: function (key) {
     return this.data.productList.filter(function (v) {
-      if (v.goods_specification_ids == key) {
+      if (v.goods_specification_ids.indexOf(key) > -1) {
         return true;
       } else {
         return false;
@@ -203,7 +203,6 @@ Page({
           clientWidth = res.windowWidth,
           rpxR = 750 / clientWidth;
         var calc = clientHeight * rpxR - 100;
-        console.log(calc)
         that.setData({
           winHeight: calc
         });
@@ -315,7 +314,7 @@ Page({
       }
 
       // 直接购买商品
-      util.request(api.BuyAdd, { goodsId: this.data.goods.id, number: this.data.number, productId: checkedProduct[0].id }, "POST")
+      util.request(api.BuyAdd, { goodsId: this.data.goods.id, number: this.data.number, productId: checkedProduct[0].id }, "POST",'application/json')
         .then(function (res) {
           let _res = res;
           if (_res.errno == 0) {
