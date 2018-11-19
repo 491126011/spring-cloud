@@ -148,5 +148,11 @@
             <artifactId>mybatis-paginator</artifactId>
             <version>${mybatis.paginator.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.alicom.dysms</groupId>
+            <artifactId>alicom-dysms-api</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 </project>
