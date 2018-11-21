@@ -42,7 +42,7 @@ public class SysSmsLogController {
      * @return R
      */
     @RequestMapping("/list")
-    @RequiresPermissions("sys:smslog:list")
+//    @RequiresPermissions("sys:smslog:list")
     public R list(@RequestParam Map<String, Object> params) {
         //查询列表数据
         Query query = new Query(params);
@@ -62,7 +62,7 @@ public class SysSmsLogController {
      * @return R
      */
     @RequestMapping("/info/{id}")
-    @RequiresPermissions("sys:smslog:info")
+//    @RequiresPermissions("sys:smslog:info")
     public R info(@PathVariable("id") String id) {
         SysSmsLogEntity smsLog = smsLogService.queryObject(id);
 

@@ -5,7 +5,7 @@
       <span>电脑版</span>
     </div>
     <div class="footer-copyright">
-      <p>网易公司版权所有 © 1997-2018</p>
+      <p> © 1997-2018</p>
       <p>食品经营许可证：JY13301080111719</p>
     </div>
   </div>

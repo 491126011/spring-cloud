@@ -1,5 +1,7 @@
 package com.platform.entity;
 
+import com.platform.validator.group.AliyunGroup;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
 import java.io.Serializable;
@@ -41,6 +43,25 @@ public class SmsConfig implements Serializable {
      */
     private String sign;
 
+    /**
+     * 阿里云 key
+     */
+    @NotBlank(message = "阿里云AccessKeyId不能为空", groups = AliyunGroup.class)
+    private String aliSmsAccessKeyId;
+
+    /**
+     * 阿里云 Key Secret
+     */
+    @NotBlank(message = "阿里云AccessKeySecret不能为空", groups = AliyunGroup.class)
+    private String aliSmsAccessKeySecret;
+
+    /**
+     * 阿里云签名
+     */
+    @NotBlank(message = "阿里云签名不能为空", groups = AliyunGroup.class)
+    private String aliSmsSignName;
+
+
     public Integer getType() {
         return type;
     }
@@ -79,5 +100,29 @@ public class SmsConfig implements Serializable {
 
     public void setSign(String sign) {
         this.sign = sign;
+    }
+
+    public String getAliSmsAccessKeyId() {
+        return aliSmsAccessKeyId;
+    }
+
+    public void setAliSmsAccessKeyId(String aliSmsAccessKeyId) {
+        this.aliSmsAccessKeyId = aliSmsAccessKeyId;
+    }
+
+    public String getAliSmsAccessKeySecret() {
+        return aliSmsAccessKeySecret;
+    }
+
+    public void setAliSmsAccessKeySecret(String aliSmsAccessKeySecret) {
+        this.aliSmsAccessKeySecret = aliSmsAccessKeySecret;
+    }
+
+    public String getAliSmsSignName() {
+        return aliSmsSignName;
+    }
+
+    public void setAliSmsSignName(String aliSmsSignName) {
+        this.aliSmsSignName = aliSmsSignName;
     }
 }

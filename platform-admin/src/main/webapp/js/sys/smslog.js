@@ -47,6 +47,17 @@ let vm = new Vue({
                 {required: true, message: '签名不能为空', trigger: 'blur'}
             ]
         },
+        aliSmsRuleValidate: {
+            aliSmsAccessKeyId: [
+                {required: true, message: 'AccessKeyId不能为空', trigger: 'blur'}
+            ],
+            aliSmsAccessKeySecret: [
+                {required: true, message: 'AccessKeySecret不能为空', trigger: 'blur'}
+            ],
+            aliSmsSignName: [
+                {required: true, message: '签名不能为空', trigger: 'blur'}
+            ]
+        },
         q: {
             sendId: ''
         }
