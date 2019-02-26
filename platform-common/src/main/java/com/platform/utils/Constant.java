@@ -52,6 +52,11 @@ public class Constant {
     public static final String DEFAULT_PASS_WORD = "888888";
 
     /**
+     * 系统缓存前缀
+     */
+    public static final String SYS_CACHE = "SYS_CACHE:";
+
+    /**
      * 菜单类型
      *
      * @author lipengjun
@@ -126,7 +131,11 @@ public class Constant {
         /**
          * 腾讯云
          */
-        QCLOUD(3);
+        QCLOUD(3),
+        /**
+         * 服务器存储
+         */
+        DISCK(4);
 
         private int value;
 
