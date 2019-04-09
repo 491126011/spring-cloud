@@ -143,22 +143,23 @@
             <artifactId>jgroups</artifactId>
             <version>${jgroups.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.alipay.sdk/alipay-sdk-java -->
+
         <dependency>
             <groupId>com.alipay.sdk</groupId>
             <artifactId>alipay-sdk-java</artifactId>
             <version>${alipay-sdk.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.alicom.dysms</groupId>
-            <artifactId>alicom-dysms-api</artifactId>
-            <version>1.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.alicom.dysms</groupId>-->
+            <!--<artifactId>alicom-dysms-api</artifactId>-->
+            <!--<version>1.0</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.github.miemiedev</groupId>
             <artifactId>mybatis-paginator</artifactId>
             <version>${mybatis.paginator.version}</version>
         </dependency>
+
 
     </dependencies>
 </project>

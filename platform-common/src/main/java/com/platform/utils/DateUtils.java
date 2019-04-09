@@ -26,6 +26,12 @@ public class DateUtils {
      * 无分隔符日期格式 "yyyyMMddHHmmssSSS"
      */
     public static String DATE_TIME_PATTERN_YYYY_MM_DD_HH_MM_SS_SSS = "yyyyMMddHHmmssSSS";
+
+    /**
+     * 分隔符日期格式 "yyyy-MM-dd HH:mm:ss"
+     */
+    public static String DATE_TIME_PATTERN_YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
+
     /**
      * 时间格式(yyyy-MM-dd HH:mm:ss)
      */

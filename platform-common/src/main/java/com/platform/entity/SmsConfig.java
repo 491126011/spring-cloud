@@ -61,6 +61,18 @@ public class SmsConfig implements Serializable {
     @NotBlank(message = "阿里云签名不能为空", groups = AliyunGroup.class)
     private String aliSmsSignName;
 
+    /**
+     * 模板Code
+     */
+    private String templateCode;
+
+    public String getTemplateCode() {
+        return templateCode;
+    }
+
+    public void setTemplateCode(String templateCode) {
+        this.templateCode = templateCode;
+    }
 
     public Integer getType() {
         return type;

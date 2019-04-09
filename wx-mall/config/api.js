@@ -1,7 +1,9 @@
 const root = '/api/';
 
-// const API_BASE_URL = 'http://fly2you.cn' + root;
-const API_BASE_URL = 'http://42.121.106.99:8080' + root;
+const API_BASE_URL = 'http://fly2you.cn' + root;
+//const API_BASE_URL = 'http://42.121.106.99:8080' + root;
+//const API_BASE_URL = 'http://wx.siiika.com' + root;
+
 module.exports = {
     IndexUrlNewGoods: API_BASE_URL + 'index/newGoods', //新品首发
     IndexUrlHotGoods: API_BASE_URL + 'index/hotGoods', //热卖商品
@@ -12,9 +14,7 @@ module.exports = {
     IndexUrlChannel: API_BASE_URL + 'index/channel', //banner下的分类
     CatalogList: API_BASE_URL + 'catalog/index',  //分类目录全部分类数据接口
     CatalogCurrent: API_BASE_URL + 'catalog/current',  //分类目录当前分类数据接口
-
     AuthLoginByWeixin: API_BASE_URL + 'auth/login_by_weixin', //微信登录
-
     GoodsCount: API_BASE_URL + 'goods/count',  //统计商品总数
     GoodsList: API_BASE_URL + 'goods/list',  //获得商品列表
     GoodsCategory: API_BASE_URL + 'goods/category',  //获得分类数据

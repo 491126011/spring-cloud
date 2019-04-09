@@ -81,7 +81,7 @@ public class SysSmsLogServiceImpl implements SysSmsLogService {
                 result = SmsUtil.crSendSms(config.getName(), config.getPwd(), smsLog.getMobile(), smsLog.getContent(), config.getSign(),
                         DateUtils.format(smsLog.getStime(), "yyyy-MM-dd HH:mm:ss"), smsLog.getExtno());
             }else if(config.getType()==2){
-                SmsUtil.aliSendSms(config.getAliSmsAccessKeyId(),config.getAliSmsAccessKeySecret(),config.getAliSmsSignName(),config)
+                SmsUtil.aliSendSms(config.getAliSmsAccessKeyId(),config.getAliSmsAccessKeySecret(),config.getAliSmsSignName(),config.getTemplateCode(),smsLog.getMobile());
                 System.out.println("===发送阿里云短信===");
             }
         } catch (Exception e) {
