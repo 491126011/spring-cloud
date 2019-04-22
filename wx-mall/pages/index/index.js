@@ -17,7 +17,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: 'NideShop',
-      desc: '淘小欢严选微信小程序商城',
+      desc: '朗格朗格',
       path: '/pages/index/index'
     }
   },onPullDownRefresh(){
