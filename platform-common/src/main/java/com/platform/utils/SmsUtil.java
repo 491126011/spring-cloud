@@ -158,12 +158,11 @@ public class SmsUtil {
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
 
         StringBuffer buf = new StringBuffer();
-        buf.append("短信接口返回的数据----------------");
+        //buf.append("短信接口返回的数据----------------");
         buf.append((sendSmsResponse.getCode().equals("OK")?"0":"1")).append(",");
         buf.append(sendSmsResponse.getMessage()).append(",");
         buf.append(sendSmsResponse.getRequestId()).append(",");
         buf.append(sendSmsResponse.getBizId()).append(",");
-
         return buf.toString();
     }
 

@@ -73,7 +73,7 @@ public class ApiUserController extends ApiBaseAction {
             result = SmsUtil.aliSendSms(config.getAliSmsAccessKeyId(),config.getAliSmsAccessKeySecret(),config.getAliSmsSignName(),config.getTemplateCode(),phone,sms_code);
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         String arr[] = result.split(",");
 
