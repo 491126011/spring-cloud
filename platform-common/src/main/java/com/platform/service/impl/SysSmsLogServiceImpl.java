@@ -78,11 +78,9 @@ public class SysSmsLogServiceImpl implements SysSmsLogService {
              * 状态,发送编号,无效号码数,成功提交数,黑名单数和消息，无论发送的号码是多少，一个发送请求只返回一个sendid，如果响应的状态不是“0”，则只有状态和消息
              */
             if(config.getType()==1) {
-                result = SmsUtil.crSendSms(config.getName(), config.getPwd(), smsLog.getMobile(), smsLog.getContent(), config.getSign(),
-                        DateUtils.format(smsLog.getStime(), "yyyy-MM-dd HH:mm:ss"), smsLog.getExtno());
+                result = SmsUtil.crSendSms(config.getName(), config.getPwd(), smsLog.getMobile(), smsLog.getContent(), config.getSign(),  DateUtils.format(smsLog.getStime(), "yyyy-MM-dd HH:mm:ss"), smsLog.getExtno());
             }else if(config.getType()==2){
-                SmsUtil.aliSendSms(config.getAliSmsAccessKeyId(),config.getAliSmsAccessKeySecret(),config.getAliSmsSignName(),config.getTemplateCode(),smsLog.getMobile());
-                System.out.println("===发送阿里云短信===");
+                SmsUtil.aliSendSms(config.getAliSmsAccessKeyId(),config.getAliSmsAccessKeySecret(),config.getAliSmsSignName(),config.getTemplateCode(),smsLog.getMobile(),smsLog.getContent());
             }
         } catch (Exception e) {
 

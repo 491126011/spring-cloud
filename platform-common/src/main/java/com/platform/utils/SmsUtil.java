@@ -119,6 +119,7 @@ public class SmsUtil {
 
     /**
      * 阿里云平台发送短信
+     * 阿里云短信根据固定模板号发送,验证码模板:SMS_144145503
      * @param accessKeyId
      * @param accessKeySecret
      * @param signName
@@ -126,7 +127,7 @@ public class SmsUtil {
      * @return
      * @throws ClientException
      */
-    public static String aliSendSms(String accessKeyId, String accessKeySecret, String signName,String templateCode, String phone) throws ClientException {
+    public static String aliSendSms(String accessKeyId, String accessKeySecret, String signName,String templateCode, String phone,String content) throws Exception {
 
         //产品名称,产品域名
         final String product = "Dysmsapi";
@@ -147,88 +148,23 @@ public class SmsUtil {
         request.setTemplateCode("SMS_144145503");
 
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
-        String code = "289586";
-        request.setTemplateParam("{\"name\":\"Tom\", \"code\":\"" + code + "\"}");
+        request.setTemplateParam("{ \"code\":\"" + content + "\"}");
 
         //outId为提供给业务方扩展字段,最终在短信回执消息中将此值带回给调用者
-        request.setOutId("yourOutId");
+        String dateStr = DateUtils.format(new Date(),DateUtils.DATE_TIME_PATTERN_YYYY_MM_DD_HH_MM_SS_SSS);
+        request.setOutId(dateStr);
 
         //hint 此处可能会抛出异常，注意catch
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
 
         StringBuffer buf = new StringBuffer();
         buf.append("短信接口返回的数据----------------");
-        buf.append("Code=" + sendSmsResponse.getCode()).append(",");
-        buf.append("Message=" + sendSmsResponse.getMessage()).append(",");
-        buf.append("RequestId=" + sendSmsResponse.getRequestId()).append(",");
-        buf.append("BizId=" + sendSmsResponse.getBizId()).append(",");
-
-        //TODO 待处理
-        //查明细
-        if(sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
-            StringBuffer qbuf = new StringBuffer();
-            QuerySendDetailsResponse querySendDetailsResponse = querySendDetails(sendSmsResponse,accessKeyId,accessKeySecret,phone);
-            System.out.println("短信明细查询接口返回数据----------------");
-            System.out.println("Code=" + querySendDetailsResponse.getCode());
-            System.out.println("Message=" + querySendDetailsResponse.getMessage());
-            int i = 0;
-            for(QuerySendDetailsResponse.SmsSendDetailDTO smsSendDetailDTO : querySendDetailsResponse.getSmsSendDetailDTOs())
-            {
-                qbuf.append("SmsSendDetailDTO["+i+"]:").append(".");
-                qbuf.append("Content=" + smsSendDetailDTO.getContent()).append(".");
-                qbuf.append("ErrCode=" + smsSendDetailDTO.getErrCode()).append(".");
-                qbuf.append("OutId=" + smsSendDetailDTO.getOutId()).append(".");
-                qbuf.append("PhoneNum=" + smsSendDetailDTO.getPhoneNum()).append(".");
-                qbuf.append("ReceiveDate=" + smsSendDetailDTO.getReceiveDate()).append(".");
-                qbuf.append("SendDate=" + smsSendDetailDTO.getSendDate()).append(".");
-                qbuf.append("SendStatus=" + smsSendDetailDTO.getSendStatus()).append(".");
-                qbuf.append("Template=" + smsSendDetailDTO.getTemplateCode()).append(".");
-            }
-            System.out.println("TotalCount=" + querySendDetailsResponse.getTotalCount());
-            System.out.println("RequestId=" + querySendDetailsResponse.getRequestId());
-        }
+        buf.append((sendSmsResponse.getCode().equals("OK")?"0":"1")).append(",");
+        buf.append(sendSmsResponse.getMessage()).append(",");
+        buf.append(sendSmsResponse.getRequestId()).append(",");
+        buf.append(sendSmsResponse.getBizId()).append(",");
 
         return buf.toString();
-    }
-
-
-    /**
-     * 查询短信发送结果
-     * @param response
-     * @param accessKeyId
-     * @param accessKeySecret
-     * @param phone
-     * @return
-     * @throws ClientException
-     */
-    public static QuerySendDetailsResponse querySendDetails(SendSmsResponse response,String accessKeyId, String accessKeySecret,String phone) throws ClientException {
-
-        //产品名称,产品域名
-        final String product = "Dysmsapi";
-        final String domain = "dysmsapi.aliyuncs.com";
-
-        //可自助调整超时时间
-        System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
-        System.setProperty("sun.net.client.defaultReadTimeout", "10000");
-
-        //初始化acsClient,暂不支持region化
-        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
-        DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
-        IAcsClient acsClient = new DefaultAcsClient(profile);
-
-        QuerySendDetailsRequest request = new QuerySendDetailsRequest();
-        request.setPhoneNumber(phone);
-        request.setBizId(response.getBizId());
-        //必填-发送日期 支持30天内记录查询，格式yyyyMMdd
-        SimpleDateFormat ft = new SimpleDateFormat("yyyyMMdd");
-        request.setSendDate(ft.format(new Date()));
-        request.setPageSize(10L);
-        request.setCurrentPage(1L);
-
-        //hint 此处可能会抛出异常，注意catch
-        QuerySendDetailsResponse querySendDetailsResponse = acsClient.getAcsResponse(request);
-
-        return querySendDetailsResponse;
     }
 
     /**
