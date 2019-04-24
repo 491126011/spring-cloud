@@ -64,6 +64,10 @@
       </navigator>
     </view>
   </view>
+<<<<<<< HEAD
   <view class='company'>深圳风吹麦浪科技有限公司</view>
+=======
+  <view class='company'>合肥微同软件工作室提供技术支持 © fly2you.cn</view>
+>>>>>>> 4d34060d6bedfe59645424e5e41f562e57cc22d7
   <!--<view class="logout" bindtap="exitLogin">退出登录</view>-->
 </view>

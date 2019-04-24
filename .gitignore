@@ -25,3 +25,26 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /.project
+.settings/org.eclipse.core.resources.prefs
+.settings/org.eclipse.m2e.core.prefs
+platform-admin/.factorypath
+platform-admin/.settings/org.eclipse.jdt.apt.core.prefs
+platform-api/.factorypath
+platform-api/.settings/org.eclipse.jdt.apt.core.prefs
+platform-common/.factorypath
+platform-common/.settings/org.eclipse.jdt.apt.core.prefs
+platform-framework/.factorypath
+platform-framework/.settings/org.eclipse.jdt.apt.core.prefs
+platform-gen/.factorypath
+platform-gen/.settings/org.eclipse.jdt.apt.core.prefs
+platform-mp/.classpath
+platform-mp/.factorypath
+platform-mp/.project
+platform-mp/.settings/org.eclipse.core.resources.prefs
+platform-mp/.settings/org.eclipse.jdt.apt.core.prefs
+platform-mp/.settings/org.eclipse.jdt.core.prefs
+platform-mp/.settings/org.eclipse.m2e.core.prefs
+platform-schedule/.factorypath
+platform-schedule/.settings/org.eclipse.jdt.apt.core.prefs
+platform-shop/.factorypath
+platform-shop/.settings/org.eclipse.jdt.apt.core.prefs
