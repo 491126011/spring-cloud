@@ -1,9 +1,5 @@
 const root = '/api/';
-
-//const API_BASE_URL = 'http://fly2you.cn' + root;
-//const API_BASE_URL = 'http://42.121.106.99:8080' + root;
-const API_BASE_URL = 'https://www.siiika.com' + root;
-//const API_BASE_URL = 'http://localhost:8086' + root;
+const API_BASE_URL = 'https://wx.siiika.com' + root;
 
 module.exports = {
     IndexUrlNewGoods: API_BASE_URL + 'index/newGoods', //新品首发
