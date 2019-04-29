@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.platform.dao.StatisticsDao">
+
+    <sql id="selectSql">
+        SELECT
+        T.id,
+        T.count_date,
+        T.today_reg_user,
+        T.today_wx_reg_user,
+        T.today_order_user,
+        T.count_user_num,
+        T.today_pay_order,
+        T.today_unpay_order,
+        T.today_user_order,
+        T.count_order_num,
+        T.today_trade_money,
+        T.count_trade_money,
+        T.add_time
+        FROM nideshop_statistics T
+        WHERE 1=1
+        <if test="params.name != null and params.name.trim() != ''">
+            AND T.NAME LIKE '%${params.name}%'
+        </if>
+    </sql>
+
+    <select id="selectStatisticsPage" resultType="com.platform.entity.StatisticsEntity">
+        <include refid="selectSql"/>
+    </select>
+
+    <select id="queryAll" resultType="com.platform.entity.StatisticsEntity">
+        <include refid="selectSql"/>
+    </select>
+
+    <select id="queryCurrent" resultType="com.platform.entity.StatisticsEntity">
+        (select IFNULL(count(1),0) from nideshop_user where date_format(register_time,'%Y-%m-%d')=date_format (now(),'%Y-%m-%d')) today_reg_user,
+        (select IFNULL(count(1),0) from nideshop_user where date_format(register_time,'%Y-%m-%d')=date_format (now(),'%Y-%m-%d') and weixin_openid is not null) today_wx_reg_user,
+        (select IFNULL(count(1),0) from nideshop_user where date_format(register_time,'%Y-%m-%d')=date_format (now(),'%Y-%m-%d') and id in (select user_id from nideshop_order)) today_order_user,
+        (select IFNULL(count(1),0) from nideshop_user) count_user_num,
+        (select IFNULL(count(1),0) from nideshop_order where pay_status=2 and date_format(add_time,'%Y-%m-%d')=date_format (now(),'%Y-%m-%d')) today_pay_order,
+        (select IFNULL(count(1),0) from nideshop_order where pay_status=1 and date_format(add_time,'%Y-%m-%d')=date_format (now(),'%Y-%m-%d')) today_unpay_order,
+        (select IFNULL(count(distinct(user_id)),0) from nideshop_order where pay_status=2 and date_format(add_time,'%Y-%m-%d')=date_format (now(),'%Y-%m-%d')) today_user_order,
+        (select IFNULL(count(1),0) from nideshop_order where pay_status=2) count_order_num,
+        (select IFNULL(sum(order_price),0) from nideshop_order where pay_status=2 and date_format(add_time,'%Y-%m-%d')=date_format (now(),'%Y-%m-%d')) today_trade_money,
+        (select IFNULL(sum(order_price),0) from nideshop_order where pay_status=2) count_trade_money
+        from dual;
+    </select>
+
+</mapper>
