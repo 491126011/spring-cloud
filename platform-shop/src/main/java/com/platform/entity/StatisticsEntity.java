@@ -12,6 +12,7 @@ package com.platform.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -24,15 +25,14 @@ import java.util.Date;
  * @author lipengjun
  * @date 2019-04-29 11:06:12
  */
-@Data
-@TableName("nideshop_statistics")
+//@Data
+//@TableName("nideshop_statistics")
 public class StatisticsEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
      * 
      */
-    @TableId
     private Integer id;
     /**
      * 
@@ -82,4 +82,109 @@ public class StatisticsEntity implements Serializable {
      * 
      */
     private Date addTime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+    public Date getCountDate() {
+        return countDate;
+    }
+
+    public void setCountDate(Date countDate) {
+        this.countDate = countDate;
+    }
+
+    public Integer getTodayRegUser() {
+        return todayRegUser;
+    }
+
+    public void setTodayRegUser(Integer todayRegUser) {
+        this.todayRegUser = todayRegUser;
+    }
+
+    public Integer getTodayWxRegUser() {
+        return todayWxRegUser;
+    }
+
+    public void setTodayWxRegUser(Integer todayWxRegUser) {
+        this.todayWxRegUser = todayWxRegUser;
+    }
+
+    public Integer getTodayOrderUser() {
+        return todayOrderUser;
+    }
+
+    public void setTodayOrderUser(Integer todayOrderUser) {
+        this.todayOrderUser = todayOrderUser;
+    }
+
+    public Integer getCountUserNum() {
+        return countUserNum;
+    }
+
+    public void setCountUserNum(Integer countUserNum) {
+        this.countUserNum = countUserNum;
+    }
+
+    public Integer getTodayPayOrder() {
+        return todayPayOrder;
+    }
+
+    public void setTodayPayOrder(Integer todayPayOrder) {
+        this.todayPayOrder = todayPayOrder;
+    }
+
+    public Integer getTodayUnpayOrder() {
+        return todayUnpayOrder;
+    }
+
+    public void setTodayUnpayOrder(Integer todayUnpayOrder) {
+        this.todayUnpayOrder = todayUnpayOrder;
+    }
+
+    public Integer getTodayUserOrder() {
+        return todayUserOrder;
+    }
+
+    public void setTodayUserOrder(Integer todayUserOrder) {
+        this.todayUserOrder = todayUserOrder;
+    }
+
+    public Integer getCountOrderNum() {
+        return countOrderNum;
+    }
+
+    public void setCountOrderNum(Integer countOrderNum) {
+        this.countOrderNum = countOrderNum;
+    }
+
+    public BigDecimal getTodayTradeMoney() {
+        return todayTradeMoney;
+    }
+
+    public void setTodayTradeMoney(BigDecimal todayTradeMoney) {
+        this.todayTradeMoney = todayTradeMoney;
+    }
+
+    public BigDecimal getCountTradeMoney() {
+        return countTradeMoney;
+    }
+
+    public void setCountTradeMoney(BigDecimal countTradeMoney) {
+        this.countTradeMoney = countTradeMoney;
+    }
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    public Date getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
+    }
 }

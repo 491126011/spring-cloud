@@ -145,9 +145,7 @@ public class StatisticsController extends AbstractController {
     @SysLog("查询当日")
     @RequestMapping("/currentday")
     public R queryCurrentDay(){
-
-        return R.ok();
+        StatisticsEntity statistics = statisticsService.queryCurrent();
+        return R.ok().put("statistics", statistics);
     }
-
-
 }

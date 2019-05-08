@@ -3,6 +3,22 @@
 
 <mapper namespace="com.platform.dao.StatisticsDao">
 
+    <resultMap type="com.platform.entity.UserEntity" id="userMap">
+        <result property="id" column="id"/>
+        <result property="count_date" column="countDate"/>
+        <result property="today_reg_user" column="todayRegUser"/>
+        <result property="today_wx_reg_user" column="todayWxRegUser"/>
+        <result property="today_order_user" column="todayOrderUser"/>
+        <result property="count_user_num" column="countUserNum"/>
+        <result property="today_pay_order" column="todayPayOrder"/>
+        <result property="today_unpay_order" column="todayUnpayOrder"/>
+        <result property="today_user_order" column="todayUserOrder"/>
+        <result property="count_order_num" column="countOrderNum"/>
+        <result property="today_trade_money" column="todayTradeMoney"/>
+        <result property="count_trade_money" column="countTradeMoney"/>
+        <result property="add_time" column="addTime"/>
+    </resultMap>
+
     <sql id="selectSql">
         SELECT
         T.id,
@@ -34,6 +50,7 @@
     </select>
 
     <select id="queryCurrent" resultType="com.platform.entity.StatisticsEntity">
+        select
         (select IFNULL(count(1),0) from nideshop_user where date_format(register_time,'%Y-%m-%d')=date_format (now(),'%Y-%m-%d')) today_reg_user,
         (select IFNULL(count(1),0) from nideshop_user where date_format(register_time,'%Y-%m-%d')=date_format (now(),'%Y-%m-%d') and weixin_openid is not null) today_wx_reg_user,
         (select IFNULL(count(1),0) from nideshop_user where date_format(register_time,'%Y-%m-%d')=date_format (now(),'%Y-%m-%d') and id in (select user_id from nideshop_order)) today_order_user,
