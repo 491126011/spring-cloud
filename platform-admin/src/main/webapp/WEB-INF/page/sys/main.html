@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <title>欢迎页</title>
     #parse("sys/header.html")
-	
 	<!--<script src='https://gitee.com/fuyang_lipengjun/platform/widget_preview'></script>-->
 	<style>
 		.pro_name a{color: #4183c4;}
@@ -15,59 +14,66 @@
 	</style>
 </head>
 <body>
-<div class="wrapper wrapper-content  animated fadeInRight">
-    <div class="ibox ">
-        <div class="ibox-title">
-            <h1>用户统计</h1>
-        </div>
-        <div class="ibox-content">
-            <div class="signin-info">
-                <ul class="m-b">
-                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日注册用户:24  </li>
-                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日微信用户:14  </li>
-                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日下单用户:4   </li>
-                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日访问用户:189 </li>
-                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 系统总用户数:8927</li>
-                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 当前在线用户:8   </li>
-                </ul>
-            </div>
+<div class="wrapper wrapper-content  animated fadeInRight" id="rrapp" v-on:onload="getInfo" v-cloak >
 
-        </div>
-    </div>
-    <div class="ibox ">
-        <div class="ibox-title">
-            <h1>订单统计</h1>
-        </div>
-        <div class="ibox-content">
-            <div class="signin-info">
-                <ul class="m-b">
-                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日支付订单数:  </li>
-                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日未支付订单数:</li>
-                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日退货数:     </li>
-                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 下单用户数:     </li>
-                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 系统累计成交订单:</li>
-                </ul>
-            </div>
+    <Card v-show="showList">
+        <i-form :model="statistics" :label-width="80">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h1>用户统计</h1>
+                </div>
+                <div class="ibox-content">
+                    <div class="signin-info">
+                        <ul class="m-b">
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日注册用户:{{statistics.todayRegUser}}</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日微信用户:{{statistics.todayWxRegUser}}</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日下单用户:{{statistics.todayOrderUser}}</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日访问用户:0</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 系统总用户数:{{statistics.countUserNum}}</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 当前在线用户:0</li>
+                        </ul>
+                    </div>
 
-        </div>
-    </div>
-    <div class="ibox ">
-        <div class="ibox-title">
-            <h1>资金统计</h1>
-        </div>
-        <div class="ibox-content">
-            <div class="signin-info">
-                <ul class="m-b">
-                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日交易金额</li>
-                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日发放奖励</li>
-                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日退货金额</li>
-                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优惠券使用数</li>
-                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优惠券使用额</li>
-                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 累计交易金额</li>
-                </ul>
+                </div>
             </div>
-        </div>
-    </div>
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h1>订单统计</h1>
+                </div>
+                <div class="ibox-content">
+                    <div class="signin-info">
+                        <ul class="m-b">
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日支付订单数:  {{statistics.todayPayOrder}}</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日未支付订单数:{{statistics.todayUnpayOrder}}</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日退货数:     0</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 下单用户数:     {{statistics.todayUserOrder}}</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 系统累计成交订单:{{statistics.countOrderNum}}</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h1>资金统计</h1>
+                </div>
+                <div class="ibox-content">
+                    <div class="signin-info">
+                        <ul class="m-b">
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日交易金额:{{statistics.todayTradeMoney}}</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日发放奖励:0</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 今日退货金额:0</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优惠券使用数:0</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优惠券使用额:0</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 累计交易金额:{{statistics.countTradeMoney}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </i-form>
+    </Card>
 </div>
+
+<script src="${rc.contextPath}/js/sys/main.js?_${date.systemTime}"></script>
 </body>
 </html>

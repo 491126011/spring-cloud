@@ -24,6 +24,11 @@
             <artifactId>kaptcha</artifactId>
             <version>${kaptcha.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.platform</groupId>
+            <artifactId>platform-shop</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <profiles>

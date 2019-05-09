@@ -3,54 +3,151 @@
 
 <mapper namespace="com.platform.dao.StatisticsDao">
 
-    <resultMap type="com.platform.entity.UserEntity" id="userMap">
+    <resultMap type="com.platform.entity.StatisticsEntity" id="statisticsMap">
         <result property="id" column="id"/>
-        <result property="count_date" column="countDate"/>
-        <result property="today_reg_user" column="todayRegUser"/>
-        <result property="today_wx_reg_user" column="todayWxRegUser"/>
-        <result property="today_order_user" column="todayOrderUser"/>
-        <result property="count_user_num" column="countUserNum"/>
-        <result property="today_pay_order" column="todayPayOrder"/>
-        <result property="today_unpay_order" column="todayUnpayOrder"/>
-        <result property="today_user_order" column="todayUserOrder"/>
-        <result property="count_order_num" column="countOrderNum"/>
-        <result property="today_trade_money" column="todayTradeMoney"/>
-        <result property="count_trade_money" column="countTradeMoney"/>
-        <result property="add_time" column="addTime"/>
+        <result property="countDate" column="count_date"/>
+        <result property="todayRegUser" column="today_reg_user"/>
+        <result property="todayWxRegUser" column="today_wx_reg_user"/>
+        <result property="todayOrderUser" column="today_order_user"/>
+        <result property="countUserNum" column="count_user_num"/>
+        <result property="todayPayOrder" column="today_pay_order"/>
+        <result property="todayUnpayOrder" column="today_unpay_order"/>
+        <result property="todayUserOrder" column="today_user_order"/>
+        <result property="countOrderNum" column="count_order_num"/>
+        <result property="todayTradeMoney" column="today_trade_money"/>
+        <result property="countTradeMoney" column="count_trade_money"/>
+        <result property="addTime" column="add_time"/>
     </resultMap>
 
-    <sql id="selectSql">
-        SELECT
-        T.id,
-        T.count_date,
-        T.today_reg_user,
-        T.today_wx_reg_user,
-        T.today_order_user,
-        T.count_user_num,
-        T.today_pay_order,
-        T.today_unpay_order,
-        T.today_user_order,
-        T.count_order_num,
-        T.today_trade_money,
-        T.count_trade_money,
-        T.add_time
-        FROM nideshop_statistics T
-        WHERE 1=1
-        <if test="params.name != null and params.name.trim() != ''">
-            AND T.NAME LIKE '%${params.name}%'
+    <select id="queryObject" resultType="com.platform.entity.StatisticsEntity">
+        select
+        `id`,
+        `count_date`,
+        `today_reg_user`,
+        `today_wx_reg_user`,
+        `today_order_user`,
+        `count_user_num`,
+        `today_pay_order`,
+        `today_unpay_order`,
+        `today_user_order`,
+        `count_order_num`,
+        `today_trade_money`,
+        `count_trade_money`,
+        `add_time`
+        from nideshop_statistics
+        where 1=1
+        <if test="id != null and id.trim() != ''">
+            AND id =  #{id}
         </if>
-    </sql>
+        <if test="countDate != null and countDate != ''">
+            AND count_date =  #{countDate}
+        </if>
 
-    <select id="selectStatisticsPage" resultType="com.platform.entity.StatisticsEntity">
-        <include refid="selectSql"/>
     </select>
 
-    <select id="queryAll" resultType="com.platform.entity.StatisticsEntity">
-        <include refid="selectSql"/>
+    <select id="queryList" resultType="com.platform.entity.StatisticsEntity">
+        select
+        `id`,
+        `count_date`,
+        `today_reg_user`,
+        `today_wx_reg_user`,
+        `today_order_user`,
+        `count_user_num`,
+        `today_pay_order`,
+        `today_unpay_order`,
+        `today_user_order`,
+        `count_order_num`,
+        `today_trade_money`,
+        `count_trade_money`,
+        `add_time`
+        from nideshop_statistics
+        WHERE 1=1
+        <if test="name != null and name.trim() != ''">
+            AND name LIKE concat('%',#{name},'%')
+        </if>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
     </select>
+
+    <select id="queryTotal" resultType="int">
+        select count(*) from nideshop_statistics
+        WHERE 1=1
+        <if test="name != null and name.trim() != ''">
+            AND name LIKE concat('%',#{name},'%')
+        </if>
+    </select>
+
+    <insert id="save" parameterType="com.platform.entity.StatisticsEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into nideshop_statistics(
+        `count_date`,
+        `today_reg_user`,
+        `today_wx_reg_user`,
+        `today_order_user`,
+        `count_user_num`,
+        `today_pay_order`,
+        `today_unpay_order`,
+        `today_user_order`,
+        `count_order_num`,
+        `today_trade_money`,
+        `count_trade_money`,
+        `add_time`)
+        values(
+        #{countDate},
+        #{todayRegUser},
+        #{todayWxRegUser},
+        #{todayOrderUser},
+        #{countUserNum},
+        #{todayPayOrder},
+        #{todayUnpayOrder},
+        #{todayUserOrder},
+        #{countOrderNum},
+        #{todayTradeMoney},
+        #{countTradeMoney},
+        #{addTime})
+    </insert>
+
+    <update id="update" parameterType="com.platform.entity.StatisticsEntity">
+        update nideshop_statistics
+        <set>
+            <if test="countDate != null">`count_date` = #{countDate}, </if>
+            <if test="todayRegUser != null">`today_reg_user` = #{todayRegUser}, </if>
+            <if test="todayWxRegUser != null">`today_wx_reg_user` = #{todayWxRegUser}, </if>
+            <if test="todayOrderUser != null">`today_order_user` = #{todayOrderUser}, </if>
+            <if test="countUserNum != null">`count_user_num` = #{countUserNum}, </if>
+            <if test="todayPayOrder != null">`today_pay_order` = #{todayPayOrder}, </if>
+            <if test="todayUnpayOrder != null">`today_unpay_order` = #{todayUnpayOrder}, </if>
+            <if test="todayUserOrder != null">`today_user_order` = #{todayUserOrder}, </if>
+            <if test="countOrderNum != null">`count_order_num` = #{countOrderNum}, </if>
+            <if test="todayTradeMoney != null">`today_trade_money` = #{todayTradeMoney}, </if>
+            <if test="countTradeMoney != null">`count_trade_money` = #{countTradeMoney}, </if>
+            <if test="addTime != null">`add_time` = #{addTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from nideshop_statistics where id = #{value}
+    </delete>
+
+    <delete id="deleteBatch">
+        delete from nideshop_statistics where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 
     <select id="queryCurrent" resultType="com.platform.entity.StatisticsEntity">
         select
+        date_format (now(),'%Y-%m-%d') count_date,
         (select IFNULL(count(1),0) from nideshop_user where date_format(register_time,'%Y-%m-%d')=date_format (now(),'%Y-%m-%d')) today_reg_user,
         (select IFNULL(count(1),0) from nideshop_user where date_format(register_time,'%Y-%m-%d')=date_format (now(),'%Y-%m-%d') and weixin_openid is not null) today_wx_reg_user,
         (select IFNULL(count(1),0) from nideshop_user where date_format(register_time,'%Y-%m-%d')=date_format (now(),'%Y-%m-%d') and id in (select user_id from nideshop_order)) today_order_user,

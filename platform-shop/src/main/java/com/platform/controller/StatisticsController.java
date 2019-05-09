@@ -1,128 +1,106 @@
-/*
- * 类名称:StatisticsController.java
- * 包名称:com.platform.controller
- *
- * 修改履历:
- *     日期                       修正者        主要内容
- *     2019-04-29 11:06:12        lipengjun     初版做成
- *
- * Copyright (c) 2019-2019 微同软件
- */
 package com.platform.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.platform.annotation.SysLog;
-import com.platform.entity.StatisticsEntity;
-import com.platform.service.OrderService;
-import com.platform.service.StatisticsService;
-import com.platform.service.UserService;
-import com.platform.utils.R;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+import com.platform.annotation.SysLog;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.platform.entity.StatisticsEntity;
+import com.platform.service.StatisticsService;
+import com.platform.utils.PageUtils;
+import com.platform.utils.Query;
+import com.platform.utils.R;
 
 /**
  * Controller
  *
- * @author lipengjun
- * @date 2019-04-29 11:06:12
+ * @author hsq
+ * @email 939961241@qq.com
+ * @date 2019-05-09 09:51:03
  */
 @RestController
 @RequestMapping("statistics")
-public class StatisticsController extends AbstractController {
+public class StatisticsController {
     @Autowired
     private StatisticsService statisticsService;
 
     /**
-     * 查看所有列表
-     *
-     * @param params 查询参数
-     * @return R
+     * 查看列表
      */
-    @RequestMapping("/queryAll")
-    @RequiresPermissions("statistics:list")
-    public R queryAll(@RequestParam Map<String, Object> params) {
-        List<StatisticsEntity> list = statisticsService.queryAll(params);
-
-        return R.ok().put("list", list);
-    }
-
-    /**
-     * 分页查询
-     *
-     * @param params 查询参数
-     * @return R
-     */
-    @GetMapping("/list")
+    @RequestMapping("/list")
     @RequiresPermissions("statistics:list")
     public R list(@RequestParam Map<String, Object> params) {
-        Page page = statisticsService.queryPage(params);
+        //查询列表数据
+        Query query = new Query(params);
 
-        return R.ok().put("page", page);
+        List<StatisticsEntity> statisticsList = statisticsService.queryList(query);
+        int total = statisticsService.queryTotal(query);
+
+        PageUtils pageUtil = new PageUtils(statisticsList, total, query.getLimit(), query.getPage());
+
+        return R.ok().put("page", pageUtil);
     }
 
     /**
-     * 根据主键查询详情
-     *
-     * @param id 主键
-     * @return R
+     * 查看信息
      */
     @RequestMapping("/info/{id}")
     @RequiresPermissions("statistics:info")
     public R info(@PathVariable("id") Integer id) {
-        StatisticsEntity statistics = statisticsService.getById(id);
+        StatisticsEntity statistics = statisticsService.queryObject(id);
 
         return R.ok().put("statistics", statistics);
     }
 
     /**
-     * 新增
-     *
-     * @param statistics statistics
-     * @return R
+     * 保存
      */
-    @SysLog("新增")
     @RequestMapping("/save")
     @RequiresPermissions("statistics:save")
     public R save(@RequestBody StatisticsEntity statistics) {
-
-        statisticsService.add(statistics);
+        statisticsService.save(statistics);
 
         return R.ok();
     }
 
     /**
      * 修改
-     *
-     * @param statistics statistics
-     * @return R
      */
-    @SysLog("修改")
     @RequestMapping("/update")
     @RequiresPermissions("statistics:update")
     public R update(@RequestBody StatisticsEntity statistics) {
-
         statisticsService.update(statistics);
 
         return R.ok();
     }
 
     /**
-     * 根据主键删除
-     *
-     * @param ids ids
-     * @return R
+     * 删除
      */
-    @SysLog("删除")
     @RequestMapping("/delete")
     @RequiresPermissions("statistics:delete")
     public R delete(@RequestBody Integer[] ids) {
         statisticsService.deleteBatch(ids);
 
         return R.ok();
+    }
+
+    /**
+     * 查看所有列表
+     */
+    @RequestMapping("/queryAll")
+    public R queryAll(@RequestParam Map<String, Object> params) {
+
+        List<StatisticsEntity> list = statisticsService.queryList(params);
+
+        return R.ok().put("list", list);
     }
 
     /**
@@ -144,8 +122,18 @@ public class StatisticsController extends AbstractController {
 
     @SysLog("查询当日")
     @RequestMapping("/currentday")
+    //http://localhost:8086/statistics/currentday
     public R queryCurrentDay(){
         StatisticsEntity statistics = statisticsService.queryCurrent();
+//        StatisticsEntity existEntity = statisticsService.queryObject(statistics);
+//        if(existEntity!=null){
+//            statistics.setId(existEntity.getId());
+//            statistics.setCountDate(existEntity.getCountDate());
+//            statisticsService.update(statistics);
+//        }else{
+//            statisticsService.save(statistics);
+//        }
+
         return R.ok().put("statistics", statistics);
     }
 }

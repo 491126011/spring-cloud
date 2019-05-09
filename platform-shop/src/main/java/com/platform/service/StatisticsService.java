@@ -1,17 +1,5 @@
-/*
- * 类名称:StatisticsService.java
- * 包名称:com.platform.service
- *
- * 修改履历:
- *     日期                       修正者        主要内容
- *     2019-04-29 11:06:12        lipengjun     初版做成
- *
- * Copyright (c) 2019-2019 微同软件
- */
 package com.platform.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.platform.entity.StatisticsEntity;
 
 import java.util.List;
@@ -20,58 +8,76 @@ import java.util.Map;
 /**
  * Service接口
  *
- * @author lipengjun
- * @date 2019-04-29 11:06:12
+ * @author hsq
+ * @email 939961241@qq.com
+ * @date 2019-05-09 09:51:03
  */
-public interface StatisticsService extends IService<StatisticsEntity> {
+public interface StatisticsService {
 
     /**
-     * 查询所有列表
+     * 根据主键查询实体
      *
-     * @param params 查询参数
-     * @return List
+     * @param id 主键
+     * @return 实体
      */
-    List<StatisticsEntity> queryAll(Map<String, Object> params);
+    StatisticsEntity queryObject(Integer id);
+
+    /**
+     * 根据主键对象实体
+     *
+     * @param statistics
+     * @return 实体
+     */
+    StatisticsEntity queryObject(StatisticsEntity statistics);
+
 
     /**
      * 分页查询
      *
-     * @param params 查询参数
-     * @return Page
+     * @param map 参数
+     * @return list
      */
-    Page queryPage(Map<String, Object> params);
+    List<StatisticsEntity> queryList(Map<String, Object> map);
 
     /**
-     * 新增
+     * 分页统计总数
      *
-     * @param statistics 
-     * @return 新增结果
+     * @param map 参数
+     * @return 总数
      */
-    boolean add(StatisticsEntity statistics);
+    int queryTotal(Map<String, Object> map);
 
     /**
-     * 根据主键更新
+     * 保存实体
      *
-     * @param statistics 
-     * @return 更新结果
+     * @param statistics 实体
+     * @return 保存条数
      */
-    boolean update(StatisticsEntity statistics);
+    int save(StatisticsEntity statistics);
+
+    /**
+     * 根据主键更新实体
+     *
+     * @param statistics 实体
+     * @return 更新条数
+     */
+    int update(StatisticsEntity statistics);
 
     /**
      * 根据主键删除
      *
-     * @param id id
-     * @return 删除结果
+     * @param id
+     * @return 删除条数
      */
-    boolean delete(Integer id);
+    int delete(Integer id);
 
     /**
      * 根据主键批量删除
      *
-     * @param ids ids
-     * @return 删除结果
+     * @param ids
+     * @return 删除条数
      */
-    boolean deleteBatch(Integer[] ids);
+    int deleteBatch(Integer[] ids);
 
     /**
      *  查询当前相关统计数据

@@ -26,7 +26,7 @@ import java.util.Map;
  * @date 2019-04-29 11:06:12
  */
 @Mapper
-public interface StatisticsDao extends BaseMapper<StatisticsEntity> {
+public interface StatisticsDao extends BaseDao<StatisticsEntity>  {
 
     /**
      * 查询所有列表
