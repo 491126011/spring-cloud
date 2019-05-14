@@ -116,6 +116,9 @@ let vm = new Vue({
         },
         handleReset: function (name) {
             handleResetForm(this, name);
+        },
+        chartview: function(name){
+
         }
     }
 });

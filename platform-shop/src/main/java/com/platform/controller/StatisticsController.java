@@ -1,5 +1,7 @@
 package com.platform.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +45,34 @@ public class StatisticsController {
         List<StatisticsEntity> statisticsList = statisticsService.queryList(query);
         int total = statisticsService.queryTotal(query);
 
+        PageUtils pageUtil = new PageUtils(statisticsList, total, query.getLimit(), query.getPage());
+
+        return R.ok().put("page", pageUtil);
+    }
+
+    /**
+     * 查看列表
+     */
+    @RequestMapping("/chartview")
+    @RequiresPermissions("statistics:chartview")
+    public R chartView(@RequestParam Map<String, Object> params) {
+        //查询列表数据
+        Query query = new Query(params);
+        List<StatisticsEntity> statisticsList = statisticsService.queryList(query);
+
+        String type = (String)params.get("type");
+
+
+        ArrayList<String> date = new ArrayList<String>();
+        ArrayList<BigDecimal> totalMoney = new ArrayList<BigDecimal>();
+        ArrayList<Integer> totalUser = new ArrayList<Integer>();
+        ArrayList<Integer> totalOrder = new ArrayList<Integer>();
+
+        for( StatisticsEntity entity : statisticsList){
+            totalMoney.add(entity.getCountTradeMoney());
+        }
+
+        int total = statisticsService.queryTotal(query);
         PageUtils pageUtil = new PageUtils(statisticsList, total, query.getLimit(), query.getPage());
 
         return R.ok().put("page", pageUtil);

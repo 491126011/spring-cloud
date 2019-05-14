@@ -36,13 +36,7 @@
         `add_time`
         from nideshop_statistics
         where 1=1
-        <if test="id != null and id.trim() != ''">
-            AND id =  #{id}
-        </if>
-        <if test="countDate != null and countDate != ''">
-            AND count_date =  #{countDate}
-        </if>
-
+        AND id = #{value}
     </select>
 
     <select id="queryList" resultType="com.platform.entity.StatisticsEntity">

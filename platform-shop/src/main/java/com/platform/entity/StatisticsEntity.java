@@ -20,7 +20,7 @@ public class StatisticsEntity implements Serializable {
     //
     private Integer id;
     //
-    private Date countDate;
+    private String countDate;
     //今日注册用户
     private Integer todayRegUser;
     //今日微信用户
@@ -60,7 +60,7 @@ public class StatisticsEntity implements Serializable {
     /**
      * 设置：
      */
-    public void setCountDate(Date countDate) {
+    public void setCountDate(String countDate) {
         this.countDate = countDate;
     }
 
@@ -68,7 +68,7 @@ public class StatisticsEntity implements Serializable {
      * 获取：
      */
     @JsonFormat(pattern = "yyyy-MM-dd")
-    public Date getCountDate() {
+    public String getCountDate() {
         return countDate;
     }
     /**

@@ -10,12 +10,16 @@
         <Row :gutter="16">
             <div class="search-group">
                 <i-col span="4">
-                    <i-input v-model="q.name" @on-enter="query" placeholder="名称"/>
+                    <i-input v-model="q.count_date_begin" @on-enter="query" placeholder="起始日期"/>
+                    <i-input v-model="q.count_date_end" @on-enter="query" placeholder="截止时间"/>
                 </i-col>
                 <i-button @click="query">查询</i-button>
                 <i-button @click="reloadSearch">重置</i-button>
             </div>
             <div class="buttons-group">
+                #if($shiro.hasPermission("statistics:chartview"))
+                <i-button type="info" @click="chartview"><i class="fa fa-plus"></i>&nbsp;图表</i-button>
+                #end
                 #if($shiro.hasPermission("statistics:save"))
                 <i-button type="info" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</i-button>
                 #end
