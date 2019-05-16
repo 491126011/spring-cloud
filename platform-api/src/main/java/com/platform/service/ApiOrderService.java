@@ -48,6 +48,10 @@ public class ApiOrderService {
     private ApiProductService productService;
 
 
+    public OrderVo queryObjectByOrderSn(String orderSn) {
+        return orderDao.queryObjectByOrderSn(orderSn);
+    }
+
     public OrderVo queryObject(Integer id) {
         return orderDao.queryObject(id);
     }

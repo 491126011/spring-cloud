@@ -24,8 +24,11 @@ import com.platform.utils.R;
  * Controller
  *
  * @author hsq
- * @email 939961241@qq.com
+ * @email 896259559@qq.com
  * @date 2019-05-09 09:51:03
+ *
+ *
+ *
  */
 @RestController
 @RequestMapping("statistics")
@@ -149,21 +152,10 @@ public class StatisticsController {
      今日交易金额      select IFNULL(sum(order_price),0) from nideshop_order where pay_status=2 and date_format(add_time,'%Y-%m-%d')=date_format (now(),'%Y-%m-%d');
      累计交易金额      select IFNULL(sum(order_price),0) from nideshop_order where pay_status=2;
      */
-
     @SysLog("查询当日")
     @RequestMapping("/currentday")
-    //http://localhost:8086/statistics/currentday
     public R queryCurrentDay(){
         StatisticsEntity statistics = statisticsService.queryCurrent();
-//        StatisticsEntity existEntity = statisticsService.queryObject(statistics);
-//        if(existEntity!=null){
-//            statistics.setId(existEntity.getId());
-//            statistics.setCountDate(existEntity.getCountDate());
-//            statisticsService.update(statistics);
-//        }else{
-//            statisticsService.save(statistics);
-//        }
-
         return R.ok().put("statistics", statistics);
     }
 }

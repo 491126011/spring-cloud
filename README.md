@@ -1,12 +1,10 @@
-## 微同商城推荐服务器配置
+## 推荐服务器配置
 ### 服务器配置：
 
     CPU：2核
     内存：8G
     实例规格：标准型S2机型
     带宽：2M
-    价格：262 元/月 1768.5 元/年 4716 元/三年
-[点我购买](https://cloud.tencent.com/redirect.php?redirect=1014&cps_key=30280f92fc381dfc9e1d9e0e23d25a18&from=console)
 
 购买说明：如果业务量较大，推荐双机部署。
 
@@ -14,10 +12,9 @@
     CPU：1核
     内存：2G
     硬盘：200G
-    价格：348元/月	3466.08元/年	3758.40元/三年
-[点我购买](https://cloud.tencent.com/redirect.php?redirect=10481&cps_key=30280f92fc381dfc9e1d9e0e23d25a18)
 
-购买说明：腾讯云产品购买时长越大折扣就越大，所有推荐选择3年时长，可以达到3折优惠。
+# 注意
+Entity里不是缺少get、set方法，Eclipse、IDEA请先安装lombok插件
 
 ### COS资源包：
     标准型存储容量：
@@ -27,9 +24,6 @@
     100GB	3个月	43元
     200GB	3个月	85元
     500GB	3个月	213元
-[点我购买](https://cloud.tencent.com/redirect.php?redirect=10165&cps_key=30280f92fc381dfc9e1d9e0e23d25a18)
-
-购买说明：根据实际业务存储量购买，目前我的站点存储容量100G，下行流量100G，刚好够用！
 
 # 微信小程序商城（Java版）
 
@@ -66,6 +60,7 @@ https://platform-wxmall.oss-cn-beijing.aliyuncs.com/GVP.jpg "GVP")
     * 1.13 j2cache2.3.22-release
     * 1.14 weixin-java-mp3.2.0
     * 1.15 MybatisPlus3.1.0
+    * 1.16 lombok
         
 * 2 前端使用技术
     * 2.1 Vue2.5.1
