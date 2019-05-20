@@ -4,8 +4,10 @@
 </view>
 
 <view class="separate"></view>
-
-<view wx:if="{{!isBindMobile}}">
+<view wx:if="{{userInfo.mobile.length>0}}" class="login-title">
+  己关联手机号
+</view>
+<view wx:else>
   <view>
     <view class="login-title">关联手机号</view>
     <form bindsubmit="bindLoginMobilecode">
@@ -25,8 +27,4 @@
       </view>
     </form>
   </view>
-</view>
-
-<view wx:if="{{isBindMobile}}" class="login-title">
-  己关联手机号
 </view>

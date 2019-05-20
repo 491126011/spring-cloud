@@ -12,7 +12,7 @@ Page({
     disableGetMobileCode: false,
     disableSubmitMobileCode: true,
     getCodeButtonText: '获取验证码',
-    isBindMobile:false
+    bindMobile:false
   },
 
   onShow: function() {},
@@ -33,9 +33,6 @@ Page({
     }
 
     let userInfo = wx.getStorageSync('userInfo');
-    if (userInfo.mobile.length>0) {
-      isBindMobile = true
-    }
   },
 
   bindCheckMobile: function(mobile) {

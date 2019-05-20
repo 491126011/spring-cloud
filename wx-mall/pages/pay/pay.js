@@ -52,6 +52,12 @@ Page({
             })
           }
         })
+      } else{
+        //订单已支付|订单已取消
+        wx.showModal({
+          title: '出错了',
+          content: res.errmsg,
+        })
       }
     });
   },
