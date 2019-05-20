@@ -33,7 +33,7 @@ Page({
     }
 
     let userInfo = wx.getStorageSync('userInfo');
-    if (userInfo.mobile) {
+    if (userInfo.mobile.length>0) {
       isBindMobile = true
     }
   },

@@ -15,7 +15,6 @@ Page({
 
     },
     onShow: function () {
-
         let userInfo = wx.getStorageSync('userInfo');
         let token = wx.getStorageSync('token');
 
@@ -40,7 +39,10 @@ Page({
     bindGetUserInfo(e) {
       let userInfo = wx.getStorageSync('userInfo');
       let token = wx.getStorageSync('token');
-      if (userInfo && token) {
+      let timeout = wx.getStorageSync('tokenExpire');
+      let isTimeOut = util.checkExpire(timeout);
+
+      if (userInfo && token && !isTimeOut) {
         return;
       }
         if (e.detail.userInfo){

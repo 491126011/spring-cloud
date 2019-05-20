@@ -9,8 +9,16 @@ function formatTime(date) {
     var minute = date.getMinutes()
     var second = date.getSeconds()
 
-
     return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+}
+
+/**
+ * 检查时间是否大于当前时间
+ * false  当前时间大于指定时间
+ * true   当前时间小于指定时间
+ */
+function checkExpire(timeout){
+  return Date.now() < timeout? true : false;
 }
 
 function formatNumber(n) {
@@ -40,7 +48,7 @@ function request(url, data = {}, method = "POST", header = "application/x-www-fo
 
                     if (res.data.errno == 401) {
                         wx.navigateTo({
-                            url: '/pages/auth/btnAuth/btnAuth',
+                            url: '/pages/auth/btnAuth/btnAuth?type=401',
                         })
                     } else {
                         resolve(res.data);
@@ -129,6 +137,7 @@ module.exports = {
     showSuccessToast,
     checkSession,
     login,
+    checkExpire,
 }
 
 

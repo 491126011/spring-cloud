@@ -84,6 +84,7 @@ public class ApiAuthController extends ApiBaseAction {
         if (!StringUtils.isNullOrEmpty(jsonParam.getString("code"))) {
             code = jsonParam.getString("code");
         }
+        /**UserInfo和code在微信端用户确认授权后，由微信返回*/
         if (null != jsonParam.get("userInfo")) {
             fullUserInfo = jsonParam.getObject("userInfo", FullUserInfo.class);
         }
@@ -125,6 +126,7 @@ public class ApiAuthController extends ApiBaseAction {
             userVo.setNickname(userInfo.getNickName());
             userService.save(userVo);
         } else {
+            userInfo.setMobile(userVo.getMobile());
             userVo.setLast_login_ip(this.getClientIp());
             userVo.setLast_login_time(nowTime);
             userService.update(userVo);
@@ -187,6 +189,7 @@ public class ApiAuthController extends ApiBaseAction {
                 userVo.setNickname(userInfoResponse.getNickName());
                 userService.save(userVo);
             } else {
+                userInfoResponse.setMobile(userVo.getMobile());
                 userVo.setLast_login_ip(this.getClientIp());
                 userVo.setLast_login_time(nowTime);
                 userService.update(userVo);

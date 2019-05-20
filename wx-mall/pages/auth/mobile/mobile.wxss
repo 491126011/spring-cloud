@@ -220,3 +220,7 @@
 .profile-button text {
   font-size: 25rpx;
 }
+
+.binded text {
+  font-size: 25rpx;
+}

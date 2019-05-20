@@ -22,6 +22,8 @@ public class UserInfo implements Serializable {
     //
     private String province;
 
+    private String mobile;
+
     public String getAvatarUrl() {
         return avatarUrl;
     }
@@ -60,5 +62,13 @@ public class UserInfo implements Serializable {
 
     public void setProvince(String province) {
         this.province = province;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }

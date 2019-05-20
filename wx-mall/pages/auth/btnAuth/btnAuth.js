@@ -11,6 +11,7 @@ Page({
   },
 
   onLoad: function(options) {
+    let type = options.type;
     let that = this;
     if (wx.getStorageSync("navUrl")) {
       that.setData({
@@ -22,36 +23,55 @@ Page({
       })
     }
 
-    let userInfo = wx.getStorageSync('userInfo');
-    let token = wx.getStorageSync('token');
-    if (userInfo && token) {
-      return;
-    }
-    wx.login({
-      success: function(res) {
-        if (res.code) {
-          that.setData({
-            code: res.code
-          })
+    //检测到后台token失效后(返回值401),重新发起微信登录wx.login
+    if (type = 401) {
+      wx.login({
+        success: function (res) {
+          if (res.code) {
+            that.setData({
+              code: res.code
+            })
+          }
         }
+      });
+    }else{
+      let userInfo = wx.getStorageSync('userInfo');
+      let token = wx.getStorageSync('token');
+      let timeout = wx.getStorageSync('tokenExpire');
+
+      if (userInfo && token && checkExpire(timeout)) {
+          return;
+      }else{
+        wx.login({
+          success: function (res) {
+            if (res.code) {
+              that.setData({
+                code: res.code
+              })
+            }
+          }
+        });
       }
-    });
+    }
   },
 
   bindGetUserInfo: function(e) {
     let that = this;
-    //登录远程服务器
+    //登录远程服务器,code通过用户授权后获得。
     if (that.data.code) {
       util.request(api.AuthLoginByWeixin, {
         code: that.data.code,
         userInfo: e.detail
       }, 'POST', 'application/json').then(res => {
         if (res.errno === 0) {
+          let timeout = Date.now() + 1000 * 60 * 60 * 12;
           //存储用户信息
           wx.setStorageSync('userInfo', res.data.userInfo);
           wx.setStorageSync('token', res.data.token);
-          wx.setStorageSync('userId', res.data.userId);
-
+          wx.setStorageSync('userId', res.data.userId); 
+          //有效期
+          wx.setStorageSync('userInfoExpire', timeout);
+          wx.setStorageSync('tokenExpire', timeout);
         } else {
           // util.showErrorToast(res.errmsg)
           wx.showModal({
