@@ -32,13 +32,14 @@ Page({
     });
   },
   onLoad: function () {
-
     this.getSearchKeyword();
   },
 
   getSearchKeyword() {
     let that = this;
     util.request(api.SearchIndex).then(function (res) {
+      console.log("##############", res.data);
+      console.log("###############################", res.errno);
       if (res.errno === 0) {
         that.setData({
           historyKeyword: res.data.historyKeywordList,
@@ -88,18 +89,23 @@ Page({
   },
   getGoodsList: function () {
     let that = this;
-    util.request(api.GoodsList, { keyword: that.data.keyword, page: that.data.page, size: that.data.size, sort: that.data.currentSortType, order: that.data.currentSortOrder, categoryId: that.data.categoryId }).then(function (res) {
+    util.request(api.GoodsList, { 
+      keyword: that.data.keyword, 
+      page: that.data.page, 
+      size: that.data.size, 
+      sort: that.data.currentSortType, 
+      order: that.data.currentSortOrder, 
+      categoryId: that.data.categoryId }).then(function (res) {
       if (res.errno === 0) {
         that.setData({
           searchStatus: true,
           categoryFilter: false,
-          goodsList: res.data.data,
+          goodsList: res.data.goodsList,
           filterCategory: res.data.filterCategory,
           page: res.data.currentPage,
           size: res.data.numsPerPage
         });
       }
-
       //重新获取关键词
       that.getSearchKeyword();
     });

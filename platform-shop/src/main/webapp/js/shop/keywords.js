@@ -50,7 +50,7 @@ var vm = new Vue({
         saveOrUpdate: function (event) {
             var url = vm.keywords.id == null ? "../keywords/save" : "../keywords/update";
 
-            confirm('确定要删除选中的记录？', function () {
+            // confirm('确定要删除选中的记录？', function () {
                 Ajax.request({
                     type: "POST",
                     url: url,
@@ -63,7 +63,7 @@ var vm = new Vue({
                     }
                 });
 
-            });
+            // });
         },
         del: function (event) {
             var ids = getSelectedRows("#jqGrid");
