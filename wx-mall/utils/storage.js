@@ -1,3 +1,7 @@
+/**
+ * 微信缓存工具类
+ * 可以对storage缓存设置过期时间
+ */
 class storage {
   constructor(props) {
     this.props = props || {};

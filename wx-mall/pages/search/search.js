@@ -38,8 +38,6 @@ Page({
   getSearchKeyword() {
     let that = this;
     util.request(api.SearchIndex).then(function (res) {
-      console.log("##############", res.data);
-      console.log("###############################", res.errno);
       if (res.errno === 0) {
         that.setData({
           historyKeyword: res.data.historyKeywordList,
@@ -111,9 +109,7 @@ Page({
     });
   },
   onKeywordTap: function (event) {
-
     this.getSearchResult(event.target.dataset.keyword);
-
   },
   getSearchResult(keyword) {
     this.setData({

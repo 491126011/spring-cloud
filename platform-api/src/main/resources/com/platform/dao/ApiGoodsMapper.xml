@@ -215,5 +215,6 @@
         <if test="is_on_sale != null and is_on_sale != ''">
             and is_on_sale = #{is_on_sale}
         </if>
+        and  category_id not in (select b.id from nideshop_category a,nideshop_category b where a.is_show=0 and a.id=b.parent_id)
 	</select>
 </mapper>
