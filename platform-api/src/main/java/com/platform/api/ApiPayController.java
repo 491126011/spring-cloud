@@ -139,6 +139,7 @@ public class ApiPayController extends ApiBaseAction {
                     // 业务处理
                     orderInfo.setPay_id(prepay_id);
                     // 付款中
+                    orderInfo.setReq_msg(xml);
                     orderInfo.setPay_status(1);
                     orderService.update(orderInfo);
                     return toResponsObject(0, "微信统一订单下单成功", resultObj);
@@ -269,6 +270,7 @@ public class ApiPayController extends ApiBaseAction {
                 orderInfo.setOrder_status(201);
                 orderInfo.setShipping_status(0);
                 orderInfo.setPay_time(new Date());
+                orderInfo.setNotify_msg(reponseXml);
                 orderService.update(orderInfo);
                 response.getWriter().write(setXml("SUCCESS", "OK"));
             }

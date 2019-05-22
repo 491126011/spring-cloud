@@ -100,6 +100,9 @@ public class OrderVo implements Serializable {
     private String full_region;//区县
     private String order_type; // 订单状态
 
+    private String req_msg;
+    private String notify_msg;
+
     public String getFull_region() {
     //    return full_region;
         if (StringUtils.isNotEmpty(this.full_region)){
@@ -516,5 +519,21 @@ public class OrderVo implements Serializable {
 
     public void setShipping_no(String shipping_no) {
         this.shipping_no = shipping_no;
+    }
+
+    public String getReq_msg() {
+        return req_msg;
+    }
+
+    public void setReq_msg(String req_msg) {
+        this.req_msg = req_msg;
+    }
+
+    public String getNotify_msg() {
+        return notify_msg;
+    }
+
+    public void setNotify_msg(String notify_msg) {
+        this.notify_msg = notify_msg;
     }
 }
