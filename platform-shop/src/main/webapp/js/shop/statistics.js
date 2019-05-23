@@ -29,7 +29,8 @@ let vm = new Vue({
             ]
         },
         q: {
-            name: ''
+            count_date_begin: '',
+            count_date_end:''
         }
     },
     methods: {
@@ -98,7 +99,10 @@ let vm = new Vue({
             vm.showList = true;
             let page = $("#jqGrid").jqGrid('getGridParam', 'page');
             $("#jqGrid").jqGrid('setGridParam', {
-                postData: {'name': vm.q.name},
+                postData: {
+                    'count_date_begin': vm.q.count_date_begin,
+                    'count_date_end':   vm.q.count_date_end
+                },
                 page: page
             }).trigger("reloadGrid");
             vm.handleReset('formValidate');

@@ -9,6 +9,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import com.github.pagehelper.util.StringUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -145,7 +146,9 @@ public class SmsUtil {
         SendSmsRequest request = new SendSmsRequest();
         request.setPhoneNumbers(phone);
         request.setSignName(signName);
-        request.setTemplateCode("SMS_144145503");
+        if(StringUtil.isEmpty(templateCode)){
+            request.setTemplateCode("SMS_144145503");
+        }
 
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
         request.setTemplateParam("{ \"code\":\"" + content + "\"}");

@@ -56,8 +56,11 @@
         `add_time`
         from nideshop_statistics
         WHERE 1=1
-        <if test="name != null and name.trim() != ''">
-            AND name LIKE concat('%',#{name},'%')
+        <if test="count_date_begin !=null and count_date_begin !='' " >
+            and <![CDATA[count_date>=#{count_date_begin}]]>
+        </if>
+        <if test="count_date_end !=null and count_date_end !='' " >
+            and <![CDATA[count_date<=#{count_date_end}]]>
         </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -78,6 +81,7 @@
         <if test="name != null and name.trim() != ''">
             AND name LIKE concat('%',#{name},'%')
         </if>
+
     </select>
 
     <insert id="save" parameterType="com.platform.entity.StatisticsEntity" useGeneratedKeys="true" keyProperty="id">
