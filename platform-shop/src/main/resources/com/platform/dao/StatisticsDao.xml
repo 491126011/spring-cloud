@@ -57,10 +57,10 @@
         from nideshop_statistics
         WHERE 1=1
         <if test="count_date_begin !=null and count_date_begin !='' " >
-            and <![CDATA[count_date>=#{count_date_begin}]]>
+            and count_date between date_format(#{count_date_begin},'%Y-%m-%d')
         </if>
         <if test="count_date_end !=null and count_date_end !='' " >
-            and <![CDATA[count_date<=#{count_date_end}]]>
+            and date_format(#{count_date_end},'%Y-%m-%d')
         </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -80,6 +80,12 @@
         WHERE 1=1
         <if test="name != null and name.trim() != ''">
             AND name LIKE concat('%',#{name},'%')
+        </if>
+        <if test="count_date_begin !=null and count_date_begin !='' " >
+            and count_date between date_format(#{count_date_begin},'%Y-%m-%d')
+        </if>
+        <if test="count_date_end !=null and count_date_end !='' " >
+            and date_format(#{count_date_end},'%Y-%m-%d')
         </if>
 
     </select>

@@ -14,8 +14,8 @@ function formatTime(date) {
 
 /**
  * 检查时间是否大于当前时间
- * false  当前时间大于指定时间
- * true   当前时间小于指定时间
+ * false  己过期,当前时间大于指定时间
+ * true   未过期,当前时间小于指定时间
  */
 function checkExpire(timeout){
   return Date.now() < timeout? true : false;
@@ -34,6 +34,11 @@ function request(url, data = {}, method = "POST", header = "application/x-www-fo
         title: '加载中...',
     });
     return new Promise(function (resolve, reject) {
+        var pages  =  getCurrentPages();
+        var prevPage = pages[pages.length - 2];//上一页
+        if (prevPage) {
+          wx.setStorageSync("navUrl", prevPage.route);
+        }
         wx.request({
             url: url,
             data: data,
