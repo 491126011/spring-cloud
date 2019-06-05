@@ -34,23 +34,22 @@ function request(url, data = {}, method = "POST", header = "application/x-www-fo
         title: '加载中...',
     });
     return new Promise(function (resolve, reject) {
-        var pages  =  getCurrentPages();
-        var prevPage = pages[pages.length - 2];//上一页
-        if (prevPage) {
-          wx.setStorageSync("navUrl", prevPage.route);
-        }
+        //var pages  =  getCurrentPages();
+        //var prevPage = pages[pages.length - 2];//上一页
+        //if (prevPage) {
+        //  wx.setStorageSync("navUrl", prevPage.route);
+        //}
         wx.request({
             url: url,
             data: data,
             method: method,
             header: {
-                'Content-Type': header,
-                'X-Nideshop-Token': wx.getStorageSync('token')
+              'Content-Type': header,
+              'X-Nideshop-Token': wx.getStorageSync('token')
             },
             success: function (res) {
                 wx.hideLoading();
                 if (res.statusCode == 200) {
-
                     if (res.data.errno == 401) {
                         wx.navigateTo({
                             url: '/pages/auth/btnAuth/btnAuth?type=401',
@@ -61,7 +60,6 @@ function request(url, data = {}, method = "POST", header = "application/x-www-fo
                 } else {
                     reject(res.errMsg);
                 }
-
             },
             fail: function (err) {
                 reject(err)
@@ -144,5 +142,3 @@ module.exports = {
     login,
     checkExpire,
 }
-
-

@@ -42,14 +42,3 @@ function payOrder(orderId) {
 module.exports = {
   payOrder,
 };
-
-
-
-
-
-
-
-
-
-
-
