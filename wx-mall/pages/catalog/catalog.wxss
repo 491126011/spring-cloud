@@ -21,7 +21,7 @@ page {
 
 .search .input {
   width: 690rpx;
-  height: 56rpx;
+  height: 70rpx;
   background: #ededed;
   border-radius: 8rpx;
   display: flex;
