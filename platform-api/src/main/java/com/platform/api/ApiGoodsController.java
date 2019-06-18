@@ -474,7 +474,7 @@ public class ApiGoodsController extends ApiBaseAction {
         Map bannerInfo = new HashMap();
         bannerInfo.put("url", "");
         bannerInfo.put("name", "坚持初心，为你寻觅世间好物");
-        bannerInfo.put("img_url", "https://platform-wxmall.oss-cn-beijing.aliyuncs.com/upload/20180727/1504208321fef4.png");
+        bannerInfo.put("img_url", "https://siiika-commerce.oss-cn-hangzhou.aliyuncs.com/goods/1504208321fef4.png");
         resultObj.put("bannerInfo", bannerInfo);
         return toResponsSuccess(resultObj);
     }
@@ -490,7 +490,7 @@ public class ApiGoodsController extends ApiBaseAction {
         Map bannerInfo = new HashMap();
         bannerInfo.put("url", "");
         bannerInfo.put("name", "大家都在买的严选好物");
-        bannerInfo.put("img_url", "https://platform-wxmall.oss-cn-beijing.aliyuncs.com/upload/20180727/1504208321fef4.png");
+        bannerInfo.put("img_url", "https://siiika-commerce.oss-cn-hangzhou.aliyuncs.com/goods/1504208321fef4.png");
         resultObj.put("bannerInfo", bannerInfo);
         return toResponsSuccess(resultObj);
     }

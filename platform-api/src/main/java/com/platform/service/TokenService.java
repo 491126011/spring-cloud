@@ -5,18 +5,16 @@ import com.platform.entity.TokenEntity;
 import com.platform.utils.CharUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 
 @Service
 public class TokenService {
     @Autowired
     private ApiTokenMapper tokenDao;
     //30天后过期
-    private final static int EXPIRE = 3600 * 12 * 30;
+    private final static long EXPIRE = 3600 * 12 * 30;
 
     public TokenEntity queryByUserId(Long userId) {
         return tokenDao.queryByUserId(userId);

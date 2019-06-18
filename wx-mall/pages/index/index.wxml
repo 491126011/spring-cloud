@@ -84,7 +84,7 @@
     </view>
   </view>
 
-  <view class="a-section a-popular" wx:if="{{hotGoods.length > 0}}">
+  <view class="a-section a-popular" wx:if="{{hotGoods.length > 0}}" style="display:none">
     <view class="h">
       <view>
         <navigator url="../hotGoods/hotGoods">

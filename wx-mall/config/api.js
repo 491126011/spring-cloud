@@ -1,6 +1,6 @@
 const root = '/api/';
+//const API_BASE_URL = 'http://www.siiika.com' + root;
 const API_BASE_URL = 'https://wx.siiika.com' + root;
-
 module.exports = {
     IndexUrlNewGoods: API_BASE_URL + 'index/newGoods', //新品首发
     IndexUrlHotGoods: API_BASE_URL + 'index/hotGoods', //热卖商品

@@ -64,6 +64,11 @@
       </navigator>
     </view>
   </view>
+<<<<<<< Updated upstream
   <view class='company'>摩艾-品质与美</view>
   <!-- <view class="logout" bindtap="exitLogin">退出登录</view> -->
+=======
+  <view class='company'>摩艾 - 品质与美</view>
+  <!--<view class="logout" bindtap="exitLogin">退出登录</view>-->
+>>>>>>> Stashed changes
 </view>
