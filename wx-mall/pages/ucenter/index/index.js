@@ -37,9 +37,9 @@ Page({
         // 页面关闭
     },
     bindGetUserInfo(e) {
-      let userInfo = wx.getStorageSync('userInfo');
-      let token = wx.getStorageSync('token');
-      let timeout = wx.getStorageSync('tokenExpire');
+      let userInfo =  wx.getStorageSync('userInfo');
+      let token =     wx.getStorageSync('token');
+      let timeout =   wx.getStorageSync('tokenExpire');
       let isTimeOut = util.checkExpire(timeout);
 
       if (userInfo && token && !isTimeOut) {
@@ -98,6 +98,5 @@ Page({
                 }
             }
         })
-
     }
 })
