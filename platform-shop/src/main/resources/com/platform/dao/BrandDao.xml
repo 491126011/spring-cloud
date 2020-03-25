@@ -16,6 +16,8 @@
         <result property="isNew" column="is_new"/>
         <result property="newPicUrl" column="new_pic_url"/>
         <result property="newSortOrder" column="new_sort_order"/>
+        <result property="sellerId" column="seller_id"/>
+
     </resultMap>
 
     <select id="queryObject" resultType="com.platform.entity.BrandEntity">
@@ -31,7 +33,8 @@
 			`app_list_pic_url`,
 			`is_new`,
 			`new_pic_url`,
-			`new_sort_order`
+			`new_sort_order`,
+			`seller_id`
 		from nideshop_brand
 		where id = #{id}
 	</select>
@@ -49,11 +52,15 @@
         `app_list_pic_url`,
         `is_new`,
         `new_pic_url`,
-        `new_sort_order`
+        `new_sort_order`,
+        `seller_id`
         from nideshop_brand
         WHERE 1=1
         <if test="name != null and name.trim() != ''">
             AND name LIKE concat('%',#{name},'%')
+        </if>
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
         </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -74,6 +81,9 @@
         <if test="name != null and name.trim() != ''">
             AND name LIKE concat('%',#{name},'%')
         </if>
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
     </select>
 
     <insert id="save" parameterType="com.platform.entity.BrandEntity" useGeneratedKeys="true" keyProperty="id">
@@ -88,7 +98,8 @@
 			`app_list_pic_url`,
 			`is_new`,
 			`new_pic_url`,
-			`new_sort_order`)
+			`new_sort_order`,
+			`seller_id`)
 		values(
 			#{name},
 			#{listPicUrl},
@@ -100,7 +111,8 @@
 			#{appListPicUrl},
 			#{isNew},
 			#{newPicUrl},
-			#{newSortOrder})
+			#{newSortOrder},
+			#{sellerId})
 	</insert>
 
     <update id="update" parameterType="com.platform.entity.BrandEntity">

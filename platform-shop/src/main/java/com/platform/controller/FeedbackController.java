@@ -1,25 +1,18 @@
 package com.platform.controller;
 
+import com.platform.entity.FeedbackEntity;
+import com.platform.service.FeedbackService;
+import com.platform.utils.*;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.platform.entity.FeedbackEntity;
-import com.platform.service.FeedbackService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
-
 /**
  * Controller
- *
+ * 反馈
  * @author lipengjun
  * @email 939961241@qq.com
  * @date 2017-08-23 15:03:25
@@ -36,6 +29,10 @@ public class FeedbackController {
     @RequestMapping("/list")
     @RequiresPermissions("feedback:list")
     public R list(@RequestParam Map<String, Object> params) {
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         //查询列表数据
         Query query = new Query(params);
 
@@ -64,6 +61,7 @@ public class FeedbackController {
     @RequestMapping("/save")
     @RequiresPermissions("feedback:save")
     public R save(@RequestBody FeedbackEntity feedback) {
+        feedback.setSellerId(ShiroUtils.getUserId());
         feedbackService.save(feedback);
 
         return R.ok();
@@ -96,7 +94,10 @@ public class FeedbackController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
-
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         List<FeedbackEntity> list = feedbackService.queryList(params);
 
         return R.ok().put("list", list);

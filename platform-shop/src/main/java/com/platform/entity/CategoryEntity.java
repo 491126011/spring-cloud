@@ -44,6 +44,17 @@ public class CategoryEntity extends Tree<CategoryEntity> {
     //翻译用字段
     private String show;
 
+    private Long sellerId;
+
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
+
     public String getShow() {
         return show;
     }

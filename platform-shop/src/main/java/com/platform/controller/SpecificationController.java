@@ -2,9 +2,7 @@ package com.platform.controller;
 
 import com.platform.entity.SpecificationEntity;
 import com.platform.service.SpecificationService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
+import com.platform.utils.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +30,10 @@ public class SpecificationController {
     @RequestMapping("/list")
     @RequiresPermissions("specification:list")
     public R list(@RequestParam Map<String, Object> params) {
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         //查询列表数据
         Query query = new Query(params);
 
@@ -61,6 +63,7 @@ public class SpecificationController {
     @RequestMapping("/save")
     @RequiresPermissions("specification:save")
     public R save(@RequestBody SpecificationEntity specification) {
+        specification.setSellerId(ShiroUtils.getUserId());
         specificationService.save(specification);
 
         return R.ok();
@@ -93,7 +96,10 @@ public class SpecificationController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
-
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         List<SpecificationEntity> list = specificationService.queryList(params);
 
         return R.ok().put("list", list);

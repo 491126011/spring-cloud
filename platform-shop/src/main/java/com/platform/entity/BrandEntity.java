@@ -39,7 +39,16 @@ public class BrandEntity implements Serializable {
     private String newPicUrl;
     //排序
     private Integer newSortOrder;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     /**
      * 设置：主键
      */

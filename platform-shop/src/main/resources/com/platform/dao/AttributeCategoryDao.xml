@@ -7,13 +7,16 @@
         <result property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="enabled" column="enabled"/>
+        <result property="sellerId" column="seller_id"/>
+
     </resultMap>
 
     <select id="queryObject" resultType="com.platform.entity.AttributeCategoryEntity">
 		select
 			id,
 			name,
-			enabled
+			enabled,
+			seller_id
 		from nideshop_attribute_category
 		where id = #{id}
 	</select>
@@ -22,7 +25,8 @@
         select
         id,
         name,
-        enabled
+        enabled,
+        seller_id
         from nideshop_attribute_category
         WHERE 1=1
         <if test="name != null and name.trim() != ''">
@@ -30,6 +34,9 @@
         </if>
         <if test="enabled != null and enabled.trim() != ''">
             AND enabled = #{enabled}
+        </if>
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
         </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -47,17 +54,22 @@
     <select id="queryTotal" resultType="int">
 		select count(*) from nideshop_attribute_category
 		WHERE 1=1
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
 	</select>
 
     <insert id="save" parameterType="com.platform.entity.AttributeCategoryEntity">
 		insert into nideshop_attribute_category(
 			`id`,
 			`name`,
-			`enabled`)
+			`enabled`,
+			`seller_id`)
 		values(
 			#{id},
 			#{name},
-			#{enabled})
+			#{enabled},
+			#{sellerId})
 	</insert>
 
     <update id="update" parameterType="com.platform.entity.AttributeCategoryEntity">

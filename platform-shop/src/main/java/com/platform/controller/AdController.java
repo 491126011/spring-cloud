@@ -2,9 +2,7 @@ package com.platform.controller;
 
 import com.platform.entity.AdEntity;
 import com.platform.service.AdService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
+import com.platform.utils.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +29,12 @@ public class AdController {
     @RequestMapping("/list")
     @RequiresPermissions("ad:list")
     public R list(@RequestParam Map<String, Object> params) {
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
+        }
         //查询列表数据
         Query query = new Query(params);
 
@@ -60,6 +64,7 @@ public class AdController {
     @RequestMapping("/save")
     @RequiresPermissions("ad:save")
     public R save(@RequestBody AdEntity ad) {
+        ad.setSellerId(ShiroUtils.getUserId());
         adService.save(ad);
 
         return R.ok();
@@ -92,7 +97,10 @@ public class AdController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
-
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         List<AdEntity> list = adService.queryList(params);
 
         return R.ok().put("list", list);

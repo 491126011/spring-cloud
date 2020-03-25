@@ -77,6 +77,8 @@ public class CouponServiceImpl implements CouponService {
         // 发放方式 0：按订单发放 1：按用户发放 2:商品转发送券 3：按商品发放 4:新用户注册  5：线下发放 6评价好评红包（固定或随机红包）
         Integer sendType = MapUtils.getInteger(params, "sendType");
         Integer couponId = MapUtils.getInteger(params, "couponId");
+        Long sellerId = MapUtils.getLong(params, "sellerId");
+
         if (null == sendType) {
             return R.error("发放方式不能为空");
         }
@@ -100,6 +102,7 @@ public class CouponServiceImpl implements CouponService {
                 userCouponVo.setCouponId(couponId);
                 userCouponVo.setCouponNumber("1");
                 userCouponVo.setAddTime(new Date());
+                userCouponVo.setSellerId(sellerId);
                 userCouponDao.save(userCouponVo);
                 if (sendSms) {
                     UserEntity userEntity = userDao.queryObject(userId);

@@ -15,6 +15,7 @@
         <result property="useStartDate" column="use_start_date"/>
         <result property="useEndDate" column="use_end_date"/>
         <result property="minGoodsAmount" column="min_goods_amount"/>
+        <result property="sellerId" column="seller_id"/>
     </resultMap>
 
     <select id="queryObject" resultType="com.platform.entity.CouponEntity">
@@ -29,7 +30,8 @@
 			`send_end_date`,
 			`use_start_date`,
 			`use_end_date`,
-			`min_goods_amount`
+			`min_goods_amount`,
+			`seller_id`
 		from nideshop_coupon
 		where id = #{id}
 	</select>
@@ -46,11 +48,15 @@
         `send_end_date`,
         `use_start_date`,
         `use_end_date`,
-        `min_goods_amount`
+        `min_goods_amount`,
+        `seller_id`
         from nideshop_coupon
         WHERE 1=1
         <if test="name != null and name.trim() != ''">
             AND name LIKE concat('%',#{name},'%')
+        </if>
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
         </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -73,7 +79,8 @@
 			`send_end_date`,
 			`use_start_date`,
 			`use_end_date`,
-			`min_goods_amount`)
+			`min_goods_amount`,
+			`seller_id`)
 		values(
 			#{name},
 			#{typeMoney},
@@ -84,7 +91,8 @@
 			#{sendEndDate},
 			#{useStartDate},
 			#{useEndDate},
-			#{minGoodsAmount})
+			#{minGoodsAmount},
+			#{sellerId})
 	</insert>
 
     <update id="update" parameterType="com.platform.entity.CouponEntity">

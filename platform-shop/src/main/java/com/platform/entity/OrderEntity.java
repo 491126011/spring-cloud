@@ -90,7 +90,16 @@ public class OrderEntity implements Serializable {
 
     //
     private String userName;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     public String getOrderType() {
         return orderType;
     }

@@ -14,6 +14,10 @@ public class Constant {
     public static final int SUPER_ADMIN = 1;
 
     /**
+     * 可能有多个超管 100以内都认为是管理员
+     */
+    public static final int SUPER_ADMIN_MAX = 100;
+    /**
      * ORACLE、MYSQL
      */
     public static final String USE_DATA = "MYSQL";

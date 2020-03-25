@@ -44,7 +44,16 @@ public class FeedbackEntity implements Serializable {
 //    private Integer orderId;
     //
 //    private Integer msgArea;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     /**
      * 设置：主键
      */

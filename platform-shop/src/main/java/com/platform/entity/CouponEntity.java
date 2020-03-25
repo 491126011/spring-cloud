@@ -38,7 +38,16 @@ public class CouponEntity implements Serializable {
     private Date useEndDate;
     //最小商品金额
     private BigDecimal minGoodsAmount;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     /**
      * 设置：主键
      */

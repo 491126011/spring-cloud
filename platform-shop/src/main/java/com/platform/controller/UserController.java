@@ -2,9 +2,7 @@ package com.platform.controller;
 
 import com.platform.entity.UserEntity;
 import com.platform.service.UserService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
+import com.platform.utils.*;
 import com.platform.utils.excel.ExcelExport;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +33,12 @@ public class UserController {
     @RequestMapping("/list")
     @RequiresPermissions("user:list")
     public R list(@RequestParam Map<String, Object> params) {
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         //查询列表数据
         Query query = new Query(params);
-
         List<UserEntity> userList = userService.queryList(query);
         int total = userService.queryTotal(query);
 
@@ -64,6 +65,7 @@ public class UserController {
     @RequestMapping("/save")
     @RequiresPermissions("user:save")
     public R save(@RequestBody UserEntity user) {
+        user.setSellerId(ShiroUtils.getUserId());
         userService.save(user);
 
         return R.ok();
@@ -96,7 +98,10 @@ public class UserController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
-
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         List<UserEntity> userList = userService.queryList(params);
 
         return R.ok().put("list", userList);
@@ -107,6 +112,10 @@ public class UserController {
      */
     @RequestMapping("/queryTotal")
     public R queryTotal(@RequestParam Map<String, Object> params) {
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         int sum = userService.queryTotal(params);
 
         return R.ok().put("userSum", sum);
@@ -118,7 +127,10 @@ public class UserController {
     @RequestMapping("/export")
     @RequiresPermissions("user:export")
     public R export(@RequestParam Map<String, Object> params, HttpServletResponse response) {
-
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         List<UserEntity> userList = userService.queryList(params);
 
         ExcelExport ee = new ExcelExport("会员列表");

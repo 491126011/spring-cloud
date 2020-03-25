@@ -43,6 +43,17 @@ public class UserEntity implements Serializable {
     //微信Id
     private String weixinOpenid;
 
+    private Long sellerId;
+
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
+
     /**
      * 翻译用的字段
      */

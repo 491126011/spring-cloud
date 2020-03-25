@@ -2,9 +2,7 @@ package com.platform.controller;
 
 import com.platform.entity.ProductEntity;
 import com.platform.service.ProductService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
+import com.platform.utils.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +13,7 @@ import java.util.Map;
 
 /**
  * Controller
- *
+ * 产品设置
  * @author lipengjun
  * @email 939961241@qq.com
  * @date 2017-08-30 14:31:21
@@ -32,6 +30,10 @@ public class ProductController {
     @RequestMapping("/list")
     @RequiresPermissions("product:list")
     public R list(@RequestParam Map<String, Object> params) {
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         //查询列表数据
         Query query = new Query(params);
 
@@ -60,6 +62,7 @@ public class ProductController {
     @RequestMapping("/save")
     @RequiresPermissions("product:save")
     public R save(@RequestBody ProductEntity product) {
+        product.setSellerId(ShiroUtils.getUserId());
         productService.save(product);
 
         return R.ok();
@@ -95,7 +98,10 @@ public class ProductController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
-
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         List<ProductEntity> list = productService.queryList(params);
 
         return R.ok().put("list", list);

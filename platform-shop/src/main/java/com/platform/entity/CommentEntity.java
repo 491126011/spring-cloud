@@ -36,7 +36,16 @@ public class CommentEntity implements Serializable {
     private String userName;
     //商品
     private String valueName;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     public String getUserName() {
         return userName;
     }

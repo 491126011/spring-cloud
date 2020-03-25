@@ -11,6 +11,8 @@
         <result property="usedTime" column="used_time"/>
         <result property="orderId" column="order_id"/>
         <result property="addTime" column="add_time"/>
+        <result property="sellerId" column="seller_id"/>
+
     </resultMap>
 
     <select id="queryObject" resultType="com.platform.entity.UserCouponEntity">
@@ -21,7 +23,8 @@
 			`user_id`,
 			`used_time`,
 			`add_time`,
-			`order_id`
+			`order_id`,
+            `seller_id`
 		from nideshop_user_coupon
 		where id = #{id}
 	</select>
@@ -36,7 +39,8 @@
         nideshop_user_coupon.add_time,
         nideshop_user_coupon.order_id,
         nideshop_user.username user_name,
-        nideshop_coupon.name coupon_name
+        nideshop_coupon.name coupon_name,
+        nideshop_user_coupon.seller_id
         from nideshop_user_coupon
         LEFT JOIN nideshop_user ON nideshop_user_coupon.user_id = nideshop_user.id
         LEFT JOIN nideshop_coupon ON nideshop_user_coupon.coupon_id = nideshop_coupon.id
@@ -46,6 +50,9 @@
         </if>
         <if test="couponName != null and couponName.trim() != ''">
             AND nideshop_coupon.name LIKE concat('%',#{couponName},'%')
+        </if>
+        <if test="sellerId != null">
+            and nideshop_user_coupon.seller_id   = #{sellerId}
         </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -71,6 +78,9 @@
         <if test="couponName != null and couponName.trim() != ''">
             AND nideshop_coupon.name LIKE concat('%',#{couponName},'%')
         </if>
+        <if test="sellerId != null">
+            and nideshop_user_coupon.seller_id   = #{sellerId}
+        </if>
     </select>
 
     <insert id="save" parameterType="com.platform.entity.UserCouponEntity" useGeneratedKeys="true" keyProperty="id">
@@ -80,14 +90,16 @@
 			`user_id`,
 			`used_time`,
 			`add_time`,
-			`order_id`)
+			`order_id`,
+			`seller_id`)
 		values(
 			#{couponId},
 			#{couponNumber},
 			#{userId},
 			#{usedTime},
 			#{addTime},
-			#{orderId})
+			#{orderId}),
+			#{sellerId})
 	</insert>
 
     <update id="update" parameterType="com.platform.entity.UserCouponEntity">

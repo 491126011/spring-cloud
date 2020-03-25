@@ -2,10 +2,7 @@ package com.platform.controller;
 
 import com.platform.entity.CategoryEntity;
 import com.platform.service.CategoryService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
-import com.platform.utils.TreeUtils;
+import com.platform.utils.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +13,7 @@ import java.util.Map;
 
 /**
  * Controller
- *
+ * 商品类型
  * @author lipengjun
  * @email 939961241@qq.com
  * @date 2017-08-21 15:32:31
@@ -33,6 +30,10 @@ public class CategoryController {
     @RequestMapping("/list")
     @RequiresPermissions("category:list")
     public R list(@RequestParam Map<String, Object> params) {
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         //查询列表数据
         Query query = new Query(params);
 
@@ -61,6 +62,7 @@ public class CategoryController {
     @RequestMapping("/save")
     @RequiresPermissions("category:save")
     public R save(@RequestBody CategoryEntity category) {
+        category.setSellerId(ShiroUtils.getUserId());
         categoryService.save(category);
 
         return R.ok();
@@ -93,7 +95,10 @@ public class CategoryController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
-
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         List<CategoryEntity> list = categoryService.queryList(params);
         //添加顶级菜单
         CategoryEntity root = new CategoryEntity();
@@ -110,7 +115,12 @@ public class CategoryController {
      */
     @RequestMapping("/getAreaTree")
     public R getAreaTree() {
-        List<CategoryEntity> list = categoryService.queryList(new HashMap<String, Object>());
+        HashMap<String, Object> params = new HashMap<>();
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
+        List<CategoryEntity> list = categoryService.queryList(params);
         for (CategoryEntity sysRegionEntity : list) {
             sysRegionEntity.setValue(sysRegionEntity.getId() + "");
             sysRegionEntity.setLabel(sysRegionEntity.getName());
@@ -129,6 +139,8 @@ public class CategoryController {
     public R getCategorySelect() {
         Map<String, Object> map = new HashMap<>();
         map.put("parentId", "0");
+        Long userId = ShiroUtils.getUserId();
+        map.put("sellerId",userId);
         List<CategoryEntity> list = categoryService.queryList(map);
         return R.ok().put("list", list);
     }

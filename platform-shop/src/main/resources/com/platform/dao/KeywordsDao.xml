@@ -12,7 +12,9 @@
         <result property="sortOrder" column="sort_order"/>
         <result property="schemeUrl" column="scheme_url"/>
         <result property="type" column="type"/>
-    </resultMap>
+		<result property="sellerId" column="seller_id"/>
+
+	</resultMap>
 
 	<select id="queryObject" resultType="com.platform.entity.KeywordsEntity">
 		select
@@ -23,7 +25,8 @@
 			`is_show`,
 			`sort_order`,
 			`scheme_url`,
-			`type`
+			`type`,
+			`seller_id`
 		from nideshop_keywords
 		where id = #{id}
 	</select>
@@ -42,6 +45,9 @@
 		WHERE 1=1
 		<if test="keyword != null and keyword.trim() != ''">
 			AND keyword LIKE concat('%',#{keyword},'%')
+		</if>
+		<if test="sellerId != null">
+			and seller_id   = #{sellerId}
 		</if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -62,6 +68,9 @@
         <if test="keyword != null and keyword.trim() != ''">
             AND keyword LIKE concat('%',#{keyword},'%')
         </if>
+		<if test="sellerId != null">
+			and seller_id   = #{sellerId}
+		</if>
 	</select>
 	 
 	<insert id="save" parameterType="com.platform.entity.KeywordsEntity" useGeneratedKeys="true" keyProperty="id">
@@ -72,7 +81,8 @@
 			`is_show`,
 			`sort_order`,
 			`scheme_url`,
-			`type`)
+			`type`,
+			`seller_id`)
 		values(
 			#{keyword},
 			#{isHot},
@@ -80,7 +90,8 @@
 			#{isShow},
 			#{sortOrder},
 			#{schemeUrl},
-			#{type})
+			#{type},
+			#{sellerId})
 	</insert>
 	 
 	<update id="update" parameterType="com.platform.entity.KeywordsEntity">

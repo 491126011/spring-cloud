@@ -19,7 +19,8 @@
         <result property="level" column="level"/>
         <result property="type" column="type"/>
         <result property="frontName" column="front_name"/>
-    </resultMap>
+		<result property="sellerId" column="seller_id"/>
+	</resultMap>
 
 	<select id="queryObject" resultType="com.platform.entity.CategoryEntity">
 		select
@@ -38,7 +39,8 @@
 			`level`,
 			`type`,
 			`front_name`,
-			`is_show` as `show`
+			`is_show` as `show`,
+			`seller_id`
 		from nideshop_category
 		where id = #{id}
 	</select>
@@ -69,6 +71,9 @@
 		<if test="parentId != null and parentId != ''">
 			AND `parent_id` = #{parentId}
 		</if>
+		<if test="sellerId != null">
+			and seller_id   = #{sellerId}
+		</if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -88,6 +93,9 @@
         <if test="name != null and name.trim() != ''">
             AND name LIKE concat('%',#{name},'%')
         </if>
+		<if test="sellerId != null">
+			and seller_id   = #{sellerId}
+		</if>
 	</select>
 	 
 	<insert id="save" parameterType="com.platform.entity.CategoryEntity">
@@ -106,7 +114,8 @@
 			`wap_banner_url`,
 			`level`,
 			`type`,
-			`front_name`)
+			`front_name`,
+			`seller_id`)
 		values(
 			#{id},
 			#{name},
@@ -122,7 +131,8 @@
 			#{wapBannerUrl},
 			#{level},
 			#{type},
-			#{frontName})
+			#{frontName},
+			#{sellerId})
 	</insert>
 	 
 	<update id="update" parameterType="com.platform.entity.CategoryEntity">

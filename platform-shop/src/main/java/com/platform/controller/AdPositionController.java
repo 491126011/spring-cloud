@@ -2,9 +2,7 @@ package com.platform.controller;
 
 import com.platform.entity.AdPositionEntity;
 import com.platform.service.AdPositionService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
+import com.platform.utils.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +29,10 @@ public class AdPositionController {
     @RequestMapping("/list")
     @RequiresPermissions("adposition:list")
     public R list(@RequestParam Map<String, Object> params) {
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         //查询列表数据
         Query query = new Query(params);
 
@@ -60,6 +62,7 @@ public class AdPositionController {
     @RequestMapping("/save")
     @RequiresPermissions("adposition:save")
     public R save(@RequestBody AdPositionEntity adPosition) {
+        adPosition.setSellerId(ShiroUtils.getUserId());
         adPositionService.save(adPosition);
 
         return R.ok();
@@ -92,7 +95,10 @@ public class AdPositionController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
-
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         List<AdPositionEntity> list = adPositionService.queryList(params);
 
         return R.ok().put("list", list);

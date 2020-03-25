@@ -33,7 +33,16 @@ public class AdEntity implements Serializable {
     private Date endTime;
     //状态
     private Integer enabled;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     /**
      * 翻译字段用
      */

@@ -1,26 +1,22 @@
 package com.platform.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.platform.entity.CartEntity;
 import com.platform.service.CartService;
 import com.platform.utils.PageUtils;
 import com.platform.utils.Query;
 import com.platform.utils.R;
+import com.platform.utils.ShiroUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**
- * 
- * 
+ *
+ * 购物车
  * @author lipengjun
  * @email 939961241@qq.com
  * @date 2017-08-13 10:41:06
@@ -37,6 +33,8 @@ public class CartController {
 	@RequestMapping("/list")
 	@RequiresPermissions("cart:list")
 	public R list(@RequestParam Map<String, Object> params){
+		Long userId = ShiroUtils.getUserId();
+		params.put("sellerId",userId);
 		//查询列表数据
         Query query = new Query(params);
 
@@ -66,6 +64,7 @@ public class CartController {
 	@RequestMapping("/save")
 	@RequiresPermissions("cart:save")
 	public R save(@RequestBody CartEntity cart){
+		cart.setSellerId(ShiroUtils.getUserId());
 		cartService.save(cart);
 		
 		return R.ok();

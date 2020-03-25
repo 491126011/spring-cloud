@@ -4,9 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.platform.entity.CouponEntity;
 import com.platform.service.CouponService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
+import com.platform.utils.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +31,10 @@ public class CouponController {
     @RequestMapping("/list")
     @RequiresPermissions("coupon:list")
     public R list(@RequestParam Map<String, Object> params) {
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         //查询列表数据
         Query query = new Query(params);
         PageHelper.startPage(query.getPage(), query.getLimit());
@@ -60,6 +62,8 @@ public class CouponController {
     @RequestMapping("/save")
     @RequiresPermissions("coupon:save")
     public R save(@RequestBody CouponEntity coupon) {
+        coupon.setSellerId(ShiroUtils.getUserId());
+
         couponService.save(coupon);
 
         return R.ok();
@@ -92,7 +96,10 @@ public class CouponController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
-
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         List<CouponEntity> list = couponService.queryList(params);
 
         return R.ok().put("list", list);
@@ -107,6 +114,10 @@ public class CouponController {
     @RequiresPermissions("coupon:publish")
     @RequestMapping(value = "publish", method = RequestMethod.POST)
     public R publish(@RequestBody Map<String, Object> params) {
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         return couponService.publish(params);
     }
 }

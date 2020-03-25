@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * 实体
  * 表名 nideshop_attribute_category
- *
+ * 商品属性种类
  * @author lipengjun
  * @email 939961241@qq.com
  * @date 2017-08-17 16:13:27
@@ -20,6 +20,17 @@ public class AttributeCategoryEntity implements Serializable {
     private String name;
     //
     private Integer enabled;
+
+    private Long sellerId;
+
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
 
     /**
      * 设置：

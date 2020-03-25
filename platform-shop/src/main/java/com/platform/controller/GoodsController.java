@@ -2,9 +2,7 @@ package com.platform.controller;
 
 import com.platform.entity.GoodsEntity;
 import com.platform.service.GoodsService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
+import com.platform.utils.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +12,7 @@ import java.util.Map;
 
 /**
  * Controller
- *
+ *商品
  * @author lipengjun
  * @email 939961241@qq.com
  * @date 2017-08-21 21:19:49
@@ -31,6 +29,10 @@ public class GoodsController {
     @RequestMapping("/list")
     @RequiresPermissions("goods:list")
     public R list(@RequestParam Map<String, Object> params) {
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         //查询列表数据
         Query query = new Query(params);
 
@@ -60,6 +62,7 @@ public class GoodsController {
     @RequestMapping("/save")
     @RequiresPermissions("goods:save")
     public R save(@RequestBody GoodsEntity goods) {
+        goods.setSellerId(ShiroUtils.getUserId());
         goodsService.save(goods);
 
         return R.ok();
@@ -92,7 +95,10 @@ public class GoodsController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
-
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         params.put("isDelete", 0);
         List<GoodsEntity> list = goodsService.queryList(params);
 
@@ -108,6 +114,10 @@ public class GoodsController {
      */
     @RequestMapping("/historyList")
     public R historyList(@RequestParam Map<String, Object> params) {
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         //查询列表数据
         Query query = new Query(params);
 
@@ -136,7 +146,10 @@ public class GoodsController {
      */
     @RequestMapping("/queryTotal")
     public R queryTotal(@RequestParam Map<String, Object> params) {
-
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         params.put("isDelete", 0);
         int sum = goodsService.queryTotal(params);
         return R.ok().put("goodsSum", sum);

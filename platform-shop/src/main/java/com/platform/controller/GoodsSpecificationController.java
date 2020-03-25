@@ -1,21 +1,14 @@
 package com.platform.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.platform.entity.GoodsSpecificationEntity;
 import com.platform.service.GoodsSpecificationService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
+import com.platform.utils.*;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 商品对应规格表值表Controller
@@ -36,6 +29,10 @@ public class GoodsSpecificationController {
     @RequestMapping("/list")
     @RequiresPermissions("goodsspecification:list")
     public R list(@RequestParam Map<String, Object> params) {
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         //查询列表数据
         Query query = new Query(params);
 
@@ -64,6 +61,7 @@ public class GoodsSpecificationController {
     @RequestMapping("/save")
     @RequiresPermissions("goodsspecification:save")
     public R save(@RequestBody GoodsSpecificationEntity goodsSpecification) {
+        goodsSpecification.setSellerId(ShiroUtils.getUserId());
         goodsSpecificationService.save(goodsSpecification);
 
         return R.ok();
@@ -96,7 +94,10 @@ public class GoodsSpecificationController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
-
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         List<GoodsSpecificationEntity> list = goodsSpecificationService.queryList(params);
 
         return R.ok().put("list", list);

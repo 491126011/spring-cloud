@@ -1,8 +1,5 @@
 package com.platform.utils;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -21,7 +18,7 @@ public class Base64 {
             e.printStackTrace();
         }
         if (b != null) {
-            s = new BASE64Encoder().encode(b);
+            s = org.apache.commons.codec.binary.Base64.encodeBase64String(b);
         }
         return s;
     }
@@ -31,9 +28,8 @@ public class Base64 {
         byte[] b = null;
         String result = null;
         if (s != null) {
-            BASE64Decoder decoder = new BASE64Decoder();
             try {
-                b = decoder.decodeBuffer(s);
+                b = org.apache.commons.codec.binary.Base64.decodeBase64(s);
                 result = new String(b, "utf-8");
             } catch (Exception e) {
                 e.printStackTrace();

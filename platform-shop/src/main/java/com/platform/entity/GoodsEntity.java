@@ -105,6 +105,17 @@ public class GoodsEntity implements Serializable {
     //品牌
     private String brandName;
 
+    private Long sellerId;
+
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
+
     public Long getCreateUserDeptId() {
         return createUserDeptId;
     }

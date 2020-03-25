@@ -20,7 +20,16 @@ public class GoodsIssueEntity implements Serializable {
     private String question;
     //回答
     private String answer;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     /**
      * 设置：主键
      */

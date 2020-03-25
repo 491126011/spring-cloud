@@ -11,6 +11,8 @@
         <result property="addTime" column="add_time"/>
         <result property="status" column="status"/>
         <result property="userId" column="user_id"/>
+        <result property="sellerId" column="seller_id"/>
+
     </resultMap>
 
     <select id="queryObject" resultType="com.platform.entity.CommentEntity">
@@ -21,7 +23,8 @@
 			`content`,
 			`add_time`,
 			`status`,
-			`user_id`
+			`user_id`,
+			`seller_id`
 		from nideshop_comment
 		where id = #{id}
 	</select>
@@ -52,6 +55,9 @@
         <if test="picUrl == 'true'">
             AND EXISTS(SELECT 1 FROM nideshop_comment_picture WHERE nideshop_comment.id = nideshop_comment_picture.comment_id)
         </if>
+        <if test="sellerId != null">
+            and nideshop_comment.seller_id   = #{sellerId}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -81,6 +87,9 @@
         <if test="picUrl == 'true'">
             AND EXISTS(SELECT 1 FROM nideshop_comment_picture WHERE nideshop_comment.id = nideshop_comment_picture.comment_id)
         </if>
+        <if test="sellerId != null">
+            and nideshop_comment.seller_id   = #{sellerId}
+        </if>
     </select>
 
     <insert id="save" parameterType="com.platform.entity.CommentEntity" useGeneratedKeys="true" keyProperty="id">
@@ -90,14 +99,16 @@
 			`content`,
 			`add_time`,
 			`status`,
-			`user_id`)
+			`user_id`,
+			`seller_id`)
 		values(
 			#{typeId},
 			#{valueId},
 			#{content},
 			#{addTime},
 			#{status},
-			#{userId})
+			#{userId},
+			#{sellerId})
 	</insert>
 
     <update id="update" parameterType="com.platform.entity.CommentEntity">

@@ -40,6 +40,7 @@
         <result property="callbackStatus" column="callback_status"/>
         <result property="orderType" column="order_type"/>
         <result property="userName" column="username"/>
+        <result property="sellerId" column="seller_id"/>
     </resultMap>
 
     <select id="queryObject" resultType="com.platform.entity.OrderEntity">
@@ -68,6 +69,9 @@
         </if>
         <if test="orderType != null and orderType.trim() != ''">
             AND o.order_type = #{orderType}
+        </if>
+        <if test="sellerId != null">
+            and o.seller_id   = #{sellerId}
         </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -98,6 +102,9 @@
         </if>
         <if test="orderType != null and orderType.trim() != ''">
             AND order_type = #{orderType}
+        </if>
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
         </if>
     </select>
 
@@ -136,7 +143,8 @@
 			`parent_id`, 
 			`coupon_price`, 
 			`callback_status`,
-			`order_type`
+			`order_type`,
+			`seller_id`
 		)
 		values
 		(
@@ -172,7 +180,8 @@
 			#{parentId}, 
 			#{couponPrice}, 
 			#{callbackStatus},
-			#{orderType}
+			#{orderType},
+			#{sellerId}
 		)
 	</insert>
 

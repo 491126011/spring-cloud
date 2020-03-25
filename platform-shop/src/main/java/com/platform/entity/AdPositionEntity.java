@@ -24,7 +24,16 @@ public class AdPositionEntity implements Serializable {
     private Integer height;
     //描述
     private String desc;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     /**
      * 设置：主键
      */

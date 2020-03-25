@@ -2,9 +2,7 @@ package com.platform.controller;
 
 import com.platform.entity.UserCouponEntity;
 import com.platform.service.UserCouponService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
+import com.platform.utils.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +29,10 @@ public class UserCouponController {
     @RequestMapping("/list")
     @RequiresPermissions("usercoupon:list")
     public R list(@RequestParam Map<String, Object> params) {
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         //查询列表数据
         Query query = new Query(params);
 
@@ -59,6 +61,7 @@ public class UserCouponController {
     @RequestMapping("/save")
     @RequiresPermissions("usercoupon:save")
     public R save(@RequestBody UserCouponEntity userCoupon) {
+        userCoupon.setSellerId(ShiroUtils.getUserId());
         userCouponService.save(userCoupon);
 
         return R.ok();
@@ -91,7 +94,10 @@ public class UserCouponController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
-
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         List<UserCouponEntity> list = userCouponService.queryList(params);
 
         return R.ok().put("list", list);

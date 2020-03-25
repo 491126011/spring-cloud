@@ -12,7 +12,8 @@
         <result property="content" column="content"/>
         <result property="addTime" column="add_time"/>
         <result property="status" column="status"/>
-    </resultMap>
+		<result property="sellerId" column="seller_id"/>
+	</resultMap>
 
 	<select id="queryObject" resultType="com.platform.entity.FeedbackEntity">
 		select
@@ -23,7 +24,8 @@
 			`feed_Type`,
 			`content`,
 			`add_time`,
-			`status`
+			`status`,
+			`seller_id`
 		from nideshop_feedback
 		where msg_id = #{id}
 	</select>
@@ -37,11 +39,15 @@
 		`feed_Type`,
 		`content`,
 		`add_time`,
-		`status`
+		`status`,
+		`seller_id`
 		from nideshop_feedback
 		WHERE 1=1
 		<if test="userName != null and userName.trim() != ''">
 			AND user_name LIKE concat('%',#{userName},'%')
+		</if>
+		<if test="sellerId != null">
+			and seller_id   = #{sellerId}
 		</if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -62,6 +68,9 @@
         <if test="userName != null and userName.trim() != ''">
             AND user_name LIKE concat('%',#{userName},'%')
         </if>
+		<if test="sellerId != null">
+			and seller_id   = #{sellerId}
+		</if>
 	</select>
 	 
 	<insert id="save" parameterType="com.platform.entity.FeedbackEntity" useGeneratedKeys="true" keyProperty="msgId">
@@ -72,7 +81,8 @@
 			`feed_Type`,
 			`content`,
 			`add_time`,
-			`status` )
+			`status` ,
+			`seller_id`)
 		values(
 			#{userId},
 			#{userName},
@@ -80,7 +90,8 @@
 			#{feedType},
 			#{content},
 			#{addTime},
-			#{status})
+			#{status},
+			#{sellerId})
 	</insert>
 	 
 	<update id="update" parameterType="com.platform.entity.FeedbackEntity">
