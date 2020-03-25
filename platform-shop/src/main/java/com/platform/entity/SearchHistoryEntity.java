@@ -25,7 +25,16 @@ public class SearchHistoryEntity implements Serializable {
     //会员Id
     private String userId;
     private String userName;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     /**
      * 设置：主键
      */

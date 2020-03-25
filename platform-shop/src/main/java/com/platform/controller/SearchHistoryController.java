@@ -1,21 +1,14 @@
 package com.platform.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.platform.entity.SearchHistoryEntity;
 import com.platform.service.SearchHistoryService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
+import com.platform.utils.*;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -35,6 +28,10 @@ public class SearchHistoryController {
     @RequestMapping("/list")
     @RequiresPermissions("searchhistory:list")
     public R list(@RequestParam Map<String, Object> params) {
+        Long userId = ShiroUtils.getUserId();
+        if (userId> Constant.SUPER_ADMIN_MAX){
+            params.put("sellerId",userId);
+        }
         //查询列表数据
         Query query = new Query(params);
 
@@ -64,6 +61,7 @@ public class SearchHistoryController {
     @RequestMapping("/save")
     @RequiresPermissions("searchhistory:save")
     public R save(@RequestBody SearchHistoryEntity searchHistory) {
+        searchHistory.setSellerId(ShiroUtils.getUserId());
         searchHistoryService.save(searchHistory);
 
         return R.ok();

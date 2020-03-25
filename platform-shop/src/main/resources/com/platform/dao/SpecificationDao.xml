@@ -18,6 +18,10 @@
 
 	<select id="queryList" resultType="com.platform.entity.SpecificationEntity">
 		select * from nideshop_specification
+		where 1=1
+		<if test="sellerId != null">
+			and seller_id   = #{sellerId}
+		</if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -32,19 +36,25 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from nideshop_specification 
+		select count(*) from nideshop_specification
+		where 1=1
+		<if test="sellerId != null">
+			and seller_id   = #{sellerId}
+		</if>
 	</select>
 	 
 	<insert id="save" parameterType="com.platform.entity.SpecificationEntity" useGeneratedKeys="true" keyProperty="id">
 		insert into nideshop_specification
 		(
 			`name`, 
-			`sort_order`
+			`sort_order`,
+			`seller_id`
 		)
 		values
 		(
 			#{name}, 
-			#{sortOrder}
+			#{sortOrder},
+			#{sellerId}
 		)
 	</insert>
 	 

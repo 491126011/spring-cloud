@@ -11,6 +11,8 @@
         <result property="addTime" column="add_time"/>
         <result property="userId" column="user_id"/>
         <result property="userName" column="user_name"/>
+        <result property="sellerId" column="seller_id"/>
+
     </resultMap>
 
     <select id="queryObject" resultType="com.platform.entity.SearchHistoryEntity">
@@ -21,6 +23,10 @@
         select a.* ,b.username as user_name
         from nideshop_search_history a
         left join nideshop_user b on a.user_id = b.id
+        where 1=1
+        <if test="sellerId != null">
+            and a.seller_id   = #{sellerId}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -35,7 +41,11 @@
     </select>
 
     <select id="queryTotal" resultType="int">
-		select count(*) from nideshop_search_history 
+		select count(*) from nideshop_search_history
+        where 1=1
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
 	</select>
 
     <insert id="save" parameterType="com.platform.entity.SearchHistoryEntity" useGeneratedKeys="true" keyProperty="id">
@@ -44,14 +54,16 @@
 			`keyword`, 
 			`from`, 
 			`add_time`, 
-			`user_id`
+			`user_id`,
+			`seller_id`
 		)
 		values
 		(
 			#{keyword}, 
 			#{from}, 
 			#{addTime}, 
-			#{userId}
+			#{userId},
+			#{sellerId}
 		)
 	</insert>
 

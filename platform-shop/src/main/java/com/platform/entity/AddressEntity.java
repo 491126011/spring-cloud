@@ -34,7 +34,16 @@ public class AddressEntity implements Serializable {
     private String countyName;
     //详细收货地址信息
     private String detailInfo;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     /**
      * 翻译会员名
      */

@@ -24,7 +24,16 @@ public class FootprintEntity implements Serializable {
     private String goodsName;
     //记录时间
     private Long addTime;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     /**
      * 设置：主键
      */
