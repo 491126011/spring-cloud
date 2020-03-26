@@ -22,6 +22,8 @@
         <result property="min_transmit_num" column="min_transmit_num"/>
         <result property="user_coupon_id" column="user_coupon_id"/>
         <result property="coupon_status" column="coupon_status"/>
+        <result property="sellerId" column="seller_id"/>
+
     </resultMap>
 
     <select id="queryObject" resultMap="couponMap">
@@ -40,6 +42,9 @@
         <if test="enabled != null and enabled == true">
             and a.use_end_date >= now()
             and now() >= a.use_start_date
+        </if>
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
         </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -63,7 +68,8 @@
 			`send_end_date`, 
 			`use_start_date`, 
 			`use_end_date`, 
-			`min_goods_amount`
+			`min_goods_amount`,
+			`seller_id`
 		)
 		values
 		(
@@ -76,7 +82,8 @@
 			#{send_end_date},
 			#{use_start_date},
 			#{use_end_date},
-			#{min_goods_amount}
+			#{min_goods_amount},
+			#{sellerId}
 		)
 	</insert>
 
@@ -140,6 +147,9 @@
         <if test="unUsed != null and unUsed == true">
             and b.used_time is null and (b.order_id  is null or b.order_id =0)
         </if>
+        <if test="sellerId != null">
+            and a.seller_id   = #{sellerId}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -172,6 +182,9 @@
         <if test="send_type != null">
             and a.send_type = #{send_type}
         </if>
+        <if test="sellerId != null">
+            and a.seller_id   = #{sellerId}
+        </if>
         limit 0, 1
     </select>
 
@@ -180,6 +193,9 @@
         from nideshop_coupon a
         left join nideshop_user_coupon b on a.id = b.coupon_id
         where 1 = 1
+        <if test="sellerId != null">
+            and a.seller_id   = #{sellerId}
+        </if>
         and a.use_end_date >= now()
         and now() >= a.use_start_date
         and a.send_type in (1,4)
@@ -191,6 +207,9 @@
         from nideshop_coupon a
         left join nideshop_user_coupon b on a.id = b.coupon_id
         where 1 = 1
+        <if test="sellerId != null">
+            and a.seller_id   = #{sellerId}
+        </if>
         and b.id = #{id}
     </select>
 

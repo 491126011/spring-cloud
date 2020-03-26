@@ -39,6 +39,16 @@ public class AddressVo implements Serializable {
 
     private String full_region;
 
+    private Long sellerId;
+
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     /**
      * 设置：
      */

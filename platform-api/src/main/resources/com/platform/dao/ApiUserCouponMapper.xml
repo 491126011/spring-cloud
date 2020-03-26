@@ -14,6 +14,8 @@
         <result property="order_id" column="order_id"/>
         <result property="source_key" column="source_key"/>
         <result property="referrer" column="referrer"/>
+        <result property="sellerId" column="seller_id"/>
+
     </resultMap>
 
     <select id="queryObject" resultMap="userCouponMap">
@@ -43,6 +45,9 @@
         <if test="source_key != null">
             and a.source_key = #{source_key}
         </if>
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -57,7 +62,11 @@
     </select>
 
     <select id="queryTotal" resultType="int">
-		select count(*) from nideshop_user_coupon 
+		select count(*) from nideshop_user_coupon
+		where 1=1
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
 	</select>
 
     <insert id="save" parameterType="com.platform.entity.UserCouponVo" useGeneratedKeys="true" keyProperty="id">
@@ -70,7 +79,8 @@
 			`order_id`,
 			`add_time`,
 			`source_key`,
-			`referrer`
+			`referrer`,
+			`seller_id`
 		)
 		values
 		(
@@ -81,7 +91,8 @@
 			#{order_id},
 			#{add_time},
 			#{source_key},
-			#{referrer}
+			#{referrer},
+			#{sellerId}
 		)
 	</insert>
 

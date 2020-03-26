@@ -1,7 +1,6 @@
 package com.platform.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 
 /**
@@ -20,7 +19,16 @@ public class SpecificationVo implements Serializable {
     private String name;
     //排序
     private Integer sort_order;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     public Integer getId() {
         return id;
     }

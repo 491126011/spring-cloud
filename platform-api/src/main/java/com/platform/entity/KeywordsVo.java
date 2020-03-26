@@ -1,7 +1,6 @@
 package com.platform.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 
 /**
@@ -30,7 +29,16 @@ public class KeywordsVo implements Serializable {
     private Integer id;
     //类型
     private Integer type;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     public String getKeyword() {
         return keyword;
     }

@@ -13,6 +13,8 @@
         <result property="scheme_url" column="scheme_url"/>
         <result property="id" column="id"/>
         <result property="type" column="type"/>
+        <result property="sellerId" column="seller_id"/>
+
     </resultMap>
 
     <select id="queryObject" resultMap="keywordsMap">
@@ -32,6 +34,9 @@
             <if test="keyword != null">
                 and keyword like concat('%',#{keyword},'%')
             </if>
+            <if test="sellerId != null">
+                and seller_id   = #{sellerId}
+            </if>
         </where>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -47,7 +52,11 @@
     </select>
 
     <select id="queryTotal" resultType="int">
-		select count(*) from nideshop_keywords 
+		select count(*) from nideshop_keywords
+		where 1=1
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
 	</select>
 
     <insert id="save" parameterType="com.platform.entity.KeywordsVo">
@@ -60,7 +69,8 @@
 			`sort_order`, 
 			`scheme_url`,
 			`id`, 
-			`type`
+			`type`,
+			`seller_id`
 		)
 		values
 		(
@@ -71,7 +81,8 @@
 			#{sort_order},
 			#{scheme_url},
 			#{id}, 
-			#{type}
+			#{type},
+			#{sellerId}
 		)
 	</insert>
 
@@ -100,6 +111,10 @@
         </foreach>
     </delete>
     <select id="hotKeywordList" resultType="map">
-		select distinct keyword,is_hot from nideshop_keywords where 1 = 1 limit 0,10
+		select distinct keyword,is_hot from nideshop_keywords where 1 = 1
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
+		 limit 0,10
 	</select>
 </mapper>

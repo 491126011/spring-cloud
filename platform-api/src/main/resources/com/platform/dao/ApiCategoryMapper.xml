@@ -20,6 +20,7 @@
         <result property="level" column="level"/>
         <result property="type" column="type"/>
         <result property="front_name" column="front_name"/>
+        <result property="sellerId" column="seller_id"/>
     </resultMap>
 
     <select id="queryObject" resultMap="categoryMap">
@@ -43,6 +44,9 @@
         <if test="notName != null and notName != null">
             and 'name' != #{notName}
         </if>
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
         <if test="ids != null">
             and id in
             <foreach item="item" collection="ids" open="(" separator="," close=")">
@@ -63,7 +67,11 @@
     </select>
 
     <select id="queryTotal" resultType="int">
-		select count(*) from nideshop_category 
+		select count(*) from nideshop_category
+		where 1=1
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
 	</select>
 
     <insert id="save" parameterType="com.platform.entity.CategoryVo">
@@ -83,7 +91,8 @@
 			`wap_banner_url`, 
 			`level`, 
 			`type`, 
-			`front_name`
+			`front_name`,
+			`seller_id`
 		)
 		values
 		(
@@ -101,7 +110,8 @@
 			#{wap_banner_url},
 			#{level},
 			#{type},
-			#{front_name}
+			#{front_name},
+			#{sellerId}
 		)
 	</insert>
 

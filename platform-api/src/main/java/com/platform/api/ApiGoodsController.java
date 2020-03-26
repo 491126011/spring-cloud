@@ -346,6 +346,7 @@ public class ApiGoodsController extends ApiBaseAction {
         filterCategory.add(rootCategory);
         //
         params.put("fields", "category_id");
+        params.put("sellerId", loginUser.getSellerId());
         List<GoodsVo> categoryEntityList = goodsService.queryList(params);
         params.remove("fields");
         if (null != categoryEntityList && categoryEntityList.size() > 0) {

@@ -1,7 +1,6 @@
 package com.platform.api;
 
 import com.alibaba.fastjson.JSONObject;
-import com.platform.annotation.IgnoreAuth;
 import com.platform.annotation.LoginUser;
 import com.platform.entity.AddressVo;
 import com.platform.entity.UserVo;
@@ -40,6 +39,7 @@ public class ApiAddressController extends ApiBaseAction {
     public Object list(@LoginUser UserVo loginUser) {
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("user_id", loginUser.getUserId());
+        param.put("sellerId",loginUser.getSellerId());
         List<AddressVo> addressEntities = addressService.queryList(param);
         return toResponsSuccess(addressEntities);
     }
@@ -79,6 +79,7 @@ public class ApiAddressController extends ApiBaseAction {
             entity.setNationalCode(addressJson.getString("nationalCode"));
             entity.setTelNumber(addressJson.getString("telNumber"));
             entity.setIs_default(addressJson.getInteger("is_default"));
+            entity.setSellerId(addressJson.getLong("sellerId"));
         }
         if (null == entity.getId() || entity.getId() == 0) {
             entity.setId(null);

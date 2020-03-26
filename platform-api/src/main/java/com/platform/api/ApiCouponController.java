@@ -46,6 +46,7 @@ public class ApiCouponController extends ApiBaseAction {
     public Object list(@LoginUser UserVo loginUser) {
         Map param = new HashMap();
         param.put("user_id", loginUser.getUserId());
+        param.put("sellerId", loginUser.getSellerId());
         List<CouponVo> couponVos = apiCouponService.queryUserCoupons(param);
         return toResponsSuccess(couponVos);
     }
@@ -60,6 +61,7 @@ public class ApiCouponController extends ApiBaseAction {
         if (type.equals("cart")) {
             Map param = new HashMap();
             param.put("user_id", loginUser.getUserId());
+            param.put("sellerId", loginUser.getSellerId());
             List<CartVo> cartList = apiCartService.queryList(param);
             //获取购物车统计信息
             for (CartVo cartItem : cartList) {
@@ -108,6 +110,7 @@ public class ApiCouponController extends ApiBaseAction {
         //
         Map param = new HashMap();
         param.put("coupon_number", coupon_number);
+        param.put("sellerId", loginUser.getSellerId());
         List<UserCouponVo> couponVos = apiUserCouponService.queryList(param);
         UserCouponVo userCouponVo = null;
         if (null == couponVos || couponVos.size() == 0) {

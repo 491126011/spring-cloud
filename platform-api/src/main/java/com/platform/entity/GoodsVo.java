@@ -80,7 +80,16 @@ public class GoodsVo implements Serializable {
     // 冗余
     // 产品Id
     private Integer product_id;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     public Integer getId() {
         return id;
     }

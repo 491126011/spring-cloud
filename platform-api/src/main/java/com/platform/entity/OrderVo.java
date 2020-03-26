@@ -102,7 +102,16 @@ public class OrderVo implements Serializable {
 
     private String req_msg;
     private String notify_msg;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     public String getFull_region() {
     //    return full_region;
         if (StringUtils.isNotEmpty(this.full_region)){

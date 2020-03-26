@@ -51,6 +51,7 @@ public class ApiSearchController extends ApiBaseAction {
         param.put("limit", 1);
         param.put("sidx", "id");
         param.put("order", "asc");
+        param.put("sellerId", loginUser.getSellerId());
         List<KeywordsVo> keywordsEntityList = keywordsService.queryList(param);
         //取出输入框默认的关键词
         KeywordsVo defaultKeyword = null != keywordsEntityList && keywordsEntityList.size() > 0 ? keywordsEntityList.get(0) : null;
@@ -61,6 +62,7 @@ public class ApiSearchController extends ApiBaseAction {
         param.put("limit", 10);
         param.put("sidx", "id");
         param.put("order", "asc");
+        param.put("sellerId", loginUser.getSellerId());
         Query query = new Query(param);
         List<Map> hotKeywordList = keywordsService.hotKeywordList(query);
         //
@@ -71,6 +73,7 @@ public class ApiSearchController extends ApiBaseAction {
         param.put("limit", 10);
         param.put("sidx", "id");
         param.put("order", "asc");
+        param.put("sellerId", loginUser.getSellerId());
         List<SearchHistoryVo> historyVoList = searchHistoryService.queryList(param);
         String[] historyKeywordList = new String[historyVoList.size()];
         if (null != historyVoList) {
@@ -100,6 +103,7 @@ public class ApiSearchController extends ApiBaseAction {
         param.put("keyword", keyword);
         param.put("limit", 10);
         param.put("offset", 0);
+        param.put("sellerId", loginUser.getSellerId());
         List<KeywordsVo> keywords = keywordsService.queryList(param);
         String[] keys = new String[keywords.size()];
         if (null != keywords) {

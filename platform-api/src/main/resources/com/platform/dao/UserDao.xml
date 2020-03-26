@@ -9,14 +9,16 @@
 			`username`,
 			`mobile`,
 			`password`,
-			`create_time`
+			`create_time`,
+			`seller_id`
 		)
 		values
 			(
 				#{username},
 				#{mobile},
 				#{password},
-				#{createTime}
+				#{createTime},
+				#{sellerId}
 			)
 	</insert>
 

@@ -30,7 +30,16 @@ public class UserCouponVo implements Serializable {
     private String source_key;
     //分享人
     private Long referrer;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     public Integer getId() {
         return id;
     }

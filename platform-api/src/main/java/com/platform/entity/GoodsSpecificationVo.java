@@ -1,9 +1,6 @@
 package com.platform.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -27,7 +24,16 @@ public class GoodsSpecificationVo implements Serializable {
     private String name;
     //规范图片
     private String pic_url;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     public Integer getId() {
         return id;
     }

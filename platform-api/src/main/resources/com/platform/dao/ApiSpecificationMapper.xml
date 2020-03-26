@@ -8,6 +8,8 @@
         <result property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="sort_order" column="sort_order"/>
+        <result property="sellerId" column="seller_id"/>
+
     </resultMap>
 
     <select id="queryObject" resultMap="specificationMap">
@@ -16,6 +18,10 @@
 
     <select id="queryList" resultMap="specificationMap">
         select * from nideshop_specification
+        where 1=1
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -30,19 +36,25 @@
     </select>
 
     <select id="queryTotal" resultType="int">
-		select count(*) from nideshop_specification 
+		select count(*) from nideshop_specification
+		where 1=1
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
 	</select>
 
     <insert id="save" parameterType="com.platform.entity.SpecificationVo" useGeneratedKeys="true" keyProperty="id">
 		insert into nideshop_specification
 		(
 			`name`, 
-			`sort_order`
+			`sort_order`,
+			`seller_id`
 		)
 		values
 		(
 			#{name}, 
-			#{sort_order}
+			#{sort_order},
+			#{sellerId}
 		)
 	</insert>
 

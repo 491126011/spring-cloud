@@ -42,6 +42,8 @@
         <result property="full_cut_price" column="full_cut_price"/>
         <result property="req_msg" column="req_msg"/>
         <result property="notify_msg" column="notify_msg"/>
+        <result property="sellerId" column="seller_id"/>
+
     </resultMap>
 
     <select id="queryObject" resultMap="orderMap">
@@ -63,6 +65,9 @@
             <if test="user_id != null">
                 and user_id = #{user_id}
             </if>
+            <if test="sellerId != null">
+                and seller_id   = #{sellerId}
+            </if>
         </where>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -79,6 +84,10 @@
 
     <select id="queryTotal" resultType="int">
 		select count(*) from nideshop_order
+		where 1=1
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
 	</select>
 
     <insert id="save" parameterType="com.platform.entity.OrderVo" useGeneratedKeys="true" keyProperty="id">
@@ -118,7 +127,8 @@
 			`full_cut_price`,
 			`order_type`,
 			`req_msg`,
-			`notify_msg`
+			`notify_msg`,
+			`seller_id`
 		)
 		values
 		(
@@ -156,7 +166,8 @@
 			#{full_cut_price},
 			#{order_type},
 			#{req_msg},
-			#{notify_msg}
+			#{notify_msg},
+			#{sellerId}
 		)
 	</insert>
 

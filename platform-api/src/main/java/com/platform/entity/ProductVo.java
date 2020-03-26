@@ -2,7 +2,6 @@ package com.platform.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 
 /**
@@ -33,7 +32,16 @@ public class ProductVo implements Serializable {
     private String goods_name;
     //商品图片
     private String list_pic_url;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     public String getGoods_name() {
         return goods_name;
     }

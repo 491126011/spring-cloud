@@ -37,6 +37,7 @@ public class ApiCartService {
         // 判断购物车中是否存在此规格商品
         Map cartParam = new HashMap();
         cartParam.put("user_id", cart.getUser_id());
+        cartParam.put("sellerId", cart.getSellerId());
         List<CartVo> cartInfoList = cartDao.queryList(cartParam);
         Map crashParam = new HashMap();
         List<Integer> goods_ids = new ArrayList();

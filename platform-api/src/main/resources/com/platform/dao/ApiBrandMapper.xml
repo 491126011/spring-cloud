@@ -17,6 +17,8 @@
         <result property="is_new" column="is_new"/>
         <result property="new_pic_url" column="new_pic_url"/>
         <result property="new_sort_order" column="new_sort_order"/>
+        <result property="sellerId" column="seller_id"/>
+
     </resultMap>
 
     <select id="queryObject" resultMap="brandMap">
@@ -32,6 +34,10 @@
             *
         </if>
         from nideshop_brand
+        where 1=1
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -46,7 +52,11 @@
     </select>
 
     <select id="queryTotal" resultType="int">
-		select count(*) from nideshop_brand 
+		select count(*) from nideshop_brand
+        where 1=1
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
 	</select>
 
     <insert id="save" parameterType="com.platform.entity.BrandVo" useGeneratedKeys="true" keyProperty="id">
@@ -62,7 +72,8 @@
 			`app_list_pic_url`, 
 			`is_new`, 
 			`new_pic_url`, 
-			`new_sort_order`
+			`new_sort_order`,
+			`seller_id`
 		)
 		values
 		(
@@ -76,7 +87,8 @@
 			#{app_list_pic_url}, 
 			#{is_new}, 
 			#{new_pic_url}, 
-			#{new_sort_order}
+			#{new_sort_order},
+			#{sellerId}
 		)
 	</insert>
 

@@ -8,6 +8,7 @@
         <result property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="enabled" column="enabled"/>
+        <result property="sellerId" column="seller_id"/>
     </resultMap>
 
     <select id="queryObject" resultType="com.platform.entity.AttributeCategoryVo">
@@ -16,6 +17,10 @@
 
     <select id="queryList" resultType="com.platform.entity.AttributeCategoryVo">
         select * from nideshop_attribute_category
+        where 1=1
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -30,7 +35,11 @@
     </select>
 
     <select id="queryTotal" resultType="int">
-		select count(*) from nideshop_attribute_category 
+		select count(*) from nideshop_attribute_category
+		where 1=1
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
 	</select>
 
     <insert id="save" parameterType="com.platform.entity.AttributeCategoryVo">
@@ -38,13 +47,15 @@
 		(
 			`id`, 
 			`name`, 
-			`enabled`
+			`enabled`,
+			`seller_id`
 		)
 		values
 		(
 			#{id}, 
 			#{name}, 
-			#{enabled}
+			#{enabled},
+			#{sellerId}
 		)
 	</insert>
 

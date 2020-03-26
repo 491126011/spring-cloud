@@ -1,7 +1,6 @@
 package com.platform.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 
 /**
@@ -22,7 +21,16 @@ public class AdPositionVo implements Serializable {
     private Integer height;
     //描述
     private String desc;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     public Integer getId() {
         return id;
     }

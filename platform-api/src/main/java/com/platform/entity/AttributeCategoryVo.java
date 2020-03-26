@@ -1,7 +1,6 @@
 package com.platform.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 
 /**
@@ -18,7 +17,16 @@ public class AttributeCategoryVo implements Serializable {
     private String name;
     //
     private Integer enabled;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
 
     public Integer getId() {
         return id;

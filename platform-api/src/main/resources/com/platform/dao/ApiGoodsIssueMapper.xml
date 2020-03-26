@@ -9,6 +9,8 @@
         <result property="goods_id" column="goods_id"/>
         <result property="question" column="question"/>
         <result property="answer" column="answer"/>
+        <result property="sellerId" column="seller_id"/>
+
     </resultMap>
 
     <select id="queryObject" resultMap="goodsIssueMap">
@@ -28,6 +30,9 @@
             <if test="goods_id != null">
                 and goods_id = #{goods_id}
             </if>
+            <if test="sellerId != null">
+                and seller_id   = #{sellerId}
+            </if>
         </where>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -43,7 +48,11 @@
     </select>
 
     <select id="queryTotal" resultType="int">
-		select count(*) from nideshop_goods_issue 
+		select count(*) from nideshop_goods_issue
+		where 1=1
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
 	</select>
 
     <insert id="save" parameterType="com.platform.entity.GoodsIssueVo" useGeneratedKeys="true" keyProperty="id">
@@ -51,13 +60,15 @@
 		(
 			`goods_id`, 
 			`question`, 
-			`answer`
+			`answer`,
+			`seller_id`
 		)
 		values
 		(
 			#{goods_id},
 			#{question}, 
-			#{answer}
+			#{answer},
+			#{sellerId}
 		)
 	</insert>
 

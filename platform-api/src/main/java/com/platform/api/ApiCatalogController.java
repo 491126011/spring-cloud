@@ -41,7 +41,8 @@ public class ApiCatalogController extends ApiBaseAction {
     @PostMapping(value = "index")
     public Object index(Integer id,
                         @RequestParam(value = "page", defaultValue = "1") Integer page,
-                        @RequestParam(value = "size", defaultValue = "10") Integer size) {
+                        @RequestParam(value = "size", defaultValue = "10") Integer size,
+                        Long sellerId) {
         Map<String, Object> resultObj = new HashMap();
         Map params = new HashMap();
         params.put("page", page);
@@ -49,6 +50,7 @@ public class ApiCatalogController extends ApiBaseAction {
         params.put("sidx", "sort_order");
         params.put("order", "asc");
         params.put("parent_id", 0);
+        params.put("sellerId",sellerId);
         //查询列表数据
         List<CategoryVo> data = categoryService.queryList(params);
         //

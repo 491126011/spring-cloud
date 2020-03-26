@@ -41,6 +41,16 @@ public class UserVo implements Serializable {
     //微信Id
     private String weixin_openid;
 
+    private Long sellerId;
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
+
     public Long getUserId() {
         return userId;
     }

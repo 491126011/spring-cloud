@@ -79,6 +79,7 @@ public class ApiCommentController extends ApiBaseAction {
             // 当前评价的次数
             Map param = new HashMap();
             param.put("value_id", valueId);
+            param.put("sellerId",loginUser.getSellerId());
             List<CommentVo> commentVos = commentService.queryList(param);
             boolean hasComment = false;
             for (CommentVo commentVo : commentVos) {

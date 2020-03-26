@@ -43,6 +43,7 @@ public class ApiFeedbackController extends ApiBaseAction {
             feedbackVo.setStatus(1);
             feedbackVo.setContent(feedbackJson.getString("content"));
             feedbackVo.setAddTime(new Date());
+            feedbackVo.setSellerId(loginUser.getSellerId());
             feedbackService.save(feedbackVo);
             return super.toResponsSuccess("感谢你的反馈");
         }

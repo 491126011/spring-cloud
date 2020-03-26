@@ -14,6 +14,7 @@
         <result property="content" column="content"/>
         <result property="end_time" column="end_time"/>
         <result property="enabled" column="enabled"/>
+        <result property="sellerId" column="seller_id"/>
     </resultMap>
 
     <select id="queryObject" resultMap="adMap">
@@ -27,6 +28,10 @@
         <if test="ad_position_id != null and ad_position_id != null">
             and ad_position_id = #{ad_position_id}
         </if>
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
+
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -41,32 +46,35 @@
     </select>
 
     <select id="queryTotal" resultType="int">
-		select count(*) from nideshop_ad 
-	</select>
+		select count(*) from nideshop_ad
+		where 1=1
+        <if test="sellerId != null">
+            and seller_id   = #{sellerId}
+        </if>
+
+    </select>
 
     <insert id="save" parameterType="com.platform.entity.AdVo" useGeneratedKeys="true" keyProperty="id">
-		insert into nideshop_ad
-		(
-			`ad_position_id`, 
-			`media_type`, 
-			`name`, 
-			`link`, 
-			`image_url`, 
-			`content`, 
-			`end_time`, 
-			`enabled`
-		)
-		values
-		(
-			#{ad_position_id},
-			#{media_type},
-			#{name}, 
-			#{link}, 
-			#{image_url},
-			#{content}, 
-			#{end_time},
-			#{enabled}
-		)
+		insert into nideshop_ad(
+			`ad_position_id`,
+			`media_type`,
+			`name`,
+			`link`,
+			`image_url`,
+			`content`,
+			`end_time`,
+			`enabled`,
+			`seller_id`)
+		values(
+			#{adPositionId},
+			#{mediaType},
+			#{name},
+			#{link},
+			#{imageUrl},
+			#{content},
+			#{endTime},
+			#{enabled},
+			#{sellerId})
 	</insert>
 
     <update id="update" parameterType="com.platform.entity.AdVo">

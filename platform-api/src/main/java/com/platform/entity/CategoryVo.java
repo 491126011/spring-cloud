@@ -46,7 +46,16 @@ public class CategoryVo implements Serializable {
     private Boolean checked;
 
     private List<CategoryVo> subCategoryList;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
 
     public Integer getId() {
         return id;

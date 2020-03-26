@@ -1,8 +1,6 @@
 package com.platform.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.apache.commons.lang.StringUtils;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -57,7 +55,16 @@ public class CouponVo implements Serializable {
     private Integer min_transmit_num;
     //优惠券状态 1 可用 2 已用 3 过期
     private Integer coupon_status = 1;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     public Integer getUser_coupon_id() {
         return user_coupon_id;
     }

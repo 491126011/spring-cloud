@@ -53,6 +53,8 @@ public class ApiCartController extends ApiBaseAction {
         //查询列表数据
         Map param = new HashMap();
         param.put("user_id", loginUser.getUserId());
+        param.put("sellerId", loginUser.getSellerId());
+
         List<CartVo> cartList = cartService.queryList(param);
         //获取购物车统计信息
         Integer goodsCount = 0;
@@ -72,6 +74,7 @@ public class ApiCartController extends ApiBaseAction {
         couponParam.put("enabled", true);
         Integer[] send_types = new Integer[]{0, 7};
         couponParam.put("send_types", send_types);
+        couponParam.put("sellerId", loginUser.getSellerId());
         List<CouponInfoVo> couponInfoList = new ArrayList();
         List<CouponVo> couponVos = apiCouponService.queryList(couponParam);
         if (null != couponVos && couponVos.size() > 0) {
@@ -165,6 +168,7 @@ public class ApiCartController extends ApiBaseAction {
         cartParam.put("goods_id", goodsId);
         cartParam.put("product_id", productId);
         cartParam.put("user_id", loginUser.getUserId());
+        cartParam.put("sellerId", loginUser.getSellerId());
         List<CartVo> cartInfoList = cartService.queryList(cartParam);
         CartVo cartInfo = null != cartInfoList && cartInfoList.size() > 0 ? cartInfoList.get(0) : null;
         if (null == cartInfo) {
@@ -176,6 +180,7 @@ public class ApiCartController extends ApiBaseAction {
                 String[] idsArray = getSpecificationIdsArray(productInfo.getGoods_specification_ids());
                 specificationParam.put("ids", idsArray);
                 specificationParam.put("goods_id", goodsId);
+                specificationParam.put("sellerId", loginUser.getSellerId());
                 List<GoodsSpecificationVo> specificationEntities = goodsSpecificationService.queryList(specificationParam);
                 goodsSepcifitionValue = new String[specificationEntities.size()];
                 for (int i = 0; i < specificationEntities.size(); i++) {
@@ -199,6 +204,7 @@ public class ApiCartController extends ApiBaseAction {
             }
             cartInfo.setGoods_specifition_ids(productInfo.getGoods_specification_ids());
             cartInfo.setChecked(1);
+            cartInfo.setSellerId(loginUser.getSellerId());
             cartService.save(cartInfo);
         } else {
             //如果已经存在购物车中，则数量增加
@@ -226,6 +232,7 @@ public class ApiCartController extends ApiBaseAction {
         cartParam.put("goods_id", goodsId);
         cartParam.put("product_id", productId);
         cartParam.put("user_id", loginUser.getUserId());
+        cartParam.put("sellerId", loginUser.getSellerId());
         List<CartVo> cartInfoList = cartService.queryList(cartParam);
         CartVo cartInfo = null != cartInfoList && cartInfoList.size() > 0 ? cartInfoList.get(0) : null;
         int cart_num = 0;
@@ -270,6 +277,7 @@ public class ApiCartController extends ApiBaseAction {
         Map cartParam = new HashMap();
         cartParam.put("goodsId", goodsId);
         cartParam.put("productId", productId);
+        cartParam.put("sellerId", loginUser.getSellerId());
         List<CartVo> cartInfoList = cartService.queryList(cartParam);
         CartVo newcartInfo = null != cartInfoList && cartInfoList.size() > 0 ? cartInfoList.get(0) : null;
         if (null == newcartInfo) {
@@ -280,6 +288,7 @@ public class ApiCartController extends ApiBaseAction {
                 Map specificationParam = new HashMap();
                 specificationParam.put("ids", productInfo.getGoods_specification_ids());
                 specificationParam.put("goodsId", goodsId);
+                specificationParam.put("sellerId", loginUser.getSellerId());
                 List<GoodsSpecificationVo> specificationEntities = goodsSpecificationService.queryList(specificationParam);
                 goodsSepcifitionValue = new String[specificationEntities.size()];
                 for (int i = 0; i < specificationEntities.size(); i++) {
@@ -309,6 +318,7 @@ public class ApiCartController extends ApiBaseAction {
                 Map specificationParam = new HashMap();
                 specificationParam.put("ids", productInfo.getGoods_specification_ids());
                 specificationParam.put("goodsId", goodsId);
+                specificationParam.put("sellerId", loginUser.getSellerId());
                 List<GoodsSpecificationVo> specificationEntities = goodsSpecificationService.queryList(specificationParam);
                 goodsSepcifitionValue = new String[specificationEntities.size()];
                 for (int i = 0; i < specificationEntities.size(); i++) {
@@ -375,6 +385,7 @@ public class ApiCartController extends ApiBaseAction {
         //查询列表数据
         Map param = new HashMap();
         param.put("user_id", loginUser.getUserId());
+        param.put("sellerId", loginUser.getSellerId());
         List<CartVo> cartList = cartService.queryList(param);
         //获取购物车统计信息
         Integer goodsCount = 0;
@@ -403,6 +414,7 @@ public class ApiCartController extends ApiBaseAction {
         //默认收货地址
         Map param = new HashMap();
         param.put("user_id", loginUser.getUserId());
+        param.put("sellerId", loginUser.getSellerId());
         List addressEntities = addressService.queryList(param);
 
         if (null == addressEntities || addressEntities.size() == 0) {

@@ -30,7 +30,16 @@ public class AdVo implements Serializable {
     private Date end_time;
     //状态
     private Integer enabled;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     public Integer getId() {
         return id;
     }

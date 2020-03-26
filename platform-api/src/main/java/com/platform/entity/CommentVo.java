@@ -33,7 +33,16 @@ public class CommentVo implements Serializable {
     //会员Id
     private UserVo user_info;
     private List<CommentPictureVo> pic_list;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     public Integer getId() {
         return id;
     }

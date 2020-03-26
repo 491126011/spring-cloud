@@ -2,7 +2,6 @@ package com.platform.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 
 /**
@@ -37,7 +36,16 @@ public class BrandVo implements Serializable {
     private String new_pic_url;
     //排序
     private Integer new_sort_order;
+    private Long sellerId;
 
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
     public Integer getId() {
         return id;
     }
