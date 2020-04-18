@@ -160,9 +160,12 @@ public class GoodsController {
      */
     @RequestMapping("/enSale")
     public R enSale(@RequestBody Integer id) {
-        goodsService.enSale(id);
-
-        return R.ok();
+        Map<String, String> map = goodsService.enSale(id);
+        if ("0".equals(map.get("code"))){
+            return R.ok();
+        }else {
+            return R.error(map.get("msg"));
+        }
     }
 
     /**

@@ -98,7 +98,7 @@
 			#{userId},
 			#{usedTime},
 			#{addTime},
-			#{orderId}),
+			#{orderId},
 			#{sellerId})
 	</insert>
 

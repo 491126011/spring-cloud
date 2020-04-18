@@ -39,4 +39,6 @@ public interface SysRoleService {
      * @return
      */
     Page<UserWindowDto> queryPageByDto(UserWindowDto userWindowDto, int pageNmu);
+
+    SysRoleEntity queryByRoleName(String roleName);
 }

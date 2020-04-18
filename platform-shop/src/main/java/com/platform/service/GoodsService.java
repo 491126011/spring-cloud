@@ -84,7 +84,7 @@ public interface GoodsService {
      * @param id
      * @return
      */
-    int enSale(Integer id);
+    Map<String,String>  enSale(Integer id);
 
     /**
      * 下架

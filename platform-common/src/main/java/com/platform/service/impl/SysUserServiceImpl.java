@@ -1,6 +1,7 @@
 package com.platform.service.impl;
 
 import com.platform.dao.SysUserDao;
+import com.platform.entity.SysRoleEntity;
 import com.platform.entity.SysUserEntity;
 import com.platform.entity.UserWindowDto;
 import com.platform.page.Page;
@@ -10,6 +11,7 @@ import com.platform.service.SysUserRoleService;
 import com.platform.service.SysUserService;
 import com.platform.utils.Constant;
 import com.platform.utils.RRException;
+import com.platform.vo.SysShopUserVo;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,12 +75,24 @@ public class SysUserServiceImpl implements SysUserService {
     @Transactional
     public void save(SysUserEntity user) {
         user.setCreateTime(new Date());
+        //判断是商户还是管理员 设置type字段
+        Long aLong = user.getRoleIdList().get(0);
+        SysRoleEntity roleEntity = sysRoleService.queryByRoleName("商户");
+        if (roleEntity!=null){
+            if (roleEntity.getRoleId().equals(aLong)){
+                user.setType("2");
+            }else {
+                user.setType("1");
+            }
+        }
+
         //sha256加密
         user.setPassword(new Sha256Hash(Constant.DEFAULT_PASS_WORD).toHex());
         sysUserDao.save(user);
 
         //检查角色是否越权
         checkRole(user);
+
 
         //保存用户与角色关系
         sysUserRoleService.saveOrUpdate(user.getUserId(), user.getRoleIdList());
@@ -141,4 +155,9 @@ public class SysUserServiceImpl implements SysUserService {
         sysUserDao.queryListByBean(userWindowDto);
         return PageHelper.endPage();
     }
+    @Override
+    public  List<SysShopUserVo> queryShopList(Map<String, Object> map){
+        return sysUserDao.queryShopList(map);
+    }
+
 }

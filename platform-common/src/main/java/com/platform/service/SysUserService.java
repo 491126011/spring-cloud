@@ -3,6 +3,7 @@ package com.platform.service;
 import com.platform.entity.SysUserEntity;
 import com.platform.entity.UserWindowDto;
 import com.platform.page.Page;
+import com.platform.vo.SysShopUserVo;
 
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,13 @@ public interface SysUserService {
      * 查询用户列表
      */
     List<SysUserEntity> queryList(Map<String, Object> map);
+
+    /**
+     * 查询商户列表
+     * @param map
+     * @return
+     */
+    List<SysShopUserVo> queryShopList(Map<String, Object> map);
 
     /**
      * 查询总数

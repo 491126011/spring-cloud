@@ -24,4 +24,6 @@ public interface SysRoleDao extends BaseDao<SysRoleEntity> {
      * @return
      */
     List<UserWindowDto> queryPageByDto(UserWindowDto userWindowDto);
+
+    SysRoleEntity queryByRoleName(String roleName);
 }

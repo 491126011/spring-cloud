@@ -11,6 +11,7 @@ import com.platform.entity.GoodsEntity;
 import com.platform.entity.ProductEntity;
 import com.platform.entity.SysUserEntity;
 import com.platform.service.GoodsService;
+import com.platform.service.SysUserService;
 import com.platform.utils.RRException;
 import com.platform.utils.ShiroUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,8 @@ public class GoodsServiceImpl implements GoodsService {
     private ProductDao productDao;
     @Autowired
     private GoodsGalleryDao goodsGalleryDao;
+    @Autowired
+    private SysUserService sysUserService;
 
     @Override
     public GoodsEntity queryObject(Integer id) {
@@ -178,16 +181,36 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public int enSale(Integer id) {
+    public Map<String,String> enSale(Integer id) {
+        Map<String,String > map = new HashMap<>();
         SysUserEntity user = ShiroUtils.getUserEntity();
         GoodsEntity goodsEntity = queryObject(id);
         if (1 == goodsEntity.getIsOnSale()) {
             throw new RRException("此商品已处于上架状态！");
         }
+        //如果是被管理员下架，则商户不能上架
+        //如果是下架状态，一定是做过下架操作的，判断操作人是否是管理员
+        SysUserEntity sysUserEntity = sysUserService.queryObject(goodsEntity.getUpdateUserId());
+        if (sysUserEntity!=null){
+            if ("1".equals(sysUserEntity.getType())){
+                //是管理员，判断当前用户是否也是管理员，不是就不能上架
+                if (!"1".equals(user.getType())){
+                    map.put("code","500");
+                    map.put("msg","此商品被管理员下架，无法上架，请联系管理员");
+                    return map;
+                }
+            }
+        }else {
+            map.put("code","500");
+            map.put("msg","无法上架，请联系管理员");
+            return map;
+        }
         goodsEntity.setIsOnSale(1);
         goodsEntity.setUpdateUserId(user.getUserId());
         goodsEntity.setUpdateTime(new Date());
-        return goodsDao.update(goodsEntity);
+        goodsDao.update(goodsEntity);
+        map.put("code","0");
+        return map;
     }
 
     @Override

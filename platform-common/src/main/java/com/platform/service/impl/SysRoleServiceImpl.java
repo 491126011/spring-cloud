@@ -118,4 +118,9 @@ public class SysRoleServiceImpl implements SysRoleService {
         sysRoleDao.queryPageByDto(userWindowDto);
         return PageHelper.endPage();
     }
+    @Override
+    public SysRoleEntity queryByRoleName(String roleName){
+        return sysRoleDao.queryByRoleName(roleName);
+    }
+
 }

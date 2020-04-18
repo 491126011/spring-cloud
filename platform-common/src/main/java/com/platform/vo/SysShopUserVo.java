@@ -1,24 +1,29 @@
-package com.platform.entity;
+package com.platform.vo;
 
-import com.platform.validator.group.AddGroup;
-import com.platform.validator.group.UpdateGroup;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
-
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 /**
- * 系统用户
+ * 系统商户
  *
  * @author lipengjun
  * @email 939961241@qq.com
  * @date 2016年9月18日 上午9:28:55
  */
-public class SysUserEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class SysShopUserVo {
 
+    /**
+     * 会员数
+     */
+    private String vipCount;
+    /**
+     * 订单数
+     */
+    private String orderCount;
+    /**
+     * 交易金额
+     */
+    private String transactionAmount;
     /**
      * 用户ID
      */
@@ -27,19 +32,12 @@ public class SysUserEntity implements Serializable {
     /**
      * 用户名
      */
-    @NotBlank(message = "用户名不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String username;
 
-    /**
-     * 密码
-     */
-    private transient String password;
 
     /**
      * 邮箱
      */
-    @NotBlank(message = "邮箱不能为空", groups = {AddGroup.class, UpdateGroup.class})
-    @Email(message = "邮箱格式不正确", groups = {AddGroup.class, UpdateGroup.class})
     private String email;
 
     /**
@@ -134,24 +132,6 @@ public class SysUserEntity implements Serializable {
      */
     public String getUsername() {
         return username;
-    }
-
-    /**
-     * 设置：密码
-     *
-     * @param password 密码
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     * 获取：密码
-     *
-     * @return String
-     */
-    public String getPassword() {
-        return password;
     }
 
     /**
@@ -256,5 +236,30 @@ public class SysUserEntity implements Serializable {
 
     public void setDeptName(String deptName) {
         this.deptName = deptName;
+    }
+
+
+    public String getVipCount() {
+        return vipCount;
+    }
+
+    public void setVipCount(String vipCount) {
+        this.vipCount = vipCount;
+    }
+
+    public String getOrderCount() {
+        return orderCount;
+    }
+
+    public void setOrderCount(String orderCount) {
+        this.orderCount = orderCount;
+    }
+
+    public String getTransactionAmount() {
+        return transactionAmount;
+    }
+
+    public void setTransactionAmount(String transactionAmount) {
+        this.transactionAmount = transactionAmount;
     }
 }

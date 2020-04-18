@@ -9,6 +9,7 @@ import com.platform.validator.Assert;
 import com.platform.validator.ValidatorUtils;
 import com.platform.validator.group.AddGroup;
 import com.platform.validator.group.UpdateGroup;
+import com.platform.vo.SysShopUserVo;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
@@ -43,6 +44,7 @@ public class SysUserController extends AbstractController {
         if (getUserId() != Constant.SUPER_ADMIN) {
             params.put("createUserId", getUserId());
         }
+        params.put("type","1");
 
         //查询列表数据
         Query query = new Query(params);
@@ -53,6 +55,30 @@ public class SysUserController extends AbstractController {
 
         return R.ok().put("page", pageUtil);
     }
+
+
+    /**
+     * 所有商户列表
+     */
+    @RequestMapping("/shopList")
+    @RequiresPermissions("sys:user:list")
+    public R shopList(@RequestParam Map<String, Object> params) {
+        //只有超级管理员，才能查看所有管理员列表
+        if (getUserId() != Constant.SUPER_ADMIN) {
+            params.put("createUserId", getUserId());
+        }
+        params.put("type","2");
+
+        //查询列表数据
+        Query query = new Query(params);
+        List<SysShopUserVo> userList = sysUserService.queryShopList(query);
+        int total = sysUserService.queryTotal(query);
+
+        PageUtils pageUtil = new PageUtils(userList, total, query.getLimit(), query.getPage());
+
+        return R.ok().put("page", pageUtil);
+    }
+
 
     /**
      * 获取登录的用户信息
