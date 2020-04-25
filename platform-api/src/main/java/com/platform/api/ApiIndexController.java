@@ -5,6 +5,7 @@ import com.platform.annotation.IgnoreAuth;
 import com.platform.entity.*;
 import com.platform.service.*;
 import com.platform.util.ApiBaseAction;
+import com.platform.util.HeaderParamsUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -160,6 +161,7 @@ public class ApiIndexController extends ApiBaseAction {
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("is_new", 1);
         param.put("is_delete", 0);
+        param.put("sellerId", HeaderParamsUtils.getSellerId());
         param.put("fields", "id, name, list_pic_url, retail_price");
         PageHelper.startPage(0, 4, false);
         List<GoodsVo> newGoods = goodsService.queryList(param);
@@ -178,6 +180,7 @@ public class ApiIndexController extends ApiBaseAction {
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("is_hot", "1");
         param.put("is_delete", 0);
+        param.put("sellerId", HeaderParamsUtils.getSellerId());
         PageHelper.startPage(0, 3, false);
         List<GoodsVo> hotGoods = goodsService.queryHotGoodsList(param);
         resultObj.put("hotGoodsList", hotGoods);
