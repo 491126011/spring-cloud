@@ -146,6 +146,8 @@
                 <bean class="com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor"/>
                 <!-- 乐观锁 -->
                 <bean class="com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor"/>
+<!--                <bean class="com.platform.interceptor.MybatisInterceptor"/>-->
+
             </array>
         </property>
     </bean>
