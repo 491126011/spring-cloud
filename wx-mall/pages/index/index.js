@@ -18,7 +18,7 @@ Page({
     return {
       title: 'NideShop',
       desc: '朗格朗格',
-      path: '/pages/index/index'
+      path: '/pages/index/index?businessId=' + wx.getStorageSync('businessId')
     }
   },onPullDownRefresh(){
 	  	// 增加下拉刷新数据的功能
@@ -74,6 +74,7 @@ Page({
 
   },
   onLoad: function (options) {
+    wx.setStorageSync('businessId',options.businessId || 1)
     this.getIndexData();
   },
   onReady: function () {

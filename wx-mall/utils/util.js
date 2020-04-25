@@ -44,6 +44,7 @@ function request(url, data = {}, method = "POST", header = "application/x-www-fo
             data: data,
             method: method,
             header: {
+              'tenantId': wx.getStorageSync('businessId'),
               'Content-Type': header,
               'X-Nideshop-Token': wx.getStorageSync('token')
             },
