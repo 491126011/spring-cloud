@@ -505,9 +505,8 @@ Page({
     wx.downloadFile({
         url: this.data.goods.list_pic_url,
         complete (res) {
-          if (res.statusCode === 200) {
-              // ctx.drawImage(res.tempFilePath, 0, 0, 375, 375)
-              // ctx.draw()
+          if (res.statusCode == 200) {
+              ctx.drawImage(res.tempFilePath, 0, 0, 375, 375)
 
               ctx.setFontSize(16);
               ctx.setFillStyle('#000000');
