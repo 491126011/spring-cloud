@@ -1,5 +1,8 @@
 const root = '/api/';
-const API_BASE_URL = 'http://www.siiika.com' + root;
+// const API_BASE_URL = 'http://www.siiika.com' + root;
+// const API_BASE_URL = 'http://127.0.0.1:8080/platform_framework_war_exploded' + root;
+const API_BASE_URL = 'http://127.0.0.1:8080/platform_framework_war_exploded' + root;
+//116.76.255.63
 //const API_BASE_URL = 'https://wx.siiika.com' + root;
 module.exports = {
     IndexUrlNewGoods:   API_BASE_URL + 'index/newGoods',        //新品首发
@@ -62,4 +65,5 @@ module.exports = {
     OrderQuery:         API_BASE_URL + 'pay/query',             //微信查询订单状态
     HelpTypeList:       API_BASE_URL + 'helpissue/typeList',    //查看帮助类型列表
     HelpIssueList:      API_BASE_URL + 'helpissue/issueList',   //查看问题列表
+    QrCodeGet:          API_BASE_URL + 'qrcode',   //获取二维码
 };
