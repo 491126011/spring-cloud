@@ -25,7 +25,12 @@ Page({
     openAttr: false,
     noCollectImage: "/static/images/icon_collect.png",
     hasCollectImage: "/static/images/icon_collect_checked.png",
-    collectBackImage: "/static/images/icon_collect.png"
+    collectBackImage: "/static/images/icon_collect.png",
+    qrCodeTempLocation : '',
+    imagePath : '',
+    canvasHidden : false,
+    maskHidden : false
+
   },
   getGoodsInfo: function() {
     let that = this;
@@ -191,10 +196,16 @@ Page({
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
-    this.setData({
-      id: parseInt(options.id)
-      // id: 1181000
-    });
+    if (options.scene) {
+      let scene = decodeURIComponent(options.scene)
+      this.setData({
+        id: parseInt(scene.split('=')[1])
+      });
+    }else{
+      this.setData({
+        id: parseInt(options.id)
+      });
+    }
     var that = this;
     this.getGoodsInfo();
     util.request(api.CartGoodsCount).then(function(res) {
@@ -455,5 +466,145 @@ Page({
       }
     }
     specificationList.map(function(item) {});
+  },
+  share(){
+    wx.showLoading({
+      title: '正在生成海报...',
+      mask: true
+    })
+    this.downloadPicture()
+  },
+  downloadPicture(){
+    let that = this
+    wx.downloadFile({
+      url: api.QrCodeGet,
+      header : {
+        'X-Nideshop-Token': wx.getStorageSync('token'),
+        'params' : "id=" + this.data.goods.id,
+        'page' : 'pages/goods/goods'
+      },
+      complete (res) {
+        if (res.statusCode === 200) {
+            let wxCode = res.tempFilePath // 小程序码图片
+            that.setData({
+              maskHidden : true,
+              qrCodeTempLocation : wxCode
+            })
+            that.drawImage()
+        }
+      }
+    })
+  },
+  drawImage(){
+    let that = this
+    let ctx = wx.createCanvasContext('canvasPoster', this)
+    ctx.setFillStyle("#FFFFFF")
+    ctx.fillRect(0, 0, 375, 540)
+    // let canvasW = canvasAttrs.width // 画布的真实宽度
+    // let canvasH = canvasAttrs.height //画布的真实高度
+    wx.downloadFile({
+        url: this.data.goods.list_pic_url,
+        complete (res) {
+          if (res.statusCode == 200) {
+              ctx.drawImage(res.tempFilePath, 0, 0, 375, 375)
+
+              ctx.setFontSize(16);
+              ctx.setFillStyle('#000000');
+              ctx.fillText(that.data.goods.name, 20, 395);
+              ctx.stroke();
+
+              ctx.setFontSize(14);
+              ctx.setFillStyle('#666');
+              ctx.fillText(that.data.goods.goods_brief, 20, 420);
+              ctx.stroke();
+
+              ctx.setFontSize(23);
+              ctx.setFillStyle('#EE0000');
+              ctx.fillText('￥' + that.data.goods.retail_price, 20, 455);
+              ctx.stroke();
+
+              // 绘制二维码
+              ctx.drawImage(that.data.qrCodeTempLocation, 285, 395, 73, 73)
+              // ctx.draw()
+
+              ctx.setFontSize(12);
+              ctx.setFillStyle('#666');
+              ctx.fillText('长按图片，识别二维码', 240, 482.5);
+              ctx.stroke();
+
+              ctx.setFontSize(12);
+              ctx.setFillStyle('#666');
+              ctx.fillText('查看商品详情', 288, 504);
+              ctx.stroke();         
+              
+              ctx.draw()
+
+              ctx.save()
+              
+              setTimeout(() => {
+                wx.canvasToTempFilePath({
+                  canvasId: 'canvasPoster',
+                  x: 13,
+                  y: 13,
+                  width: 375,
+                  height: 540,
+                  destWidth: 375,
+                  destHeight: 540,
+                  complete: (canvasRes) => {
+                    let tempFilePath = canvasRes.tempFilePath
+                    that.setData({
+                      imagePath: tempFilePath,
+                      canvasHidden:true
+                    });
+                    wx.hideLoading()
+                  }
+                })
+              }, 3000)              
+          }
+        }
+    })
+  },
+  savePoster () {
+    let that = this
+    if (this.data.imagePath && this.data.imagePath != '') {
+      wx.getSetting({
+        success(res) {
+          if (!res.authSetting['scope.writePhotosAlbum']) {//未授权，则重新授权          
+            wx.authorize({            
+              scope: 'scope.writePhotosAlbum',              
+              success() {
+                that.saveAlbumn()
+              },
+              fail: function (res) {
+                wx.hideLoading()
+                wx.showToast({
+                  title : '您拒绝授权保存图片到相册，无法保存图片及分享到朋友圈',
+                  icon : 'none',
+                  duration : 4000
+                })
+              }
+            })
+          }else{
+            that.saveAlbumn()
+          }
+        }
+      })      
+    }
+  },
+  saveAlbumn(){
+    let that = this
+    wx.saveImageToPhotosAlbum({
+      filePath: this.data.imagePath,
+      success: (result) => {
+        wx.hideLoading()
+        wx.showToast({
+          title: '海报已保存，快去分享到您的圈子吧。',
+          icon: 'none'
+        })
+        that.setData({
+          maskHidden : false
+        })
+      }
+    })
   }
 })
