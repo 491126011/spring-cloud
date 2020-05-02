@@ -3,6 +3,7 @@ package com.platform.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.platform.utils.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,9 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.platform.entity.CollectEntity;
 import com.platform.service.CollectService;
-import com.platform.utils.PageUtils;
-import com.platform.utils.Query;
-import com.platform.utils.R;
 
 
 /**
@@ -37,6 +35,10 @@ public class CollectController {
 	@RequestMapping("/list")
 	@RequiresPermissions("collect:list")
 	public R list(@RequestParam Map<String, Object> params){
+		Long userId = ShiroUtils.getUserId();
+		if (userId> Constant.SUPER_ADMIN_MAX){
+			params.put("sellerId",userId);
+		}
 		//查询列表数据
         Query query = new Query(params);
 
@@ -66,6 +68,7 @@ public class CollectController {
 	@RequestMapping("/save")
 	@RequiresPermissions("collect:save")
 	public R save(@RequestBody CollectEntity collect){
+		collect.setSellerId(ShiroUtils.getUserId());
 		collectService.save(collect);
 		
 		return R.ok();

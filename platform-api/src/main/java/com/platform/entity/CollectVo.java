@@ -30,6 +30,17 @@ public class CollectVo implements Serializable {
     private String goods_brief;
     private String retail_price;
 
+    private Long sellerId;
+
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
+
     public Integer getId() {
         return id;
     }
