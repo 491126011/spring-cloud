@@ -55,4 +55,9 @@ public class UserCouponServiceImpl implements UserCouponService {
     public int deleteBatch(Integer[] ids) {
         return userCouponDao.deleteBatch(ids);
     }
+
+    @Override
+    public void checkCoupon() {
+
+    }
 }

@@ -68,10 +68,10 @@ var vm = new Vue({
             ],
             mobile: [
                 {required: true, message: '手机号不能为空', trigger: 'blur'}
-            ],
+            ]/*,
             expireTime: [
-                {required: true, message: '过期时间不能为空', trigger: 'blur'}
-            ]
+                {required: true, message: '到期时间不能为空', trigger: 'blur'}
+            ]*/
 
         }
     },
@@ -147,7 +147,7 @@ var vm = new Vue({
             });
         },
         saveOrUpdate: function (event) {
-            var url = vm.user.userId == null ? "../sys/user/save" : "../sys/user/update";
+            var url = vm.user.userId == null ? "../sys/user/saveShop" : "../sys/user/update";
             Ajax.request({
                 url: url,
                 params: JSON.stringify(vm.user),

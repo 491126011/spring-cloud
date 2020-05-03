@@ -45,4 +45,7 @@ public interface SysUserDao extends BaseDao<SysUserEntity> {
     List<UserWindowDto> queryListByBean(UserWindowDto userWindowDto);
 
     List<SysShopUserVo> queryShopList(Map<String, Object> map);
+
+    void checkShopExpire ();
+
 }

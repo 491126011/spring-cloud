@@ -146,7 +146,7 @@
 
 
 	<select id="queryShopList" resultType="com.platform.vo.SysShopUserVo">
-		SELECT t1.username,t1.email,t1.mobile,t1.`status`,expire_time ,t1.create_time ,
+		SELECT t1.user_id, t1.username,t1.email,t1.mobile,t1.`status`,expire_time ,t1.create_time ,
 			(SELECT count(1) from nideshop_user where seller_id = t1.user_id) as vipCount ,
 			(SELECT count(1) from nideshop_order where seller_id = t1.user_id and pay_status =2 ) as orderCount ,
 			(SELECT IFNULL(sum(order_price) ,0) from nideshop_order where seller_id = t1.user_id) as transactionAmount
@@ -155,4 +155,10 @@
 			where type = 2
 	</select>
 
+
+
+	<update id="checkShopExpire" >
+		UPDATE sys_user set `status` = 0 where DATE_FORMAT(expire_time,'%Y-%m-%d') <![CDATA[ < ]]> CURDATE()
+
+	</update>
 </mapper>

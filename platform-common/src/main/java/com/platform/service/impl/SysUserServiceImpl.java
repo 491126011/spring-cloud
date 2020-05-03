@@ -155,6 +155,12 @@ public class SysUserServiceImpl implements SysUserService {
         sysUserDao.queryListByBean(userWindowDto);
         return PageHelper.endPage();
     }
+
+    @Override
+    public void checkShopExpire() {
+        sysUserDao.checkShopExpire();
+    }
+
     @Override
     public  List<SysShopUserVo> queryShopList(Map<String, Object> map){
         return sysUserDao.queryShopList(map);

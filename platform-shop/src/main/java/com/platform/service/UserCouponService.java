@@ -69,4 +69,9 @@ public interface UserCouponService {
      * @return 删除条数
      */
     int deleteBatch(Integer[] ids);
+
+    /**
+     * 定时任务：检查优惠券是否过期
+     */
+    void checkCoupon();
 }

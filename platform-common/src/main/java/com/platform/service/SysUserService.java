@@ -91,4 +91,9 @@ public interface SysUserService {
      * @return
      */
     Page<UserWindowDto> findPage(UserWindowDto userEntity, int pageNum);
+
+    /**
+     * 定时任务 扫描商户过期
+     */
+    void checkShopExpire ();
 }
