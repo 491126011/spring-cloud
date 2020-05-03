@@ -1,8 +1,5 @@
 const root = '/api/';
-// const API_BASE_URL = 'http://www.siiika.com' + root;
-// const API_BASE_URL = 'http://127.0.0.1:8080/platform_framework_war_exploded' + root;
-const API_BASE_URL = 'http://127.0.0.1:8080/platform_framework_war_exploded' + root;
-//116.76.255.63
+const API_BASE_URL = 'http://127.0.0.1:8080' + root;
 //const API_BASE_URL = 'https://wx.siiika.com' + root;
 module.exports = {
     IndexUrlNewGoods:   API_BASE_URL + 'index/newGoods',        //新品首发

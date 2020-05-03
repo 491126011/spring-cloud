@@ -12,7 +12,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.4.3",
 	"appid": "wxac803b89ec64cf2e",
-	"projectname": "wxshop",
+	"projectname": "wx-mall",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {
