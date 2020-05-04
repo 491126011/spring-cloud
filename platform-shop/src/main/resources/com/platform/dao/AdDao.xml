@@ -45,7 +45,7 @@
         nideshop_ad.end_time,
         nideshop_ad.enabled,
         nideshop_ad_position.name ad_Position_Name,
-        nideshop_ad.seller_id,
+        nideshop_ad.seller_id
         from nideshop_ad LEFT JOIN nideshop_ad_position on nideshop_ad.ad_position_id = nideshop_ad_position.id
         where 1=1
         <if test="name != null and name.trim() != ''">

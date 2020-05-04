@@ -63,6 +63,7 @@ public class ApiIndexController extends ApiBaseAction {
         //
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("ad_position_id", 1);
+        param.put("sellerId",sellerId);
         List<AdVo> banner = adService.queryList(param);
         resultObj.put("banner", banner);
         //
