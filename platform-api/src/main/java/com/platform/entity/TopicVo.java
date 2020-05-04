@@ -38,6 +38,17 @@ public class TopicVo implements Serializable {
     //活动标签Id
     private Integer topic_tag_id;
 
+    private Integer sellerId;
+
+
+    public Integer getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Integer sellerId) {
+        this.sellerId = sellerId;
+    }
+
     public Integer getId() {
         return id;
     }

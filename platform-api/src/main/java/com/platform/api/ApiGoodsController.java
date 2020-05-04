@@ -8,6 +8,7 @@ import com.platform.entity.*;
 import com.platform.service.*;
 import com.platform.util.ApiBaseAction;
 import com.platform.util.ApiPageUtils;
+import com.platform.util.HeaderParamsUtils;
 import com.platform.utils.Base64;
 import com.platform.utils.CharUtil;
 import com.platform.utils.DateUtils;
@@ -310,6 +311,7 @@ public class ApiGoodsController extends ApiBaseAction {
                        @RequestParam(value = "page", defaultValue = "1") Integer page, @RequestParam(value = "size", defaultValue = "10") Integer size,
                        String sort, String order) {
         Map params = new HashMap();
+        Long sellerId = HeaderParamsUtils.getSellerId();
         params.put("is_delete", 0);
         params.put("is_on_sale", 1);
         params.put("brand_id", brandId);
@@ -347,7 +349,7 @@ public class ApiGoodsController extends ApiBaseAction {
         filterCategory.add(rootCategory);
         //
         params.put("fields", "category_id");
-        params.put("sellerId", loginUser.getSellerId());
+        params.put("sellerId", sellerId);
         List<GoodsVo> categoryEntityList = goodsService.queryList(params);
         params.remove("fields");
         if (null != categoryEntityList && categoryEntityList.size() > 0) {
@@ -359,6 +361,7 @@ public class ApiGoodsController extends ApiBaseAction {
             Map categoryParam = new HashMap();
             categoryParam.put("ids", categoryIds);
             categoryParam.put("fields", "parent_id");
+            categoryParam.put("sellerId", sellerId);
             List<CategoryVo> parentCategoryList = categoryService.queryList(categoryParam);
             //
             List<Integer> parentIds = new ArrayList();
@@ -371,6 +374,7 @@ public class ApiGoodsController extends ApiBaseAction {
             categoryParam.put("order", "asc");
             categoryParam.put("sidx", "sort_order");
             categoryParam.put("ids", parentIds);
+            categoryParam.put("sellerId", sellerId);
             List<CategoryVo> parentCategory = categoryService.queryList(categoryParam);
             if (null != parentCategory) {
                 filterCategory.addAll(parentCategory);
@@ -382,6 +386,7 @@ public class ApiGoodsController extends ApiBaseAction {
             Map categoryParam = new HashMap();
             categoryParam.put("parent_id", categoryId);
             categoryParam.put("fields", "id");
+            categoryParam.put("sellerId", sellerId);
             List<CategoryVo> childIds = categoryService.queryList(categoryParam);
             for (CategoryVo categoryEntity : childIds) {
                 categoryIds.add(categoryEntity.getId());

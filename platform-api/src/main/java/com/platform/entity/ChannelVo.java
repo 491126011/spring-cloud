@@ -22,6 +22,15 @@ public class ChannelVo implements Serializable {
     private String icon_url;
     //
     private Integer sort_order;
+    private Integer sellerId;
+
+    public Integer getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Integer sellerId) {
+        this.sellerId = sellerId;
+    }
 
     public Integer getId() {
         return id;

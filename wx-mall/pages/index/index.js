@@ -74,7 +74,7 @@ Page({
 
   },
   onLoad: function (options) {
-    wx.setStorageSync('sellerId',options.sellerId || 1)
+    wx.setStorageSync('sellerId',options.sellerId || 10010)
     this.getIndexData();
   },
   onReady: function () {

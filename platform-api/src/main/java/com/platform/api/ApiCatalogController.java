@@ -4,6 +4,7 @@ import com.platform.annotation.IgnoreAuth;
 import com.platform.entity.CategoryVo;
 import com.platform.service.ApiCategoryService;
 import com.platform.util.ApiBaseAction;
+import com.platform.util.HeaderParamsUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -41,9 +42,12 @@ public class ApiCatalogController extends ApiBaseAction {
     @PostMapping(value = "index")
     public Object index(Integer id,
                         @RequestParam(value = "page", defaultValue = "1") Integer page,
-                        @RequestParam(value = "size", defaultValue = "10") Integer size,
-                        Long sellerId) {
+                        @RequestParam(value = "size", defaultValue = "10") Integer size) {
         Map<String, Object> resultObj = new HashMap();
+
+        Long sellerId = HeaderParamsUtils.getSellerId();
+        System.out.println("=========="+HeaderParamsUtils.getSellerId());
+        System.out.println("=========="+sellerId);
         Map params = new HashMap();
         params.put("page", page);
         params.put("limit", size);
