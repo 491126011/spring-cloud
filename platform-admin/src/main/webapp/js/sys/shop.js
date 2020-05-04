@@ -4,6 +4,7 @@ $(function () {
         colModel: [
             {label: '用户ID', name: 'userId', index: "user_id", key: true, hidden: true},
             {label: '用户名', name: 'username', width: 75},
+            {label: '商城名称', name: 'shopName', width: 75},
             {label: '邮箱', name: 'email', width: 90},
             {label: '手机号', name: 'mobile', width: 100},
             {label: '会员数', name: 'vipCount', width: 100},
@@ -68,7 +69,10 @@ var vm = new Vue({
             ],
             mobile: [
                 {required: true, message: '手机号不能为空', trigger: 'blur'}
-            ]/*,
+            ],
+            shopName: [
+                {required: true, message: '商城名称不能为空', trigger: 'blur'}
+            ],/*,
             expireTime: [
                 {required: true, message: '到期时间不能为空', trigger: 'blur'}
             ]*/

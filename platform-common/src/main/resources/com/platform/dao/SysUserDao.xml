@@ -92,7 +92,8 @@
 			`dept_id`,
 			`create_time`,
 			`expire_time`,
-			`type`
+			`type`,
+			`shop_name`
 		)
 		values
 		(
@@ -106,7 +107,8 @@
 			#{deptId},
 			#{createTime},
 			#{expireTime},
-			#{type}
+			#{type},
+			#{shopName}
 		)
 	</insert>
 
@@ -114,6 +116,7 @@
 		update sys_user
 		<set>
 			<if test="username != null">`username` = #{username}, </if>
+			<if test="shopName != null">`shop_name` = #{shopName}, </if>
 			<if test="email != null">`email` = #{email}, </if>
 			<if test="mobile != null">`mobile` = #{mobile}, </if>
 			<if test="status != null">`status` = #{status}, </if>

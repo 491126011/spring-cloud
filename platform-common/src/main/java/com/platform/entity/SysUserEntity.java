@@ -84,6 +84,20 @@ public class SysUserEntity implements Serializable {
      */
     private String type;
 
+    /**
+     * 商城名称 显示于小程序顶部
+     */
+    private String shopName;
+
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
     public String getType() {
         return type;
     }

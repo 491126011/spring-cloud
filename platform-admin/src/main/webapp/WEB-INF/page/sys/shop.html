@@ -63,6 +63,10 @@
             <Form-item label="到期时间" prop="expireTime">
                 <Date-picker v-model="user.expireTime" placeholder="到期时间"></Date-picker>
             </Form-item>
+
+            <Form-item label="商城名称" prop="shopName">
+                <i-input v-model="user.shopName" placeholder="商城名称,用于小程序顶部"/>
+            </Form-item>
             <Form-item>
                 <i-button type="primary" @click="handleSubmit('formValidate')">提交</i-button>
                 <i-button type="warning" @click="reload" style="margin-left: 8px">返回</i-button>
