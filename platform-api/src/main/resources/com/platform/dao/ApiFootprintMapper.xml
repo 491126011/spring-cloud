@@ -39,6 +39,9 @@
             <if test="maxFoot == true">
                 and max.id is null
             </if>
+            <if test="sellerId != null">
+                and seller_id = #{sellerId}
+            </if>
         </where>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -93,14 +96,16 @@
 			`user_id`, 
 			`goods_id`, 
 			`add_time`,
-			`referrer`
+			`referrer`,
+			`seller_id`
 		)
 		values
 		(
 			#{user_id},
 			#{goods_id},
 			#{add_time},
-			#{referrer}
+			#{referrer},
+			#{sellerId}
 		)
 	</insert>
 
