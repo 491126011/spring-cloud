@@ -48,6 +48,9 @@
         <if test="userName != null and userName.trim() != ''">
             AND nideshop_user.username LIKE concat('%',#{userName},'%')
         </if>
+        <if test="userId != null and userId.trim() != ''">
+            AND nideshop_user_coupon.user_id = #{userId}
+        </if>
         <if test="couponName != null and couponName.trim() != ''">
             AND nideshop_coupon.name LIKE concat('%',#{couponName},'%')
         </if>
@@ -80,6 +83,9 @@
         </if>
         <if test="sellerId != null">
             and nideshop_user_coupon.seller_id   = #{sellerId}
+        </if>
+        <if test="userId != null and userId.trim() != ''">
+            AND nideshop_user_coupon.user_id = #{userId}
         </if>
     </select>
 

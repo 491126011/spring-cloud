@@ -1,7 +1,9 @@
 package com.platform.controller;
 
 import com.platform.annotation.SysLog;
+import com.platform.entity.SysRoleEntity;
 import com.platform.entity.SysUserEntity;
+import com.platform.service.SysRoleService;
 import com.platform.service.SysUserRoleService;
 import com.platform.service.SysUserService;
 import com.platform.utils.*;
@@ -16,6 +18,7 @@ import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +36,8 @@ public class SysUserController extends AbstractController {
     private SysUserService sysUserService;
     @Autowired
     private SysUserRoleService sysUserRoleService;
-
+    @Autowired
+    private SysRoleService sysRoleService;
     /**
      * 所有用户列表
      */
@@ -145,7 +149,23 @@ public class SysUserController extends AbstractController {
 
         return R.ok();
     }
+    /**
+     * 保存用户
+     */
+    @SysLog("保存用户")
+    @RequestMapping("/saveShop")
+    @RequiresPermissions("sys:user:save")
+    public R saveShop(@RequestBody SysUserEntity user) {
+        ValidatorUtils.validateEntity(user, AddGroup.class);
+        List<Long > roleIdList = new ArrayList<>();
+        SysRoleEntity roleEntity = sysRoleService.queryByRoleName("商户");
+        roleIdList.add(roleEntity.getRoleId());
+        user.setRoleIdList(roleIdList);
+        user.setCreateUserId(getUserId());
+        sysUserService.save(user);
 
+        return R.ok();
+    }
     /**
      * 修改用户
      */

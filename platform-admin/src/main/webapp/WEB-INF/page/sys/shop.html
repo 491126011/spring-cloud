@@ -43,11 +43,11 @@
             <Form-item label="手机号" prop="mobile">
                 <i-input v-model="user.mobile" placeholder="手机号"/>
             </Form-item>
-            <Form-item label="角色" prop="roleIdList">
-                <Checkbox-group v-model="user.roleIdList">
-                    <Checkbox :label="role.roleId" v-for="role in roleList">{{role.roleName}}</Checkbox>
-                </Checkbox-group>
-            </Form-item>
+<!--            <Form-item label="角色" prop="roleIdList">-->
+<!--                <Checkbox-group v-model="user.roleIdList">-->
+<!--                    <Checkbox :label="role.roleId" v-for="role in roleList">{{role.roleName}}</Checkbox>-->
+<!--                </Checkbox-group>-->
+<!--            </Form-item>-->
 
             <Form-item label="状态" prop="status">
                 <Radio-group v-model="user.status">

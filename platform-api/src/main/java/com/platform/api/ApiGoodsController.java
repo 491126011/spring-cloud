@@ -215,6 +215,7 @@ public class ApiGoodsController extends ApiBaseAction {
         footprintEntity.setName(info.getName());
         footprintEntity.setRetail_price(info.getRetail_price());
         footprintEntity.setUser_id(userId);
+        footprintEntity.setSellerId(info.getSellerId());
         if (null != referrer) {
             footprintEntity.setReferrer(referrer);
         } else {

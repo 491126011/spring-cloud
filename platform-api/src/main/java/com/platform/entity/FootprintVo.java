@@ -36,6 +36,17 @@ public class FootprintVo implements Serializable {
     private String nickname;
     private String avatar;
 
+
+    private Long sellerId;
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
+
     public Integer getId() {
         return id;
     }
