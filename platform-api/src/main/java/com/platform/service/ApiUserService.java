@@ -101,4 +101,8 @@ public class ApiUserService {
     public String selectSysUserShopNameBySellerId(Long sellerId){
         return userDao.selectSysUserShopNameBySellerId(sellerId);
     }
+
+    public UserVo queryByOpenIdAndSellerId(String openId, Long sellerId) {
+        return userDao.queryByOpenIdAndSellerId(openId,sellerId);
+    }
 }

@@ -17,6 +17,7 @@ import com.platform.service.TokenService;
 import com.platform.util.ApiBaseAction;
 import com.platform.util.ApiUserUtils;
 import com.platform.util.CommonUtil;
+import com.platform.util.HeaderParamsUtils;
 import com.platform.utils.CharUtil;
 import com.platform.utils.R;
 import com.platform.utils.ResourceUtil;
@@ -79,6 +80,8 @@ public class ApiAuthController extends ApiBaseAction {
     @PostMapping("login_by_weixin")
     public Object loginByWeixin() {
         JSONObject jsonParam = this.getJsonRequest();
+        Long sellerId = HeaderParamsUtils.getSellerId();
+        System.out.println(sellerId+"=====login by weixin");
         FullUserInfo fullUserInfo = null;
         String code = "";
         if (!StringUtils.isNullOrEmpty(jsonParam.getString("code"))) {
@@ -110,7 +113,7 @@ public class ApiAuthController extends ApiBaseAction {
             return toResponsFail("登录失败");
         }
         Date nowTime = new Date();
-        UserVo userVo = userService.queryByOpenId(sessionData.getString("openid"));
+        UserVo userVo = userService.queryByOpenIdAndSellerId(sessionData.getString("openid"),sellerId);
         if (null == userVo) {
             userVo = new UserVo();
             userVo.setUsername("微信用户" + CharUtil.getRandomString(12));
@@ -124,6 +127,7 @@ public class ApiAuthController extends ApiBaseAction {
             //性别 0：未知、1：男、2：女
             userVo.setGender(userInfo.getGender());
             userVo.setNickname(userInfo.getNickName());
+            userVo.setSellerId(sellerId);
             userService.save(userVo);
         } else {
             userInfo.setMobile(userVo.getMobile());

@@ -19,6 +19,7 @@
         <result property="register_ip" column="register_ip"/>
         <result property="avatar" column="avatar"/>
         <result property="weixin_openid" column="weixin_openid"/>
+        <result property="sellerId" column="seller_id"/>
     </resultMap>
 
     <select id="queryObject" resultMap="userMap">
@@ -67,7 +68,9 @@
 			`mobile`, 
 			`register_ip`, 
 			`avatar`, 
-			`weixin_openid`
+			`weixin_openid`,
+			`seller_id`
+
 		)
 		values
 		(
@@ -83,7 +86,8 @@
 			#{mobile},
 			#{register_ip},
 			#{avatar},
-			#{weixin_openid}
+			#{weixin_openid},
+			#{sellerId}
 		)
 	</insert>
 
@@ -133,6 +137,10 @@
     </select>
     <select id="selectSysUserShopNameBySellerId" resultType="java.lang.String">
         SELECT shop_name FROM `sys_user` WHERE user_id = #{sellerId}
+    </select>
+    <select id="queryByOpenIdAndSellerId" resultMap="userMap">
+        select * from nideshop_user
+        where `weixin_openid` = #{openId} and seller_id = #{sellerId}
     </select>
 
     <insert id="saveSmsCodeLog" parameterType="com.platform.entity.SmsLogVo">
