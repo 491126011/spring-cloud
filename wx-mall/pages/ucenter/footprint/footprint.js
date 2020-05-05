@@ -15,6 +15,9 @@ Page({
     this.getFootprintList();
   },
   getFootprintList() {
+    wx.setNavigationBarTitle({
+        title: "我的足迹"
+    })
     let that = this;
     var tmpFootPrint;
     util.request(api.FootprintList).then(function (res) {

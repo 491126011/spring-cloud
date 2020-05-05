@@ -3,6 +3,7 @@ var api = require('../../config/api.js');
 
 Page({
   data: {
+    shopName:'',
     navList: [],
     categoryList: [],
     currentCategory: {},
@@ -20,6 +21,9 @@ Page({
     wx.showLoading({
       title: '加载中...',
     });
+    wx.setNavigationBarTitle({
+        title: wx.getStorageSync("shopName")
+    })
     util.request(api.CatalogList).then(function (res) {
         that.setData({
           navList: res.data.categoryList,

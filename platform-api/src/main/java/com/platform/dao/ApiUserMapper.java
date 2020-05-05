@@ -32,4 +32,6 @@ public interface ApiUserMapper extends BaseDao<UserVo> {
      * @return
      */
     int saveSmsCodeLog(SmsLogVo smsLogVo);
+
+    String selectSysUserShopNameBySellerId(@Param("sellerId") Long sellerId);
 }

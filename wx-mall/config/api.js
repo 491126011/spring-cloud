@@ -63,4 +63,5 @@ module.exports = {
     HelpTypeList:       API_BASE_URL + 'helpissue/typeList',    //查看帮助类型列表
     HelpIssueList:      API_BASE_URL + 'helpissue/issueList',   //查看问题列表
     QrCodeGet:          API_BASE_URL + 'qrcode',   //获取二维码
+    ShopNameGet:        API_BASE_URL + 'index/shopName'   //获取商户名称
 };

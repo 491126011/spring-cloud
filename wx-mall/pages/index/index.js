@@ -6,6 +6,7 @@ const user = require('../../services/user.js');
 const app = getApp()
 Page({
   data: {
+    shopName:'',
     newGoods: [],
     hotGoods: [],
     topics: [],
@@ -28,6 +29,17 @@ Page({
   getIndexData: function () {
     let that = this;
     var data = new Object();
+    //设置商户名称
+    util.request(api.ShopNameGet).then(function (res) {
+        if (res.errno === 0) {
+            data.shopName = res.data.shopName
+            wx.setStorageSync('shopName',data.shopName || "摩艾商城")
+            wx.setNavigationBarTitle({
+                title: wx.getStorageSync("shopName")
+            })
+            that.setData(data);
+        }
+      });
     util.request(api.IndexUrlNewGoods).then(function (res) {
       if (res.errno === 0) {
         data.newGoods= res.data.newGoodsList

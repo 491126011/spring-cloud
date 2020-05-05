@@ -97,4 +97,8 @@ public class ApiUserService {
         }
         return result;
     }
+
+    public String selectSysUserShopNameBySellerId(Long sellerId){
+        return userDao.selectSysUserShopNameBySellerId(sellerId);
+    }
 }

@@ -42,6 +42,9 @@ public class ApiIndexController extends ApiBaseAction {
     @Autowired
     private ApiCartService cartService;
 
+    @Autowired
+    private ApiUserService apiUserService;
+
     /**
      * 测试
      */
@@ -314,6 +317,16 @@ public class ApiIndexController extends ApiBaseAction {
         resultObj.put("channel", channel);
         //
 
+        return toResponsSuccess(resultObj);
+    }
+    @ApiOperation(value = "shopName")
+    @IgnoreAuth
+    @PostMapping(value = "shopName")
+    public Object shopInfo() {
+        Long sellerId = HeaderParamsUtils.getSellerId();
+        String shopName = apiUserService.selectSysUserShopNameBySellerId(sellerId);
+        Map<String, Object> resultObj = new HashMap<String, Object>();
+        resultObj.put("shopName",shopName);
         return toResponsSuccess(resultObj);
     }
 }

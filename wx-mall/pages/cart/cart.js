@@ -5,6 +5,7 @@ var app = getApp();
 
 Page({
   data: {
+    shopName:'',
     cartGoods: [],
     cartTotal: {
       "goodsCount": 0,
@@ -39,6 +40,9 @@ Page({
   },
   getCartList: function () {
     let that = this;
+    wx.setNavigationBarTitle({
+        title: wx.getStorageSync("shopName")
+    })
     util.request(api.CartList).then(function (res) {
       if (res.errno === 0) {
         that.setData({

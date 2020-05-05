@@ -131,6 +131,9 @@
         left join nideshop_sms_log b on a.user_id = b.user_id and b.log_date > a.log_date
         where a.user_id = #{user_id} and b.id is null
     </select>
+    <select id="selectSysUserShopNameBySellerId" resultType="java.lang.String">
+        SELECT shop_name FROM `sys_user` WHERE user_id = #{sellerId}
+    </select>
 
     <insert id="saveSmsCodeLog" parameterType="com.platform.entity.SmsLogVo">
         insert into nideshop_sms_log(
