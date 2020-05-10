@@ -327,12 +327,20 @@ Page({
       let checkedProduct = this.getCheckedProductItem(this.getCheckedSpecKey());
       if (!checkedProduct || checkedProduct.length <= 0) {
         //找不到对应的product信息，提示没有库存
+          wx.showToast({
+              title: '选定的规格已售罄',
+              icon: 'none'
+          });
         return false;
       }
 
       //验证库存
       if (checkedProduct.goods_number < this.data.number) {
         //找不到对应的product信息，提示没有库存
+          wx.showToast({
+              title: '选定的产品已售罄',
+              icon: 'none'
+          });
         return false;
       }
 
@@ -376,7 +384,6 @@ Page({
         collectBackImage: "/static/images/detail_back.png"
       });
     } else {
-
       //提示选择完整规格
       if (!this.isCheckedAllSpec()) {
         wx.showToast({
@@ -389,12 +396,20 @@ Page({
       let checkedProduct = this.getCheckedProductItem(this.getCheckedSpecKey());
       if (!checkedProduct || checkedProduct.length <= 0) {
         //找不到对应的product信息，提示没有库存
+          wx.showToast({
+              title: '选定的规格已售罄',
+              icon: 'none'
+          });
         return false;
       }
 
       //验证库存
       if (checkedProduct.goods_number < this.data.number) {
         //找不到对应的product信息，提示没有库存
+          wx.showToast({
+              title: '选定的产品已售罄',
+              icon: 'none'
+          });
         return false;
       }
 
