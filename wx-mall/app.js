@@ -1,4 +1,13 @@
 App({
+    onShow: function(){
+        let shopName = wx.getStorageSync("shopName")
+        debugger
+        if(shopName){
+            wx.setNavigationBarTitle({
+                title: shopName
+            })
+        }
+    },
     onLaunch: function () {
         //获取小程序更新机制兼容
         if (wx.canIUse('getUpdateManager')) {

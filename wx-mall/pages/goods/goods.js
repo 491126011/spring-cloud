@@ -327,12 +327,20 @@ Page({
       let checkedProduct = this.getCheckedProductItem(this.getCheckedSpecKey());
       if (!checkedProduct || checkedProduct.length <= 0) {
         //找不到对应的product信息，提示没有库存
+          wx.showToast({
+              title: '选定的规格已售罄',
+              icon: 'none'
+          });
         return false;
       }
 
       //验证库存
       if (checkedProduct.goods_number < this.data.number) {
         //找不到对应的product信息，提示没有库存
+          wx.showToast({
+              title: '选定的产品已售罄',
+              icon: 'none'
+          });
         return false;
       }
 
@@ -376,7 +384,6 @@ Page({
         collectBackImage: "/static/images/detail_back.png"
       });
     } else {
-
       //提示选择完整规格
       if (!this.isCheckedAllSpec()) {
         wx.showToast({
@@ -389,12 +396,20 @@ Page({
       let checkedProduct = this.getCheckedProductItem(this.getCheckedSpecKey());
       if (!checkedProduct || checkedProduct.length <= 0) {
         //找不到对应的product信息，提示没有库存
+          wx.showToast({
+              title: '选定的规格已售罄',
+              icon: 'none'
+          });
         return false;
       }
 
       //验证库存
       if (checkedProduct.goods_number < this.data.number) {
         //找不到对应的product信息，提示没有库存
+          wx.showToast({
+              title: '选定的产品已售罄',
+              icon: 'none'
+          });
         return false;
       }
 
@@ -515,12 +530,15 @@ Page({
 
               ctx.setFontSize(14);
               ctx.setFillStyle('#666');
-              ctx.fillText(that.data.goods.goods_brief, 20, 420);
+              let brief = that.data.goods.goods_brief
+              ctx.fillText(brief == null ? '' : brief, 20, 420);
               ctx.stroke();
 
               ctx.setFontSize(23);
               ctx.setFillStyle('#EE0000');
-              ctx.fillText('￥' + that.data.goods.retail_price, 20, 455);
+              let price = that.data.goods.retail_price
+              
+              ctx.fillText('￥' + (price == null ? '' : price), 20, 455);
               ctx.stroke();
 
               // 绘制二维码
@@ -559,7 +577,7 @@ Page({
                     wx.hideLoading()
                   }
                 })
-              }, 3000)              
+              }, 300)              
           }
         }
     })
