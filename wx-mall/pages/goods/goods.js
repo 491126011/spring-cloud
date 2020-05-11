@@ -530,12 +530,15 @@ Page({
 
               ctx.setFontSize(14);
               ctx.setFillStyle('#666');
-              ctx.fillText(that.data.goods.goods_brief, 20, 420);
+              let brief = that.data.goods.goods_brief
+              ctx.fillText(brief == null ? '' : brief, 20, 420);
               ctx.stroke();
 
               ctx.setFontSize(23);
               ctx.setFillStyle('#EE0000');
-              ctx.fillText('￥' + that.data.goods.retail_price, 20, 455);
+              let price = that.data.goods.retail_price
+              
+              ctx.fillText('￥' + (price == null ? '' : price), 20, 455);
               ctx.stroke();
 
               // 绘制二维码
