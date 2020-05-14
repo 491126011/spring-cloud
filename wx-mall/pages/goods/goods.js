@@ -198,8 +198,9 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     if (options.scene) {
       let scene = decodeURIComponent(options.scene)
+      let obj = JSON.parse(scene)
       this.setData({
-        id: parseInt(options.id)
+        id: parseInt(obj.id)
       });
     }else{
       this.setData({
@@ -495,7 +496,7 @@ Page({
       url: api.QrCodeGet,
       header : {
         'X-Nideshop-Token': wx.getStorageSync('token'),
-        'params' : "id=" + this.data.goods.id,
+        'params' : "{'id':" + this.data.goods.id + '}',
         'page' : 'pages/goods/goods'
       },
       complete (res) {
