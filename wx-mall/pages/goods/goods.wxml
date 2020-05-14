@@ -148,11 +148,8 @@
   <!-- <view class="share" bindtap="share">
     <image src="../../static/images/share.png" />
   </view> -->
-  <view class="share" >
-    
-    <button open-type="share" class="share-button" style="background-image:url({{sharePicture}});">
-      
-    </button>
+  <view class="share" >    
+    <button open-type="share" class="share-button"></button>
   </view>
 </view>
 <view class='imagePathBox' hidden="{{maskHidden == false}}">
