@@ -199,11 +199,13 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     if (options.scene) {
       let scene = decodeURIComponent(options.scene)
+      wx.setStorageSync('sellerId',scene.sellerId || 10010)
       this.setData({
         // id: parseInt(scene.split('=')[1])
         id: parseInt(scene.id)
       });
     } else {
+      wx.setStorageSync('sellerId',options.sellerId || 10010)
       this.setData({
         id: parseInt(options.id)
       });
@@ -497,7 +499,7 @@ Page({
       url: api.QrCodeGet,
       header: {
         'X-Nideshop-Token': wx.getStorageSync('token'),
-        'params': "id=" + this.data.goods.id,
+        'params': "id=" + this.data.goods.id + "&sellerId=" + (wx.getStorageSync('sellerId') || 10010),
         'page': 'pages/goods/goods'
       },
       complete(res) {
@@ -628,11 +630,12 @@ Page({
     })
   },
   onShareAppMessage: function (res) {
+    let sellerId = wx.getStorageSync('sellerId') || 10010
     if (res.from === 'button') {
       // 通过按钮触发
       return {
         title: this.data.goods.name,
-        path: '/pages/goods/goods?id=' + this.data.goods.id,
+        path: '/pages/goods/goods?id=' + this.data.goods.id + '&sellerId=' + sellerId,
         imageUrl: this.data.goods.list_pic_url,
         success: function (res) {
           // 转发成功
@@ -650,7 +653,7 @@ Page({
     //通过右上角菜单触发
     return {
       title: this.data.goods.name,
-      path: "/pages/goods/goods?id=" + this.data.id,
+      path: '/pages/goods/goods?id=' + this.data.goods.id + '&sellerId=' + sellerId,
       imageUrl: this.data.goods.list_pic_url
     };
   },
