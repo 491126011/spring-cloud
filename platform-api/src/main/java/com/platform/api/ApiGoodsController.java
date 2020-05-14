@@ -116,6 +116,8 @@ public class ApiGoodsController extends ApiBaseAction {
             @ApiImplicitParam(name = "referrer", value = "商品referrer", paramType = "path", required = false)})
     @PostMapping(value = "detail")
     public Object detail(Integer id, Long referrer) {
+        Long sellerId = HeaderParamsUtils.getSellerId();
+
         Map<String, Object> resultObj = new HashMap();
         //
         Long userId = getUserId();
@@ -174,7 +176,9 @@ public class ApiGoodsController extends ApiBaseAction {
         List<AttributeVo> attribute = attributeService.queryList(ngaParam);
         //
         Map issueParam = new HashMap();
+
 //        issueParam.put("goods_id", id);
+        issueParam.put("sellerId",sellerId);
         List<GoodsIssueVo> issue = goodsIssueService.queryList(issueParam);
         //
         BrandVo brand = brandService.queryObject(info.getBrand_id());
