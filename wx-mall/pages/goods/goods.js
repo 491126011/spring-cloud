@@ -199,7 +199,7 @@ Page({
     if (options.scene) {
       let scene = decodeURIComponent(options.scene)
       this.setData({
-        id: parseInt(scene.split('=')[1])
+        id: parseInt(options.id)
       });
     }else{
       this.setData({
@@ -624,5 +624,30 @@ Page({
         })
       }
     })
-  }
+  },
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 通过按钮触发
+      var data = res.target.dataset
+      return {
+        title: data.title,
+        path: '/pages/program/index?id='+data.id,
+        imageUrl: '../../static/images/logo.png',
+        success: function (res) {
+          // 转发成功
+          console.log('转发成功')
+        },
+        fail: function (res) {
+          // 转发失败
+          console.log('转发失败')
+        }
+      }
+    }
+    //通过右上角菜单触发
+    return {
+      title: '小程序',
+      path: "/pages/goods/goods?id=" + this.data.id,
+      imageUrl: '../../static/images/logo.png'
+    };
+  },
 })
