@@ -29,7 +29,8 @@ Page({
     qrCodeTempLocation: '',
     imagePath: '',
     canvasHidden: false,
-    maskHidden: false
+    maskHidden: false,
+    sharePicture : 'http://cdn.siiika.com/upload/20200514/225111259b1294.png'
 
   },
   getGoodsInfo: function () {
@@ -629,10 +630,9 @@ Page({
   onShareAppMessage: function (res) {
     if (res.from === 'button') {
       // 通过按钮触发
-      var data = res.target.dataset
       return {
-        title: data.title,
-        path: '/pages/goods/goods?id=' + data.id,
+        title: this.data.goods.name,
+        path: '/pages/goods/goods?id=' + this.data.goods.id,
         imageUrl: this.data.goods.list_pic_url,
         success: function (res) {
           // 转发成功

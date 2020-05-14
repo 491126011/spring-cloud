@@ -713,7 +713,7 @@
     position: fixed;
     right: 20rpx;
     bottom: 180rpx;
-    z-index: 201;
+    z-index: 1000;
     border-radius: 50%;
     background-color: #fff;
     border: 1px solid gray;
@@ -726,6 +726,18 @@
 .share image{
     width: 40rpx;
     height: 40rpx;
+}
+
+.share-button{
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 40rpx;
+    height: 40rpx;
+}
+
+.share button{
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .imagePathBox{
