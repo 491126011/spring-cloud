@@ -198,11 +198,9 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     if (options.scene) {
       let scene = decodeURIComponent(options.scene)
-      wx.showToast({
-        title : scene
-      })
       this.setData({
-        id: parseInt(scene.split('=')[1])
+        // id: parseInt(scene.split('=')[1])
+        id: parseInt(scene.id)
       });
     } else {
       this.setData({
