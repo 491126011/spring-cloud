@@ -20,23 +20,23 @@ Page({
     userHasCollect: 0,
     number: 1,
     checkedSpecText: '请选择规格数量',
-    goodsPrice:0,
-    product:{},
+    goodsPrice: 0,
+    product: {},
     openAttr: false,
     noCollectImage: "/static/images/icon_collect.png",
     hasCollectImage: "/static/images/icon_collect_checked.png",
     collectBackImage: "/static/images/icon_collect.png",
-    qrCodeTempLocation : '',
-    imagePath : '',
-    canvasHidden : false,
-    maskHidden : false
+    qrCodeTempLocation: '',
+    imagePath: '',
+    canvasHidden: false,
+    maskHidden: false
 
   },
-  getGoodsInfo: function() {
+  getGoodsInfo: function () {
     let that = this;
     util.request(api.GoodsDetail, {
       id: that.data.id
-    }).then(function(res) {
+    }).then(function (res) {
       if (res.errno === 0) {
         that.setData({
           goods: res.data.info,
@@ -68,11 +68,11 @@ Page({
     });
 
   },
-  getGoodsRelated: function() {
+  getGoodsRelated: function () {
     let that = this;
     util.request(api.GoodsRelated, {
       id: that.data.id
-    }).then(function(res) {
+    }).then(function (res) {
       if (res.errno === 0) {
         that.setData({
           relatedGoods: res.data.goodsList,
@@ -81,7 +81,7 @@ Page({
     });
 
   },
-  clickSkuValue: function(event) {
+  clickSkuValue: function (event) {
     let that = this;
     let specNameId = event.currentTarget.dataset.nameId;
     let specValueId = event.currentTarget.dataset.valueId;
@@ -109,12 +109,12 @@ Page({
 
     //选择规格后调整对应价格
     let checkedProduct = this.getCheckedProductItem(this.getCheckedSpecKey())
-    if (checkedProduct[0]){
+    if (checkedProduct[0]) {
       this.setData({
         goodsPrice: checkedProduct[0].retail_price
       });
     }
-    
+
     this.setData({
       'specificationList': _specificationList
     });
@@ -125,7 +125,7 @@ Page({
   },
 
   //获取选中的规格信息
-  getCheckedSpecValue: function() {
+  getCheckedSpecValue: function () {
     let checkedValues = [];
     let _specificationList = this.data.specificationList;
     for (let i = 0; i < _specificationList.length; i++) {
@@ -145,34 +145,34 @@ Page({
     return checkedValues;
   },
   //根据已选的值，计算其它值的状态
-  setSpecValueStatus: function() {
+  setSpecValueStatus: function () {
 
   },
   //判断规格是否选择完整
-  isCheckedAllSpec: function() {
-    return !this.getCheckedSpecValue().some(function(v) {
+  isCheckedAllSpec: function () {
+    return !this.getCheckedSpecValue().some(function (v) {
       if (v.valueId == 0) {
         return true;
       }
     });
   },
-  getCheckedSpecKey: function() {
-    let checkedValue = this.getCheckedSpecValue().map(function(v) {
+  getCheckedSpecKey: function () {
+    let checkedValue = this.getCheckedSpecValue().map(function (v) {
       return v.valueId;
     });
     return checkedValue.join('_');
   },
-  changeSpecInfo: function() {
+  changeSpecInfo: function () {
     let checkedNameValue = this.getCheckedSpecValue();
 
     //设置选择的信息
-    let checkedValue = checkedNameValue.filter(function(v) {
+    let checkedValue = checkedNameValue.filter(function (v) {
       if (v.valueId != 0) {
         return true;
       } else {
         return false;
       }
-    }).map(function(v) {
+    }).map(function (v) {
       return v.valueText;
     });
     if (checkedValue.length > 0) {
@@ -185,8 +185,8 @@ Page({
       });
     }
   },
-  getCheckedProductItem: function(key) {
-    return this.data.productList.filter(function(v) {
+  getCheckedProductItem: function (key) {
+    return this.data.productList.filter(function (v) {
       if (v.goods_specification_ids.indexOf(key) > -1) {
         return true;
       } else {
@@ -194,22 +194,24 @@ Page({
       }
     });
   },
-  onLoad: function(options) {
+  onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     if (options.scene) {
       let scene = decodeURIComponent(options.scene)
-      let obj = JSON.parse(scene)
+      wx.showToast({
+        title : scene
+      })
       this.setData({
-        id: parseInt(obj.id)
+        id: parseInt(scene.split('=')[1])
       });
-    }else{
+    } else {
       this.setData({
         id: parseInt(options.id)
       });
     }
     var that = this;
     this.getGoodsInfo();
-    util.request(api.CartGoodsCount).then(function(res) {
+    util.request(api.CartGoodsCount).then(function (res) {
       if (res.errno === 0) {
         that.setData({
           cartGoodsCount: res.data.cartTotal.goodsCount
@@ -221,7 +223,7 @@ Page({
     var that = this
     //  高度自适应
     wx.getSystemInfo({
-      success: function(res) {
+      success: function (res) {
         var clientHeight = res.windowHeight,
           clientWidth = res.windowWidth,
           rpxR = 750 / clientWidth;
@@ -232,23 +234,23 @@ Page({
       }
     });
   },
-  onReady: function() {
+  onReady: function () {
     // 页面渲染完成
 
   },
-  onShow: function() {
+  onShow: function () {
     // 页面显示
 
   },
-  onHide: function() {
+  onHide: function () {
     // 页面隐藏
 
   },
-  onUnload: function() {
+  onUnload: function () {
     // 页面关闭
 
   },
-  switchAttrPop: function() {
+  switchAttrPop: function () {
     if (this.data.openAttr == false) {
       this.setData({
         openAttr: !this.data.openAttr,
@@ -256,7 +258,7 @@ Page({
       });
     }
   },
-  closeAttrOrCollect: function() {
+  closeAttrOrCollect: function () {
     let that = this;
     if (this.data.openAttr) {
       this.setData({
@@ -274,10 +276,10 @@ Page({
     } else {
       //添加或是取消收藏
       util.request(api.CollectAddOrDelete, {
-          typeId: 0,
-          valueId: this.data.id
-        }, "POST", "application/json")
-        .then(function(res) {
+        typeId: 0,
+        valueId: this.data.id
+      }, "POST", "application/json")
+        .then(function (res) {
           let _res = res;
           if (_res.errno == 0) {
             if (_res.data.type == 'add') {
@@ -300,7 +302,7 @@ Page({
         });
     }
   },
-  openCartPage: function() {
+  openCartPage: function () {
     wx.switchTab({
       url: '/pages/cart/cart',
     });
@@ -309,7 +311,7 @@ Page({
   /**
    * 直接购买
    */
-  buyGoods: function() {
+  buyGoods: function () {
     var that = this;
     if (this.data.openAttr == false) {
       //打开规格选择窗口
@@ -328,30 +330,30 @@ Page({
       let checkedProduct = this.getCheckedProductItem(this.getCheckedSpecKey());
       if (!checkedProduct || checkedProduct.length <= 0) {
         //找不到对应的product信息，提示没有库存
-          wx.showToast({
-              title: '选定的规格已售罄',
-              icon: 'none'
-          });
+        wx.showToast({
+          title: '选定的规格已售罄',
+          icon: 'none'
+        });
         return false;
       }
 
       //验证库存
       if (checkedProduct.goods_number < this.data.number) {
         //找不到对应的product信息，提示没有库存
-          wx.showToast({
-              title: '选定的产品已售罄',
-              icon: 'none'
-          });
+        wx.showToast({
+          title: '选定的产品已售罄',
+          icon: 'none'
+        });
         return false;
       }
 
       // 直接购买商品
       util.request(api.BuyAdd, {
-          goodsId: this.data.goods.id,
-          number: this.data.number,
-          productId: checkedProduct[0].id
-        }, "POST", 'application/json')
-        .then(function(res) {
+        goodsId: this.data.goods.id,
+        number: this.data.number,
+        productId: checkedProduct[0].id
+      }, "POST", 'application/json')
+        .then(function (res) {
           let _res = res;
           if (_res.errno == 0) {
             that.setData({
@@ -376,7 +378,7 @@ Page({
   /**
    * 添加到购物车
    */
-  addToCart: function() {
+  addToCart: function () {
     var that = this;
     if (this.data.openAttr == false) {
       //打开规格选择窗口
@@ -397,30 +399,30 @@ Page({
       let checkedProduct = this.getCheckedProductItem(this.getCheckedSpecKey());
       if (!checkedProduct || checkedProduct.length <= 0) {
         //找不到对应的product信息，提示没有库存
-          wx.showToast({
-              title: '选定的规格已售罄',
-              icon: 'none'
-          });
+        wx.showToast({
+          title: '选定的规格已售罄',
+          icon: 'none'
+        });
         return false;
       }
 
       //验证库存
       if (checkedProduct.goods_number < this.data.number) {
         //找不到对应的product信息，提示没有库存
-          wx.showToast({
-              title: '选定的产品已售罄',
-              icon: 'none'
-          });
+        wx.showToast({
+          title: '选定的产品已售罄',
+          icon: 'none'
+        });
         return false;
       }
 
       //添加到购物车
       util.request(api.CartAdd, {
-          goodsId: this.data.goods.id,
-          number: this.data.number,
-          productId: checkedProduct[0].id
-        }, 'POST', 'application/json')
-        .then(function(res) {
+        goodsId: this.data.goods.id,
+        number: this.data.number,
+        productId: checkedProduct[0].id
+      }, 'POST', 'application/json')
+        .then(function (res) {
           let _res = res;
           if (_res.errno == 0) {
             wx.showToast({
@@ -451,17 +453,17 @@ Page({
     }
 
   },
-  cutNumber: function() {
+  cutNumber: function () {
     this.setData({
       number: (this.data.number - 1 > 1) ? this.data.number - 1 : 1
     });
   },
-  addNumber: function() {
+  addNumber: function () {
     this.setData({
       number: this.data.number + 1
     });
   },
-  setDefSpecInfo: function(specificationList) {
+  setDefSpecInfo: function (specificationList) {
     //未考虑规格联动情况
     let that = this;
     if (!specificationList) return;
@@ -481,37 +483,37 @@ Page({
         });
       }
     }
-    specificationList.map(function(item) {});
+    specificationList.map(function (item) { });
   },
-  share(){
+  share() {
     wx.showLoading({
       title: '正在生成海报...',
       mask: true
     })
     this.downloadPicture()
   },
-  downloadPicture(){
+  downloadPicture() {
     let that = this
     wx.downloadFile({
       url: api.QrCodeGet,
-      header : {
+      header: {
         'X-Nideshop-Token': wx.getStorageSync('token'),
-        'params' : "{'id':" + this.data.goods.id + '}',
-        'page' : 'pages/goods/goods'
+        'params': "id=" + this.data.goods.id,
+        'page': 'pages/goods/goods'
       },
-      complete (res) {
+      complete(res) {
         if (res.statusCode === 200) {
-            let wxCode = res.tempFilePath // 小程序码图片
-            that.setData({
-              maskHidden : true,
-              qrCodeTempLocation : wxCode
-            })
-            that.drawImage()
+          let wxCode = res.tempFilePath // 小程序码图片
+          that.setData({
+            maskHidden: true,
+            qrCodeTempLocation: wxCode
+          })
+          that.drawImage()
         }
       }
     })
   },
-  drawImage(){
+  drawImage() {
     let that = this
     let ctx = wx.createCanvasContext('canvasPoster', this)
     ctx.setFillStyle("#FFFFFF")
@@ -519,98 +521,98 @@ Page({
     // let canvasW = canvasAttrs.width // 画布的真实宽度
     // let canvasH = canvasAttrs.height //画布的真实高度
     wx.downloadFile({
-        url: this.data.goods.list_pic_url,
-        complete (res) {
-          if (res.statusCode == 200) {
-              ctx.drawImage(res.tempFilePath, 0, 0, 375, 375)
+      url: this.data.goods.list_pic_url,
+      complete(res) {
+        if (res.statusCode == 200) {
+          ctx.drawImage(res.tempFilePath, 0, 0, 375, 375)
 
-              ctx.setFontSize(16);
-              ctx.setFillStyle('#000000');
-              ctx.fillText(that.data.goods.name, 20, 395);
-              ctx.stroke();
+          ctx.setFontSize(16);
+          ctx.setFillStyle('#000000');
+          ctx.fillText(that.data.goods.name, 20, 395);
+          ctx.stroke();
 
-              ctx.setFontSize(14);
-              ctx.setFillStyle('#666');
-              let brief = that.data.goods.goods_brief
-              ctx.fillText(brief == null ? '' : brief, 20, 420);
-              ctx.stroke();
+          ctx.setFontSize(14);
+          ctx.setFillStyle('#666');
+          let brief = that.data.goods.goods_brief
+          ctx.fillText(brief == null ? '' : brief, 20, 420);
+          ctx.stroke();
 
-              ctx.setFontSize(23);
-              ctx.setFillStyle('#EE0000');
-              let price = that.data.goods.retail_price
-              
-              ctx.fillText('￥' + (price == null ? '' : price), 20, 455);
-              ctx.stroke();
+          ctx.setFontSize(23);
+          ctx.setFillStyle('#EE0000');
+          let price = that.data.goods.retail_price
 
-              // 绘制二维码
-              ctx.drawImage(that.data.qrCodeTempLocation, 285, 395, 73, 73)
-              // ctx.draw()
+          ctx.fillText('￥' + (price == null ? '' : price), 20, 455);
+          ctx.stroke();
 
-              ctx.setFontSize(12);
-              ctx.setFillStyle('#666');
-              ctx.fillText('长按图片，识别二维码', 240, 482.5);
-              ctx.stroke();
+          // 绘制二维码
+          ctx.drawImage(that.data.qrCodeTempLocation, 285, 395, 73, 73)
+          // ctx.draw()
 
-              ctx.setFontSize(12);
-              ctx.setFillStyle('#666');
-              ctx.fillText('查看商品详情', 288, 504);
-              ctx.stroke();         
-              
-              ctx.draw()
+          ctx.setFontSize(12);
+          ctx.setFillStyle('#666');
+          ctx.fillText('长按图片，识别二维码', 240, 482.5);
+          ctx.stroke();
 
-              ctx.save()
-              
-              setTimeout(() => {
-                wx.canvasToTempFilePath({
-                  canvasId: 'canvasPoster',
-                  x: 13,
-                  y: 13,
-                  width: 375,
-                  height: 540,
-                  destWidth: 375,
-                  destHeight: 540,
-                  complete: (canvasRes) => {
-                    let tempFilePath = canvasRes.tempFilePath
-                    that.setData({
-                      imagePath: tempFilePath,
-                      canvasHidden:true
-                    });
-                    wx.hideLoading()
-                  }
-                })
-              }, 300)              
-          }
+          ctx.setFontSize(12);
+          ctx.setFillStyle('#666');
+          ctx.fillText('查看商品详情', 288, 504);
+          ctx.stroke();
+
+          ctx.draw()
+
+          ctx.save()
+
+          setTimeout(() => {
+            wx.canvasToTempFilePath({
+              canvasId: 'canvasPoster',
+              x: 13,
+              y: 13,
+              width: 375,
+              height: 540,
+              destWidth: 375,
+              destHeight: 540,
+              complete: (canvasRes) => {
+                let tempFilePath = canvasRes.tempFilePath
+                that.setData({
+                  imagePath: tempFilePath,
+                  canvasHidden: true
+                });
+                wx.hideLoading()
+              }
+            })
+          }, 300)
         }
+      }
     })
   },
-  savePoster () {
+  savePoster() {
     let that = this
     if (this.data.imagePath && this.data.imagePath != '') {
       wx.getSetting({
         success(res) {
           if (!res.authSetting['scope.writePhotosAlbum']) {//未授权，则重新授权          
-            wx.authorize({            
-              scope: 'scope.writePhotosAlbum',              
+            wx.authorize({
+              scope: 'scope.writePhotosAlbum',
               success() {
                 that.saveAlbumn()
               },
               fail: function (res) {
                 wx.hideLoading()
                 wx.showToast({
-                  title : '您拒绝授权保存图片到相册，无法保存图片及分享到朋友圈',
-                  icon : 'none',
-                  duration : 4000
+                  title: '您拒绝授权保存图片到相册，无法保存图片及分享到朋友圈',
+                  icon: 'none',
+                  duration: 4000
                 })
               }
             })
-          }else{
+          } else {
             that.saveAlbumn()
           }
         }
-      })      
+      })
     }
   },
-  saveAlbumn(){
+  saveAlbumn() {
     let that = this
     wx.saveImageToPhotosAlbum({
       filePath: this.data.imagePath,
@@ -621,7 +623,7 @@ Page({
           icon: 'none'
         })
         that.setData({
-          maskHidden : false
+          maskHidden: false
         })
       }
     })
@@ -632,8 +634,8 @@ Page({
       var data = res.target.dataset
       return {
         title: data.title,
-        path: '/pages/program/index?id='+data.id,
-        imageUrl: '../../static/images/logo.png',
+        path: '/pages/goods/goods?id=' + data.id,
+        imageUrl: this.data.goods.list_pic_url,
         success: function (res) {
           // 转发成功
           console.log('转发成功')
@@ -641,14 +643,17 @@ Page({
         fail: function (res) {
           // 转发失败
           console.log('转发失败')
+        },
+        complete(r){
+          console.log(r)
         }
       }
     }
     //通过右上角菜单触发
     return {
-      title: '小程序',
+      title: this.data.goods.name,
       path: "/pages/goods/goods?id=" + this.data.id,
-      imageUrl: '../../static/images/logo.png'
+      imageUrl: this.data.goods.list_pic_url
     };
   },
 })
