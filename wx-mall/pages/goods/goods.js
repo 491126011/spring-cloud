@@ -30,7 +30,8 @@ Page({
     imagePath: '',
     canvasHidden: false,
     maskHidden: false,
-    sharePicture : 'http://cdn.siiika.com/upload/20200514/225111259b1294.png'
+    sharePicture : 'http://cdn.siiika.com/upload/20200514/225111259b1294.png',
+    showShareView : false
 
   },
   getGoodsInfo: function () {
@@ -486,7 +487,20 @@ Page({
     }
     specificationList.map(function (item) { });
   },
+  showShare(){
+    this.setData({
+      showShareView : true
+    })
+  },
+  closeShare(){
+    this.setData({
+      showShareView : false
+    })
+  },
   share() {
+    this.setData({
+      showShareView : false
+    })
     wx.showLoading({
       title: '正在生成海报...',
       mask: true

@@ -756,7 +756,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 10;
+    z-index: 1002;
   }
   .shengcheng{
     width: 80%;
@@ -784,6 +784,88 @@
   }
   button[class="baocun"]::after{
     border: 0;
+  }
+
+  .share-view{
+      height: 280rpx;
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 1001;
+      background-color: #fff;
+  }
+
+  .share-view-header{
+      height: 70rpx;
+      width: 100%;
+      background-color: rgb(245, 243, 243);
+      display: flex;
+      align-items: center;
+  }
+
+  .share-title{
+      margin-left: 30rpx;
+      font-size: 32rpx;
+  }
+
+  .close{
+      margin-left: auto;
+      margin-right: 30rpx;
+      font-size: 32rpx;
+  }
+
+  .close image{
+      width: 40rpx;
+      height: 40rpx;
+  }
+
+  .share-view-body{
+      display: flex;
+      align-items: center;
+      margin-top: 40rpx;
+  }
+
+  .share-view-body image{
+      width: 68rpx;
+      height: 68rpx;
+      /* border: 1px solid rgb(245, 243, 243);
+      border-radius: 50%;
+      padding: 6rpx; */
+
+  }
+
+  .share-text{
+      font-size: 24rpx;
+      margin-top: 6rpx;
+  }
+
+  .share-friend{
+      border-right: 1px solid rgb(245, 243, 243);
+      padding-left: 50rpx;
+      padding-right: 50rpx;
+      width: 50%;
+  }
+
+  .share-friend-button{
+    background-image: url(http://cdn.siiika.com/upload/20200520/22523845336293.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 68rpx;
+    height: 68rpx;
+  }
+
+  .share-poster{
+    padding-left: 50rpx;
+    padding-right: 50rpx;
+    width: 50%;
+  }
+
+  .center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
   }
 
 

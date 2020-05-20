@@ -146,12 +146,37 @@
   <view class="c" bindtap='buyGoods'>立即购买</view>
   <view class="r" bindtap="addToCart">加入购物车</view>
 </view>
-<!-- <view class="share" bindtap="share">
+<view class="share" bindtap="showShare">
     <image src="../../static/images/share.png" />
-  </view> -->
-<view class="share">
+  </view>
+<!-- <view class="share">
   <button open-type="share" class="share-button"></button>
+</view> -->
+
+<view class="share-view" wx:if="{{showShareView}}">
+  <view class="share-view-header">
+    <view class="share-title">分享</view>
+    <view class="close">
+      <image bindtap="closeShare" src="../../static/images/close.png"></image>
+    </view>
+  </view>
+  <view class="share-view-body">
+    <view class="share-friend">
+      <view class="center">        
+        <button open-type="share" class="share-friend-button">
+        </button>
+      </view>
+      <view class="center share-text">分享给好友</view>
+    </view>
+    <view class="share-poster" bindtap="share">
+      <view class="center">
+        <image src="../../static/images/wechat_circle.png" />
+      </view>
+      <view class="center share-text">生成分享海报</view>
+    </view>
+  </view>
 </view>
+
 <view class='imagePathBox' hidden="{{maskHidden == false}}">
   <image src="{{imagePath}}" class='shengcheng'></image>
   <button class='baocun' bindtap='savePoster'>保存图片</button>
