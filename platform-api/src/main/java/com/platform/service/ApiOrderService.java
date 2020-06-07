@@ -155,6 +155,7 @@ public class ApiOrderService {
         OrderVo orderInfo = new OrderVo();
         orderInfo.setOrder_sn(CommonUtil.generateOrderNumber());
         orderInfo.setUser_id(loginUser.getUserId());
+        orderInfo.setSellerId(loginUser.getSellerId());
         //收货地址和运费
         orderInfo.setConsignee(addressVo.getUserName());
         orderInfo.setMobile(addressVo.getTelNumber());
