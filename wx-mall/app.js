@@ -1,7 +1,6 @@
 App({
     onShow: function(){
         let shopName = wx.getStorageSync("shopName")
-        debugger
         if(shopName){
             wx.setNavigationBarTitle({
                 title: shopName
