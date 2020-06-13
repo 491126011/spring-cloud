@@ -21,22 +21,35 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'id', index: 'id', key: true, hidden: true},
-            {label: '订单号', name: 'orderSn', index: 'order_sn', width: 100},
-            {label: '会员', name: 'userName', index: 'user_name', width: 80},
+            {label: '商品数量', name: 'picCount', index: 'picCount', width: 50},
+            {label: '商品名称', name: 'goodsArr', index: 'goodsArr', width: 280},
             {
-                label: '订单类型', name: 'orderType', index: 'order_type', width: 80, formatter: function (value) {
-                    if (value == '1') {
-                        return '普通订单';
-                    } else if (value == '2') {
-                        return '团购订单';
-                    } else if (value == '3') {
-                        return '砍价订单';
-                    } else if (value == '4') {
-                        return '立即购买';
-                    }
-                    return '-';
+                label: '商品图片',
+                name: 'picList',
+                index: 'picList',
+                width: 180,
+                formatter: function (value) {
+                    var a = transImg(value[0]) + transImg(value[1])+ transImg(value[2]);
+
+                    return a;
                 }
             },
+            {label: '订单号', name: 'orderSn', index: 'order_sn', width: 100},
+            {label: '会员', name: 'userName', index: 'user_name', width: 80},
+            // {
+            //     label: '订单类型', name: 'orderType', index: 'order_type', width: 80, formatter: function (value) {
+            //         if (value == '1') {
+            //             return '普通订单';
+            //         } else if (value == '2') {
+            //             return '团购订单';
+            //         } else if (value == '3') {
+            //             return '砍价订单';
+            //         } else if (value == '4') {
+            //             return '立即购买';
+            //         }
+            //         return '-';
+            //     }
+            // },
             {
                 label: '订单状态', name: 'orderStatus', index: 'order_status', width: 80, formatter: function (value) {
                     if (value == '0') {
@@ -90,8 +103,8 @@ $(function () {
                     return value;
                 }
             },
-            {label: '快递公司', name: 'shippingName', index: 'shipping_name', width: 80},
-            {label: '快递单号', name: 'shippingNo', index: 'shipping_No', width: 80},
+            // {label: '快递公司', name: 'shippingName', index: 'shipping_name', width: 80},
+            // {label: '快递单号', name: 'shippingNo', index: 'shipping_No', width: 80},
             {label: '实际支付金额', name: 'actualPrice', index: 'actual_price', width: 80},
             {label: '订单总价', name: 'orderPrice', index: 'order_price', width: 60},
             {label: '商品总价', name: 'goodsPrice', index: 'goods_price', width: 60},

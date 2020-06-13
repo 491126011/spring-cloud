@@ -78,6 +78,8 @@
                         </a>
                     </li>
                     <li><a @click="logout"><i class="fa fa fa-sign-out"></i>退出</a></li>
+                    <li><i id="userType" class="fa fa-user-circle-o"></i></li>
+
                 </ul>
             </nav>
         </div>
@@ -314,6 +316,11 @@
             getUser: function () {
                 $.getJSON("sys/user/info?_" + $.now(), function (r) {
                     vm.user = r.user;
+                    if (r.user.type == 1){
+                        document.getElementById("userType").innerHTML = "当前角色：管理员";
+                    }else {
+                        document.getElementById("userType").innerHTML = "当前角色：商户";
+                    }
                 });
             },
             updatePassword: function () {
