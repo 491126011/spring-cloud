@@ -333,7 +333,7 @@ Page({
       if (!checkedProduct || checkedProduct.length <= 0) {
         //找不到对应的product信息，提示没有库存
         wx.showToast({
-          title: '选定的规格已售罄',
+          title: '找不到对应产品信息',
           icon: 'none'
         });
         return false;
@@ -605,7 +605,7 @@ Page({
     if (this.data.imagePath && this.data.imagePath != '') {
       wx.getSetting({
         success(res) {
-          if (!res.authSetting['scope.writePhotosAlbum']) {//未授权，则重新授权          
+          if (!res.authSetting['scope.writePhotosAlbum']) {//未授权，则重新授权
             wx.authorize({
               scope: 'scope.writePhotosAlbum',
               success() {

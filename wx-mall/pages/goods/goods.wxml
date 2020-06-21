@@ -148,7 +148,7 @@
 </view>
 <view class="share" bindtap="showShare">
     <image src="../../static/images/share.png" />
-  </view>
+</view>
 <!-- <view class="share">
   <button open-type="share" class="share-button"></button>
 </view> -->

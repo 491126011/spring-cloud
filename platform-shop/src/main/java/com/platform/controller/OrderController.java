@@ -1,12 +1,17 @@
 package com.platform.controller;
 
 import com.platform.entity.OrderEntity;
+import com.platform.entity.OrderGoodsEntity;
+import com.platform.service.OrderGoodsService;
 import com.platform.service.OrderService;
 import com.platform.utils.*;
+import com.platform.vo.OrderVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +27,8 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private OrderGoodsService orderGoodsService;
     /**
      * 列表
      */
@@ -36,11 +43,46 @@ public class OrderController {
         Query query = new Query(params);
 
         List<OrderEntity> orderList = orderService.queryList(query);
+        List<OrderVo> orderVoList = new ArrayList<>();
+        if (orderList!=null && orderList.size()>0){
+            Map goodsParam = new HashMap();
+            for (int i = 0; i < orderList.size(); i++) {
+                OrderVo orderVo = new OrderVo();
+                BeanUtils.copyProperties(orderList.get(i),orderVo);
+                //查找此订单的所有商品和封面图，转成string
+                goodsParam.put("orderId",orderVo.getId());
+                List<OrderGoodsEntity> goodsList = orderGoodsService.queryList(goodsParam);
+                List<String> picList = new ArrayList<>();
+                if (goodsList!=null && goodsList.size()>0){
+                    StringBuffer goodsNameStr = new StringBuffer();
+                    for (int j = 0; j < goodsList.size(); j++) {
+                        OrderGoodsEntity orderGoodsEntity = goodsList.get(j);
+                        picList.add(orderGoodsEntity.getListPicUrl());
+                        if (j==goodsList.size()-1){
+                            goodsNameStr.append(orderGoodsEntity.getGoodsName());
+                        }else {
+                            goodsNameStr.append(orderGoodsEntity.getGoodsName()).append(",");
+                        }
+                    }
+                    orderVo.setPicList(picList);
+                    orderVo.setPicCount(goodsList.size());
+                    orderVo.setGoodsArr(goodsNameStr.toString());
+                    orderVoList.add(orderVo);
+                }
+            }
+        }
         int total = orderService.queryTotal(query);
 
-        PageUtils pageUtil = new PageUtils(orderList, total, query.getLimit(), query.getPage());
+        PageUtils pageUtil = new PageUtils(orderVoList, total, query.getLimit(), query.getPage());
 
         return R.ok().put("page", pageUtil);
+    }
+
+    public static void main(String[] args) {
+        List list = new ArrayList();
+        list.add("heheh");
+        list.add("qqq");
+        list.toString();
     }
 
 
@@ -51,7 +93,7 @@ public class OrderController {
     @RequiresPermissions("order:info")
     public R info(@PathVariable("id") Integer id) {
         OrderEntity order = orderService.queryObject(id);
-
+        order.getOrderType();
         return R.ok().put("order", order);
     }
 

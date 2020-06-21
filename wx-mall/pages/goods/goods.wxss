@@ -853,6 +853,7 @@
     background-repeat: no-repeat;
     width: 68rpx;
     height: 68rpx;
+    background-color: #fff;
   }
 
   .share-poster{
