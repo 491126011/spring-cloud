@@ -90,9 +90,13 @@
           <option name="url" value="http://kwgit.kiway.cn/kwm5-project/kwm5-oauth2/kwm5-person-login-log.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="http://kwgit.kiway.cn/kwm5-project/base/kwm5-base-user.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
-    <option name="cloneParentDir" value="$USER_HOME$/Desktop/易敏的文件/工作/project/kwm5/kwm5-oauth2" />
+    <option name="cloneParentDir" value="$USER_HOME$/Desktop/易敏的文件/工作/project/kwm5/base" />
   </component>
   <component name="Vcs.Log.App.Settings">
     <option name="COLUMN_ORDER">
