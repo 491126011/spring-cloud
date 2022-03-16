@@ -78,9 +78,13 @@
           <option name="url" value="http://kwgit.kiway.cn/kwm5-project/kwm5-auto-config.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="http://kwgit.kiway.cn/kwm5-main/kwm5-main-base.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
-    <option name="cloneParentDir" value="$USER_HOME$/Desktop/易敏的文件/工作/project/kwm5" />
+    <option name="cloneParentDir" value="$USER_HOME$/Desktop/易敏的文件/工作/project/kwm5-main" />
   </component>
   <component name="Vcs.Log.App.Settings">
     <option name="COLUMN_ORDER">
