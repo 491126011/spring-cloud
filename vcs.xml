@@ -102,9 +102,13 @@
           <option name="url" value="http://kwgit.kiway.cn/kwm5-project/api/api-common.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="http://kwgit.kiway.cn/kwm5-project/zs/shenzhen/zs-sz-jzz.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
-    <option name="cloneParentDir" value="$USER_HOME$/Desktop/易敏的文件/工作/project/kwm5/api" />
+    <option name="cloneParentDir" value="$USER_HOME$/Desktop/易敏的文件/工作/project/kwm5/zs/shenzhen" />
   </component>
   <component name="Vcs.Log.App.Settings">
     <option name="COLUMN_ORDER">
